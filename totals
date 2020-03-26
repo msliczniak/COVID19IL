@@ -1,4 +1,8 @@
 #!/usr/bin/awk -f
-BEGIN { RS="," }
+BEGIN {
+	RS = ","
 
-$1 == "\"confirmed_cases\":" { print $2; nextfile }
+	result = "confirmed_cases"
+}
+
+$1 == "\"" result "\":" { print $2; nextfile }
