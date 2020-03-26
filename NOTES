@@ -1,0 +1,12 @@
+./totals.awk *.txt | ./log.awk | awk '{ print NR, $2 }' > cases
+./totals.awk *.txt | ./log.awk | awk '{ print NR, $1 }' > log10
+
+gplot -gst cases -o cases.png -d 'pngcairo size 350,262' cases | awk -f ~/bin/awkplot | gnuplot
+gplot -gst 'log10(cases)' -o log10.png -d 'pngcairo size 350,262' log10 | awk -f ~/bin/awkplot | gnuplot
+
+./totals.awk *.txt | ./log.awk | awk 'NR == 1 { next } { print NR, $4 }' >%log10
+./totals.awk *.txt | ./log.awk | awk 'NR == 1 { next } { print NR, $6 }' >%cases
+
+plot -gst %cases -o %cases.png -d png %cases 
+plot -gst %log10 -o %log10.png -d png %log10
+

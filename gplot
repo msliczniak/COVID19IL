@@ -1,0 +1,195 @@
+#!/bin/sh
+#!/bin/ksh
+
+BASENAME=/usr/bin/basename
+EXPR=/bin/expr
+#NAWK=/usr/xpg4/bin/awk
+NAWK=/usr/bin/awk
+SORT=/usr/bin/sort
+SED=/usr/bin/sed
+
+basename=`$BASENAME $0`
+usage="Usage: $basename [ -a ] [ -s ] [ -g ] [ -d terminal ] [ -o outfile ] [ -t title ] [ -x xlabel ] [ -y ylabel ] [ -X xmin xmax ] [ -Y ymin ymax ] [ -l label ] [ datafile ] ..."
+
+if [ $# -lt 1 ]
+then
+	echo "$usage" >&2
+	exit 1
+fi
+
+OPTn="-n"
+
+index=1
+while [ $OPTIND -le $# ]
+do
+	while getopts "asgd:o:t:x:y:X:Y:l:" opt
+	do
+		case "$opt" in
+		    "a")
+			unset OPTn
+			;;
+		    "g")
+			grid=on
+			;;
+		    "s")
+			scale=true
+			;;
+		    "d")
+			terminal="$OPTARG"
+			;;
+		    "o")
+			outfile="$OPTARG"
+			;;
+		    "t")
+			title="$OPTARG"
+			;;
+		    "x")
+			xlabel="$OPTARG"
+			;;
+		    "y")
+			ylabel="$OPTARG"
+			;;
+		    "X")
+			xmin="$OPTARG"
+			xmax=\$\{$OPTIND\}
+			xmax=`eval echo $xmax`
+			OPTIND=`$EXPR $OPTIND + 1`
+			;;
+		    "Y")
+			ymin="$OPTARG"
+			ymax="$OPTIND"
+			ymax=\$\{$OPTIND\}
+			ymax=`eval echo $ymax`
+			OPTIND=`$EXPR $OPTIND + 1`
+			;;
+		    "l")
+			eval label$index=\"$OPTARG\"
+			;;
+		    "?")
+			echo "$usage" >&2
+			exit 1
+			;;
+		esac
+	done
+
+	[ $OPTIND -gt $# ] && break
+	
+	datafile=`eval echo \$\{$OPTIND\}`
+	eval datafile$index=\"$datafile\"
+	index=`$EXPR $index + 1`
+	OPTIND=`$EXPR $OPTIND + 1`
+done
+
+[ -n "$terminal" ] && echo "terminal=$terminal"
+[ -n "$outfile" ] && echo "outfile=$outfile"
+[ -n "$grid" ] && echo "grid=$grid"
+[ -n "$title" ] && echo "title=$title"
+[ -n "$xlabel" ] && echo "xlabel=$xlabel"
+[ -n "$ylabel" ] && echo "ylabel=$ylabel"
+[ -n "$ymin" ] && echo "ymin=$ymin"
+[ -n "$ymax" ] && echo "ymax=$ymax"
+
+if [ -n "$scale" ]
+then
+	[ -n "$xmin" ] && echo "xmin=$xmin"
+	[ -n "$xmax" ] && echo "xmax=$xmax"
+
+	i=1
+	while [ $i -lt $index ]
+	do
+		datafile=\$datafile$i
+		datafile=`eval echo $datafile`
+
+		if [ -n "$datafile" ]
+		then
+			label=\$label$i
+			label=`eval echo $label`
+
+			[ -n "$label" ] && echo "label=$label"
+
+			echo "datafile=$datafile"
+		fi
+
+		i=`$EXPR $i + 1`
+	done
+
+	echo
+	exit 0
+fi
+
+datafiles() {
+	i=1
+	while [ $i -lt $index ]
+	do
+		datafile=\$datafile$i
+		datafile=`eval echo $datafile`
+
+		[ -n "$datafile" ] && echo "$datafile"
+
+		i=`$EXPR $i + 1`
+	done
+}
+
+foo() {
+	i=1
+	while [ $i -lt $index ]
+	do
+		datafile=\$datafile$i
+		datafile=`eval echo $datafile`
+
+		if [ -n "$datafile" ]
+		then
+			label=\$label$i
+			label=`eval echo $label`
+
+			[ -z "$label" ] && label=$datafile
+
+			echo "label=$label"
+			echo "datafile=$datafile"
+		fi
+
+		i=`$EXPR $i + 1`
+	done
+
+	datafiles | $NAWK 'BEGIN { for (i in ARGV) delete ARGV[i] }
+	FILENAME == "-" { ARGV[ARGC++] = $0; next }
+	{ print $1 }' |
+	$SORT $OPTn -u |
+	$SED 's/^/xtic=/'
+}
+
+foo | $NAWK 'BEGIN { for (i in ARGV) delete ARGV[i] }
+FILENAME == "-" {
+	if (match($0,"=")) {
+		field = substr($0, 1, RSTART)
+		val = substr($0, RSTART + 1)
+
+		if (field == "label=") label = val
+		else if (field == "datafile=") {
+			labels[val] = label
+			ARGV[ARGC++] = val
+		} else if (field == "xtic=") {
+			xtics[val] = xtic++
+			print
+		} else exit 1
+
+		next
+	}
+
+	exit 1
+}
+
+FILENAME != lastfile {
+	print "label=" labels[FILENAME]
+	print "datafile=-"
+
+	ARGC++
+	lastfile = FILENAME
+}
+
+{
+	print "data=" xtics[$1], $2
+}'
+
+echo
+exit 0

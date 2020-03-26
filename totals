@@ -1,0 +1,4 @@
+#!/usr/bin/awk -f
+BEGIN { RS="," }
+
+$1 == "\"confirmed_cases\":" { print $2; nextfile }

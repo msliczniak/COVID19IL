@@ -1,0 +1,191 @@
+#!/usr/bin/awk -f
+BEGIN {
+	resetall()
+}
+
+function resetall() {
+	terminal = ""
+	outfile = ""
+	grid = ""
+	xlabel = ""
+	ylabel = ""
+	title = ""
+	xmin = ""
+	xmax = ""
+	ymin = ""
+	ymax = ""
+	label = ""
+
+	for (xtic in xtics) delete xtics[xtic]
+	xtic = 0
+
+	for (plot in plotindex) delete plotindex[plot]
+	for (plot in datafiles) delete datafiles[plot]
+	for (plot in labels) delete labels[plot]
+	for (plot in datas) delete datas[data]
+	plot = 0
+
+	printed = 1
+}
+
+function xticcmd(label, pos) {
+	printf("\"%s\" %s", label, pos)
+}
+
+function plotcmd(datafile, label) {
+	printf("\"%s\"", datafile)
+
+	if (label != "")
+		printf(" title \"%s\"", label)
+
+	printf(" with linespoints")
+}
+
+function printall() {
+	if (terminal != "") print "set terminal " terminal
+	if (outfile != "") print "set output \"" outfile "\""
+	if (grid == "on") print "set grid"
+	if (xlabel != "") print "set xlabel \"" xlabel "\""
+	if (ylabel != "") print "set ylabel \"" ylabel "\""
+	if (title != "") print "set title \"" title "\""
+	if (xmin != "") print "set xrange [" xmin ":]"
+	if (xmax != "") print "set xrange [:" xmax "]"
+	if (ymin != "") print "set yrange [" ymin ":]"
+	if (ymax != "") print "set yrange [:" ymax "]"
+
+	if (xtic > 0) {
+		printf("set xtics (")
+
+		xtic--
+		for (i = 0; i < xtic; i++) {
+			xticcmd(xtics[i], i)
+			printf(", ")
+		}
+
+		xticcmd(xtics[xtic], xtic)
+		printf(")\n")
+	}
+
+	if (plot > 0) {
+		printf("plot ")
+
+		plot--
+		for (i = 0; i < plot; i++) {
+			plotcmd(datafiles[i], labels[i])
+			printf(", ")
+		}
+
+		plotcmd(datafiles[plot], labels[plot])
+		printf("\n")
+
+		j = 0
+		for (i = 0; i <= plot;)
+			if (datafiles[i++] == "-") {
+				for (; j <= i; j++)
+					printf("%s", datas[j])
+
+				printf("e\n")
+			}
+	}
+
+	resetall()
+}
+
+/^$/ {
+	if (printed == 0)
+		printall()
+
+	next
+}
+
+{ printed = 0 }
+
+match($0, /^terminal=/) {
+	terminal = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^outfile=/) {
+	outfile = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^grid=/) {
+	grid = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^xlabel=/) {
+	xlabel = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^ylabel=/) {
+	ylabel = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^title=/) {
+	title = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^data=/) {
+	datas[plot] = \
+		sprintf("%s%s\n", datas[plot], substr($0, RSTART + RLENGTH))
+	next
+}
+
+match($0, /^xtic=/) {
+	xtics[xtic++] = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^label=/) {
+	label = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^datafile=/) {
+	datafile = substr($0, RSTART + RLENGTH)
+
+	# check to see if the datafile has already been encountered
+	if (datafile in plotindex) {
+		# set the label if it was reset
+		if (label != "")
+			labels[plotindex[datafile]] = label
+	} else {
+		datafiles[plot] = datafile
+		labels[plot] = label
+		if (datafile != "-") plotindex[datafile] = plot
+		plot++
+	}
+
+	label = ""
+	next
+}
+
+match($0, /^xmin=/) {
+	xmin = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^xmax=/) {
+	xmax = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^ymin=/) {
+	ymin = substr($0, RSTART + RLENGTH)
+	next
+}
+
+match($0, /^ymax=/) {
+	ymax = substr($0, RSTART + RLENGTH)
+	next
+}
+
+END {
+	if (printed == 0)
+		printall()
+}
