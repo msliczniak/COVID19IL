@@ -1,18 +1,10 @@
 #!/usr/bin/awk -f
-BEGIN { t = log(10); CONVFMT="%.3g" }
+BEGIN { t = log(10) }
 
 {
-	l = log($1) / t
-	printf("%s %s", l, $1)
-}
+	printf("%s", $1)
 
-NR != 1 {
-	printf(" %s %s%% %s %s%%", l - ll, l / ll * 100 - 100, $1 - i, 
-	  $1 / i * 100 - 100)
-}
+	if ($1 >= 1.0) printf(" %s", log($1) / t)
 
-{
-	i = $1
-	ll = l
 	printf("\n")
 }

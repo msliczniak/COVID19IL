@@ -2,7 +2,10 @@
 BEGIN {
 	RS = ","
 
-	result = "confirmed_cases"
+	result = "confirmed cases"
 }
+
+# prevent gnuplot from using subscripts in enhanced title
+NR == 1 { sub(/ /, "_", result) }
 
 $1 == "\"" result "\":" { print $2; nextfile }
