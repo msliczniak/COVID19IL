@@ -7,7 +7,12 @@ awk() {
 	/usr/bin/awk "$@"
 }
 
-da=2020-03-25
+foo() {
+	shift $1;
+	echo "$1" | sed 's/[^-]*-//; s/T.*//'
+}
+
+da=`foo $# "$@"`
 
 for co in Illinois; do
 	for rs in 'confirmed cases' 'total tested' deaths; do
