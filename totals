@@ -2,10 +2,21 @@
 BEGIN {
 	RS = ","
 
+	select = "Illinois"
 	result = "confirmed cases"
 }
 
-# prevent gnuplot from using subscripts in enhanced title
-NR == 1 { sub(/ /, "_", result) }
+NR == 1 {
+	select = "\"" tolower(select) "\""
 
-$1 == "\"" result "\":" { print $2; nextfile }
+	# prevent gnuplot from using subscripts in enhanced title
+	sub(/ /, "_", result)
+	result = "\"" result "\":"
+}
+
+NF > 2 && $(NF - 1) ~ /"County":$/ && tolower($NF) == select {
+	if (found) exit 1
+	found = 1
+}
+
+found && $1 == result { print $2; found = 0; nextfile }
