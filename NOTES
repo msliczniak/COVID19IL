@@ -1,2 +1,3 @@
 $ ./get
-$ ./run COVID19CountyResults-20
+$ ./run COVID19CountyResults-20*
+$ mv *.png plots/

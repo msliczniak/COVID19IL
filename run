@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #d=-dpng
-d=-dpngcairo
+d='-dpngcairo size 800,600'
 
 awk() {
 	/usr/bin/awk "$@"
@@ -22,13 +22,13 @@ for co in Illinois Lake Kane 'Chicago|Cook' \
 		# if there is zero, don't gen plots
 		awk 'BEGIN{s=1}$1!="0"{s=0;exit}END{exit s}' total || break
 
-		./plot -gst "$co $rs $da" $d -o "$co"-"$rs"-tot.png total
+		./plot -gst "$co $rs $da" "$d" -o "$co"-"$rs"-tot.png total
 
 		<total ./cum | awk 'NF==2{print NR-1,$2}' | tail>\%chg
-		./plot -gst "$co $rs $da" $d -o "$co"-"$rs"-chg.png \%chg
+		./plot -gst "$co $rs $da" "$d" -o "$co"-"$rs"-chg.png \%chg
 
 		<total ./log | awk 'NF==2{print NR-1,$2}'>lg10
-		./plot -gst "$co $rs $da" $d -o "$co"-"$rs"-log.png lg10
+		./plot -gst "$co $rs $da" "$d" -o "$co"-"$rs"-log.png lg10
 
 		# no tested totals per county
 		case "$co"-"$rs" in
