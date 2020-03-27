@@ -14,7 +14,8 @@ foo() {
 
 da=`foo $# "$@"`
 
-for co in Illinois Lake Kane; do
+for co in Illinois Lake Kane 'Chicago|Cook' \
+  'McHenry|Lake|Kane|DuPage|Kendall|will|Grundy|Kankakee'; do
 	for rs in 'confirmed cases' deaths 'total tested'; do
 		./totals select="$co" result="$rs" "$@" >total
 

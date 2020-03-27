@@ -1,22 +1,30 @@
 #!/usr/bin/awk -f
 BEGIN {
-	RS = ","
+	# BSD awk can only do single char RS
+	FS = "[][}{,]|\"[ \t]*:[ \t]*"
 
 	select = "Illinois"
 	result = "confirmed cases"
 }
 
 NR == 1 {
-	select = "\"" tolower(select) "\""
+	select = "\"(" tolower(select) ")\""
 
 	# prevent gnuplot from using subscripts in enhanced title
 	sub(/ /, "_", result)
-	result = "\"" result "\":"
+	result = "\"" result "$"
+
+	# don't output an initial blank line
+	FNR = 2
 }
 
-NF > 2 && $(NF - 1) ~ /"County":$/ && tolower($NF) == select {
-	if (found) exit 1
+FNR == 1 { print t; t = 0 }
+
+$1 ~ /"County$/ && tolower($2) ~ select {
+	if (found) exit 1 # make plots with missing data obvious
 	found = 1
 }
 
-found && $1 == result { print $2; found = 0; nextfile }
+found && $1 ~ result { t += $2; found = 0 }
+
+END { if (t) print t }
