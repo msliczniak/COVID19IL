@@ -1,9 +1,9 @@
 # COVID19IL
 
-[daily plots](plots/index.html)
+[daily plots](https://msliczniak.github.io/COVID19IL/plots/index.html)
 
 [NOTES](NOTES)
 
-req gnuplot (pngcairo)
+req imagemagick gnuplot(pngcairo)
 
 edit paths in scripts if needed
