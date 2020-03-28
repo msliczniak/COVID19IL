@@ -41,7 +41,8 @@ function plotcmd(datafile, label) {
 	else
 		printf("notitle")
 
-	printf("\\\n, '' with labels right offset -.5,.25 point ps 1 notitle")
+	printf("\\\n, '' with labels right offset -.5,.25 point ps 1 ")
+	printf("font ',8' notitle")
 }
 
 function printall() {

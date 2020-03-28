@@ -26,7 +26,7 @@ for co in Illinois Kane 'Chicago|Cook' \
 		./plot -gst "$da $co" "$d 555,440" -o a.png -Ly total
 
 		awk '{print $2}' total | ./cum | \
-		  awk 'NF==2{print NR-1,$2}' | tail>\%chg
+		  awk 'NF==2{print NR-1,$2,$1}' | tail>\%chg
 		./plot -gst "$rs"' %chg' "$d 245,440" -o b.png \%chg
 
 		convert +append a.png b.png +dither -colors 8 "$co"-"$rs".gif
