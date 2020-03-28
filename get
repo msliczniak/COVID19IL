@@ -3,7 +3,10 @@
 u=+COVID19CountyResults-%Y-%m-%dT%H_%M_%SZ.txt
 o=`/bin/date -ju $u` || exit
 
-u=www2.illinois.gov/sites/coronavirus/map/Documents/COVID19CountyResults.txt
-u=https://$u
+#   http://dph.illinois.gov
+# /topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus
+u=`echo "$o" | sed 's/^[^-]*-//; s/T.*//; s/-//g'` || exit
+u=sites/default/files/COVID19/COVID19CountyResults"$u".json
+u=http://dph.illinois.gov/$u
 
 curl -sqL $u | /usr/bin/tr -d \\r >$o
