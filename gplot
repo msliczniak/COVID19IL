@@ -9,7 +9,9 @@ SORT=/usr/bin/sort
 SED=/usr/bin/sed
 
 basename=`$BASENAME $0`
-usage="Usage: $basename [ -a ] [ -s ] [ -g ] [ -d terminal ] [ -o outfile ] [ -t title ] [ -x xlabel ] [ -y ylabel ] [ -X xmin xmax ] [ -Y ymin ymax ] [ -l label ] [ datafile ] ..."
+usage="Usage: $basename [ -a ] [ -s ] [ -g ] [ -d terminal ] [ -o outfile ] [ -t
+title ] [ -x xlabel ] [ -y ylabel ] [ -X xmin xmax ] [ -Y ymin ymax ] [ -l label
+] [ -L x | y ] [ datafile ] ..."
 
 if [ $# -lt 1 ]
 then
@@ -22,7 +24,7 @@ OPTn="-n"
 index=1
 while [ $OPTIND -le $# ]
 do
-	while getopts "asgd:o:t:x:y:X:Y:l:" opt
+	while getopts "asgd:o:t:x:y:X:Y:l:L:" opt
 	do
 		case "$opt" in
 		    "a")
@@ -36,6 +38,19 @@ do
 			;;
 		    "d")
 			terminal="$OPTARG"
+			;;
+		    "L")
+			logscale="$OPTARG"
+			case "$logscale" in
+			  x | y)
+				break
+				;;
+			  *)
+				echo "bad logscale: $logscale" >&2
+				echo "$usage" >&2
+				exit 1
+				;;
+			esac
 			;;
 		    "o")
 			outfile="$OPTARG"
@@ -66,8 +81,8 @@ do
 			eval label$index=\"$OPTARG\"
 			;;
 		    "?")
-			echo "$usage" >&2
-			exit 1
+			echo "$usage"
+			exit
 			;;
 		esac
 	done
@@ -83,6 +98,7 @@ done
 [ -n "$terminal" ] && echo "terminal=$terminal"
 [ -n "$outfile" ] && echo "outfile=$outfile"
 [ -n "$grid" ] && echo "grid=$grid"
+[ -n "$logscale" ] && echo "logscale=$logscale"
 [ -n "$title" ] && echo "title=$title"
 [ -n "$xlabel" ] && echo "xlabel=$xlabel"
 [ -n "$ylabel" ] && echo "ylabel=$ylabel"

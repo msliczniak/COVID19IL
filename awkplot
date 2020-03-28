@@ -4,6 +4,7 @@ BEGIN {
 }
 
 function resetall() {
+	logscale = ""
 	terminal = ""
 	outfile = ""
 	grid = ""
@@ -42,6 +43,7 @@ function plotcmd(datafile, label) {
 }
 
 function printall() {
+	if (logscale != "") print "set logscale " logscale
 	if (terminal != "") print "set terminal " terminal
 	if (outfile != "") print "set output \"" outfile "\""
 	if (grid == "on") print "set grid"
@@ -99,6 +101,11 @@ function printall() {
 }
 
 { printed = 0 }
+
+match($0, /^logscale=/) {
+	logscale = substr($0, RSTART + RLENGTH)
+	next
+}
 
 match($0, /^terminal=/) {
 	terminal = substr($0, RSTART + RLENGTH)
