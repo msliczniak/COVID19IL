@@ -33,12 +33,12 @@ function xticcmd(label, pos) {
 }
 
 function plotcmd(datafile, label) {
-	printf("\"%s\"", datafile)
+	printf("\"%s\" with linespoints ", datafile)
 
 	if (label != "")
-		printf(" title \"%s\"", label)
-
-	printf(" with linespoints")
+		printf("title \"%s\"", label)
+	else
+		printf("notitle")
 }
 
 function printall() {

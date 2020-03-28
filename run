@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #d=-dpng
-d='-dpngcairo size 800,600'
+d='-dpngcairo size 800,440'
 
 awk() {
 	/usr/bin/awk "$@"
