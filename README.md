@@ -2,7 +2,7 @@
 
 [daily plots](https://msliczniak.github.io/COVID19IL/plots/index.html)
 
-![ratio]((https://msliczniak.github.io/COVID19IL/plots/ratio.png)
+![ratio](https://msliczniak.github.io/COVID19IL/plots/ratio.png)
 
 [NOTES](NOTES)
 
