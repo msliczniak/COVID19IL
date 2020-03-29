@@ -10,3 +10,4 @@ u=sites/default/files/COVID19/COVID19CountyResults"$u".json
 u=http://dph.illinois.gov/$u
 
 curl -sqL $u | /usr/bin/tr -d \\r >$o
+/usr/bin/file -- "$o"
