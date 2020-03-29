@@ -1,3 +1,10 @@
 $ ./get
 $ ./run COVID19CountyResults-20*
 $ mv *-*.gif plots/
+
+$ awk '/state_testing_results/ { F = 1 } F { print }' COVID19*-2020-03-28* | \
+  awk 'BEGIN { RS="," } $1 ~ /"total_tested":$/ { print $2 }' > tested
+$ awk '/state_testing_results/ { F = 1 } F { print }' COVID19*-2020-03-28* | \
+  awk 'BEGIN { RS="," } $1 ~ /"confirmed_cases":$/ { print $2 }' > total
+$ ./plot -sgt '2020-03-28 cases_{confirmed} / tested_{total} %' -d pngcairo \
+  -o ratio.png ratio
