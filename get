@@ -1,13 +1,17 @@
 #!/bin/sh
 
-u=+COVID19CountyResults-%Y-%m-%dT%H_%M_%SZ.txt
-o=`/bin/date -ju $u` || exit
-
 #   http://dph.illinois.gov
 # /topics-services/diseases-and-conditions/diseases-a-z-list/coronavirus
-u=`echo "$o" | sed 's/^[^-]*-//; s/T.*//; s/-//g'` || exit
-u=sites/default/files/COVID19/COVID19CountyResults"$u".json
-u=http://dph.illinois.gov/$u
 
-curl -sqL $u | /usr/bin/tr -d \\r >$o
+u=COVID19CountyResults
+o=`/bin/date -ju '+%Y %m %d %H:%M:%S-UTC'` || exit
+set -- $o
+
+o="$u"-"$1"-"$2"-"$3"-"$4".json
+u="$u""$1""$2""$3".json
+
+u=sites/default/files/$u
+u=https://dph.illinois.gov/$u
+
+curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o"
 /usr/bin/file -- "$o"
