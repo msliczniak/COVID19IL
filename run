@@ -7,12 +7,36 @@ awk() {
 	/usr/bin/awk "$@"
 }
 
-foo() {
-	shift $1;
-	echo "$1" | sed 's/[^-]*-//; s/T.*//'
+paste() {
+	/usr/bin/paste "$@"
 }
 
-da=`foo $# "$@"`
+foo() {
+	shift $1;
+	la="$1"
+}
+
+# set most recent input file
+foo $# "$@"
+
+foo() {
+	printf '%d/%d/%d' $3 $4 $2
+}
+
+# set date
+co="$IFS"
+IFS=-
+da=`foo $la` || exit
+IFS="$co"
+
+awk '/state_testing_results/ { F = 1 } F { print }' "$la" >ratio
+awk 'BEGIN { RS="," } $1 ~ /"total_tested":$/ { print $2 }' ratio >tested
+awk 'BEGIN { RS="," } $1 ~ /"confirmed_cases":$/ { print $2 }' ratio >total
+paste total tested | >ratio awk \
+ '$2 != L { L = 100 * $1 / $2; printf("%d %s %.1f%%\n", NR - 1, L, L); L = $2 }'
+co=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' ratio`
+./plot -sgt "$da"' cases_{confirmed} / tested_{total} '"$co" \
+  "$d 800,440" -o ratio.png ratio
 
 for co in Illinois Kane 'Chicago|Cook' \
   'McHenry|Lake|Kane|DuPage|Kendall|will|Grundy|Kankakee'; do
