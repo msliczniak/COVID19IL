@@ -10,7 +10,7 @@ set -- $o
 o="$u"-"$1"-"$2"-"$3"-"$4".json
 u="$u""$1""$2""$3".json
 
-u=sites/default/files/$u
+u=sites/default/files/COVID19/$u
 u=https://dph.illinois.gov/$u
 
 curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o"
