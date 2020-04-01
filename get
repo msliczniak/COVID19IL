@@ -8,9 +8,9 @@ o=`/bin/date -ju '+%Y %m %d %H:%M:%S-UTC'` || exit
 set -- $o
 
 o="$u"-"$1"-"$2"-"$3"-"$4".json
-u="$u""$1""$2""$3".json
+u=COVIDTestResults.json
 
-u=sites/default/files/COVID19/$u
+u=sitefiles/$u
 u=https://dph.illinois.gov/$u
 
 curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o"

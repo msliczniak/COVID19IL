@@ -62,7 +62,7 @@ FOO='$2 != t {
 
 	t = $2 }'
 
-# left side plot with totals label
+# right side plot with totals label
 BAR='NR != 1 { print l, ll }
 { l = $0; ll = $2 }
 END { print l }'
