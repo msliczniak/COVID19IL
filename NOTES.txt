@@ -1,3 +1,6 @@
 $ ./get
 $ ./run COVID19CountyResults-20*
 $ mv *-*.gif ratio.png plots/
+
+# TVM: r = n[(A/P)^(1/nt) - 1]
+$ ./totals COVID19CountyResults-20* | awk '{ for (i NF; i++) print exp(1 / (NF - i) * log($NF / $i)) * 100 - 100 }' RS=

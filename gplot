@@ -11,7 +11,7 @@ SED=/usr/bin/sed
 basename=`$BASENAME $0`
 usage="Usage: $basename [ -a ] [ -s ] [ -g ] [ -d terminal ] [ -o outfile ] [ -t
 title ] [ -x xlabel ] [ -y ylabel ] [ -X xmin xmax ] [ -Y ymin ymax ] [ -l label
-] [ -L x | y ] [ datafile ] ..."
+] [ -L x | y ] [ -T timefmt ] [ datafile ] ..."
 
 if [ $# -lt 1 ]
 then
@@ -24,7 +24,7 @@ OPTn="-n"
 index=1
 while [ $OPTIND -le $# ]
 do
-	while getopts "asgd:o:t:x:y:X:Y:l:L:" opt
+	while getopts "asgd:o:t:x:y:X:Y:l:L:T:" opt
 	do
 		case "$opt" in
 		    "a")
@@ -43,7 +43,6 @@ do
 			logscale="$OPTARG"
 			case "$logscale" in
 			  x | y)
-				break
 				;;
 			  *)
 				echo "bad logscale: $logscale" >&2
@@ -51,6 +50,9 @@ do
 				exit 1
 				;;
 			esac
+			;;
+		    "T")
+			timefmt="$OPTARG"
 			;;
 		    "o")
 			outfile="$OPTARG"
@@ -95,6 +97,7 @@ do
 	OPTIND=`$EXPR $OPTIND + 1`
 done
 
+[ -n "$timefmt" ] && echo "timefmt=$timefmt"
 [ -n "$terminal" ] && echo "terminal=$terminal"
 [ -n "$outfile" ] && echo "outfile=$outfile"
 [ -n "$grid" ] && echo "grid=$grid"

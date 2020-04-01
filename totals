@@ -18,13 +18,20 @@ NR == 1 {
 	FNR = 2
 }
 
-FNR == 1 { print t; t = 0 }
+FNR == 1 {
+	print d, t
+	t = 0
+}
 
 $1 ~ /"County$/ && tolower($2) ~ select {
+	# get date
+	d = index(FILENAME, "-")
+	d = substr(FILENAME, d + 1, 10)
+
 	if (found) exit 1 # make plots with missing data obvious
 	found = 1
 }
 
 found && $1 ~ result { t += $2; found = 0 }
 
-END { if (t) print t }
+END { if (t) print d, t }

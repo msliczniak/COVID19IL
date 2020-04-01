@@ -1,7 +1,6 @@
 #!/usr/bin/awk -f
 {
-	printf("%s", $1 - i)
-	if (i > 0.0) printf(" %s%%", $1 / i * 100 - 100)
-	printf("\n")
+	if (i > 0.0) printf("+%.f%%", $1 / i * 100 - 100)
+	if (NR != 1) printf("\n")
 	i = $1
 }

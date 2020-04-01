@@ -5,6 +5,7 @@ BEGIN {
 
 function resetall() {
 	logscale = ""
+	timefmt = ""
 	terminal = ""
 	outfile = ""
 	grid = ""
@@ -34,18 +35,27 @@ function xticcmd(label, pos) {
 }
 
 function plotcmd(datafile, label) {
-	printf("\"%s\" with linespoints ", datafile)
+	printf("[:][:] '%s' ", datafile)
+	if (timefmt != "") printf("using 1:2 ")
+	printf("with linespoints ")
 
 	if (label != "")
 		printf("title \"%s\"", label)
 	else
 		printf("notitle")
 
-	printf("\\\n, '' with labels right offset -.5,.25 point ps 1 ")
-	printf("font ',8' notitle")
+	# point ps 1 
+	printf("\\\n, '' ")
+	if (timefmt != "") printf("using 1:2:3 ")
+	printf("with labels right offset -.5,.25 font ',8' notitle")
+
+	printf("\\\n, '' ")
+	if (timefmt != "") printf("using 1:2:4 ")
+	printf("with labels center offset 0,-.75 font ',8' notitle")
 }
 
 function printall() {
+	if (timefmt != "") printf("set xdata time\nset timefmt '%s'\n", timefmt)
 	if (logscale != "") print "set logscale " logscale
 	if (terminal != "") print "set terminal " terminal
 	if (outfile != "") print "set output \"" outfile "\""
@@ -58,18 +68,19 @@ function printall() {
 	if (ymin != "") print "set yrange [" ymin ":]"
 	if (ymax != "") print "set yrange [:" ymax "]"
 
-	if (xtic > 0) {
-		printf("set xtics (")
+	#if (xtic > 0) {
+	#	printf("set xtics (")
 
-		xtic--
-		for (i = 0; i < xtic; i++) {
-			xticcmd(xtics[i], i)
-			printf(", ")
-		}
+	#	xtic--
+	#	for (i = 0; i < xtic; i++) {
+	#		xticcmd(xtics[i], i)
+	#		printf(", ")
+	#	}
 
-		xticcmd(xtics[xtic], xtic)
-		printf(")\n")
-	}
+	#	xticcmd(xtics[xtic], xtic)
+	#	printf(")\n")
+	#}
+	print "set xtics rotate by -55 format '%1m/%d'"
 
 	if (plot > 0) {
 		printf("plot ")
@@ -104,6 +115,11 @@ function printall() {
 }
 
 { printed = 0 }
+
+match($0, /^timefmt=/) {
+	timefmt = substr($0, RSTART + RLENGTH)
+	next
+}
 
 match($0, /^logscale=/) {
 	logscale = substr($0, RSTART + RLENGTH)

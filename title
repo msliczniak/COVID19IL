@@ -1,0 +1,6 @@
+unset border
+unset tics
+set terminal ARG1 size 840,100
+set output ARG2
+set title ARG3
+plot [0:1] [0:1] NaN notitle

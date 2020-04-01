@@ -29,33 +29,73 @@ IFS=-
 da=`foo $la` || exit
 IFS="$co"
 
-awk '/state_testing_results/ { F = 1 } F { print }' "$la" >ratio
-awk 'BEGIN { RS="," } $1 ~ /"total_tested":$/ { print $2 }' ratio >tested
-awk 'BEGIN { RS="," } $1 ~ /"confirmed_cases":$/ { print $2 }' ratio >total
-paste total tested | >ratio awk \
- '$2 != L { L = 100 * $1 / $2; printf("%d %s %.1f%%\n", NR - 1, L, L); L = $2 }'
+awk '/state_testing_results/ { F = 1 } F { print }' "$la" >\%chg
+awk 'BEGIN { RS="," } $1 ~ /"total_tested":$/ { print $2 }' \%chg >tested
+awk 'BEGIN { RS="," } $1 ~ /"confirmed_cases":$/ { print $2 }' \%chg >total
+awk 'BEGIN { RS="," } $(NF - 1) ~ /"testDate":$/ { print $NF }' \%chg | \
+  paste - total tested | >ratio awk \
+ '$3 != 0 { L = 100 * $2 / $3; printf("%s %s %.1f%%\n", $1, L, L) }'
 co=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' ratio`
 ./plot -sgt "$da"' cases_{confirmed} / tested_{total} '"$co" \
-  "$d 800,440" -o ratio.png ratio
+  "$d 800,440" -o ratio.png -T '"%m/%d/%Y"' ratio
+
+# split on |
+foo() {
+	echo $*
+}
+IFS='|'
+
+# r = n[(A/P)^(1/nt) - 1]
+TVM='{  A = substr($NF, 11)
+	for (i = 1; i < NF; i++)
+		print substr($(i + 1), 1, 10), 
+		  exp(1 / (NF - i) * log(A / substr($i, 11))) * 100 - 100 }'
+
+# left side plot with % daily change label
+FOO='$2 != t {
+	printf("%s %s ", $1, $2)
+
+	if (t != 0)
+		printf("%.1f%%\n", $2 / t * 100 - 100)
+	else
+		print "\\"
+
+	t = $2 }'
+
+# left side plot with totals label
+BAR='NR != 1 { print l, ll }
+{ l = $0; ll = $2 }
+END { print l }'
 
 for co in Illinois Kane 'Chicago|Cook' \
-  'McHenry|Lake|Kane|DuPage|Kendall|will|Grundy|Kankakee'; do
+  'McHenry|Lake|Kane|DuPage|Kendall|Will|Grundy|Kankakee'; do
 	for rs in 'confirmed cases' deaths 'total tested'; do
-		./totals select="$co" result="$rs" "$@" | \
-		  awk '{print NR-1,$1,$1}' >total
+		la=`foo $co`
+		echo  "$rs $la" >&2
 
-		# if there is zero, don't gen plots
-		awk 'BEGIN{s=1}$1!="0"{s=0;exit}END{exit s}' total || break
+		./totals select="$co" result="$rs" "$@" | awk "$FOO" | \
+		  awk "$BAR" >total
+		./plot -gs "$d 440,440" -oa.png -Ly -T%Y-%m-%d total
 
-		./plot -gst "$da $co" "$d 555,440" -o a.png -Ly total
+		# awk '{ printf("%s %s %.1f%%\n", $1, $2, $2) }'
+		awk '{ print $1 $2  }' total | awk "$TVM" RS= >tvm
+		ca=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' tvm`
+		ta=`awk 'END { print $2 }' total`
 
-		awk '{print $2}' total | ./cum | \
-		  awk 'NF==2{print NR-1,$2,$1}' | tail>\%chg
-		./plot -gst "$rs"' %chg' "$d 245,440" -o b.png \%chg
+		# awk '{print $2}' total | ./cum | paste tvm - >%chg
+		awk '{ printf("%s %.1f%%\n", $0, $2) }' tvm >%chg
+		./plot -gs "$d 400,440" -ob.png -T%Y-%m-%d %chg
 
-		convert +append a.png b.png +dither -colors 8 "$co"-"$rs".gif
+		#convert +append a.png b.png +dither -colors 8 "$co"-"$rs".gif
+		convert a.png -trim +repage a.png
+		convert b.png -trim +repage b.png
+		convert a.png b.png -gravity center +append b.png
+		gnuplot -c title pngcairo a.png "$da $la $ta $rs $ca"'chg'
+		convert a.png -trim +repage a.png
+		convert a.png b.png -gravity center -append \
+		  +dither -colors 8 "$co"-"$rs".gif
+
 		/bin/rm -f a.png b.png
-
 		# no tested totals per county
 		case "$co"-"$rs" in
 		  Illinois-*)
