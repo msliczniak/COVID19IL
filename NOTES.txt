@@ -1,5 +1,3 @@
 $ ./get
 $ ./run COVID19CountyResults-20*
 $ mv *-*.png ratio.png plots/
-
-https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2
