@@ -22,3 +22,5 @@ plot [:][:] \
 '5' using 1:2 axis x1y2 with linespoints title '5 sample', \
 '10' using 1:2 axis x1y2 with linespoints title '10 sample', \
 '15' using 1:2 axis x1y2 with linespoints title '15 sample'
+
+https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2
