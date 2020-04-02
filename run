@@ -109,8 +109,10 @@ for co in Illinois Kane 'Chicago|Cook' \
 		awk "$TREND" RS= k=10 total >'10'
 		awk "$TREND" RS= k=15 total >'15'
 		awk "$TVM" RS= total >tvm
-		ca=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' lifetime`
+		ca=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' tvm`
 		<trends gnuplot
+
+		exit
 
 		convert a.png -trim +repage a.png
 		convert b.png -trim +repage b.png
