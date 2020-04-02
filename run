@@ -46,10 +46,36 @@ foo() {
 IFS='|'
 
 # r = n[(A/P)^(1/nt) - 1]
-TVM='{  A = substr($NF, 11)
-	for (i = 1; i < NF; i++)
-		print substr($(i + 1), 1, 10), 
-		  exp(1 / (NF - i) * log(A / substr($i, 11))) * 100 - 100 }'
+TVM='{
+	A = index($NF, "-")
+	j = substr($NF, 1, A - 1) + 0
+	A = substr($NF, A + 11) + 0
+
+	i = 1; d = index($i, "-") + 1
+	while (i < NF) {
+		n = j - substr($i, 1, d - 2)
+		P = substr($i, d + 10) + 0
+		i += 1
+		d = index($i, "-") + 1
+
+		print substr($i, d, 10), exp(1 / n * log(A / P)) * 100 - 100
+	}
+}'
+
+# k=samples
+TREND='{
+	j = 1; i = k
+	while (i <= NF) {
+		ii = index($i, "-") - 1
+		jj = index($j, "-") - 1
+		n = substr($i, 1, ii) - substr($j, 1, jj)
+		A = substr($i, ii + 12) + 0
+		P = substr($j, jj + 12) + 0
+
+		print substr($j, jj+2, 10), exp(1 / n * log(A / P)) * 100 - 100
+		j += 1; i += 1
+	}
+}'
 
 # left side plot with % daily change label
 FOO='$2 != t {
@@ -73,27 +99,25 @@ for co in Illinois Kane 'Chicago|Cook' \
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
-		./totals select="$co" result="$rs" "$@" | awk "$FOO" | \
-		  awk "$BAR" >total
+		./totals select="$co" result="$rs" "$@" >tot
+		awk "$FOO" tot | awk "$BAR" >total
+		ta=`awk 'END { print $2 }' total`
 		./plot -gs "$d 440,440" -oa.png -Ly -T%Y-%m-%d total
 
-		# awk '{ printf("%s %s %.1f%%\n", $1, $2, $2) }'
-		awk '{ print $1 $2  }' total | awk "$TVM" RS= >tvm
-		ca=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' tvm`
-		ta=`awk 'END { print $2 }' total`
+		awk '$2 != t { print NR "-" $1 $2; t = $2 }' tot >total
+		awk "$TREND" RS= k=5 total >'5'
+		awk "$TREND" RS= k=10 total >'10'
+		awk "$TREND" RS= k=15 total >'15'
+		awk "$TVM" RS= total >tvm
+		ca=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' lifetime`
+		<trends gnuplot
 
-		# awk '{print $2}' total | ./cum | paste tvm - >%chg
-		awk '{ printf("%s %.1f%%\n", $0, $2) }' tvm >%chg
-		./plot -gs "$d 400,440" -ob.png -T%Y-%m-%d %chg
-
-		#convert +append a.png b.png +dither -colors 8 "$co"-"$rs".gif
 		convert a.png -trim +repage a.png
 		convert b.png -trim +repage b.png
 		convert a.png b.png -gravity center +append b.png
 		gnuplot -c title pngcairo a.png "$da $la $ta $rs $ca"'chg'
 		convert a.png -trim +repage a.png
-		convert a.png b.png -gravity center -append \
-		  +dither -colors 8 "$co"-"$rs".gif
+		convert a.png b.png -gravity center -append "$co"-"$rs".png
 
 		/bin/rm -f a.png b.png
 		# no tested totals per county

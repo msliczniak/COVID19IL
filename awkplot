@@ -80,7 +80,7 @@ function printall() {
 	#	xticcmd(xtics[xtic], xtic)
 	#	printf(")\n")
 	#}
-	print "set xtics rotate by -55 format '%1m/%d'"
+	print "set xtics rotate by -55 format '%1m/%1d'"
 
 	if (plot > 0) {
 		printf("plot ")

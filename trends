@@ -1,0 +1,13 @@
+set xdata time
+set timefmt '%Y-%m-%d'
+set terminal pngcairo size 400,440
+set output "b.png"
+set grid
+set xtics rotate by -55 format '%1m/%1d'
+set xlabel 'Trends'
+set key outside horizontal bottom
+plot [:][:] \
+'tvm' using 1:2 with linespoints title 'lifetime', \
+'5' using 1:2 with linespoints title '5 sample', \
+'10' using 1:2 with linespoints title '10 sample', \
+'15' using 1:2 with linespoints title '15 sample'
