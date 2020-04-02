@@ -84,6 +84,8 @@ dhrs() {
 	awk 'BEGIN { d = log(2) * 24 } { print $1, d/log($2/100 + 1) }' "$@"
 }
 
+FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
+
 for co in Illinois Kane 'Chicago|Cook' \
   'McHenry|Lake|Kane|DuPage|Kendall|Will|Grundy|Kankakee'; do
 	for rs in 'confirmed cases' deaths 'total tested'; do
@@ -95,11 +97,13 @@ for co in Illinois Kane 'Chicago|Cook' \
 		awk "$TREND" RS= k=5 total | dhrs >5
 		awk "$TREND" RS= k=10 total | dhrs >10
 		awk "$TREND" RS= k=15 total | dhrs >15
-		awk "$TVM" RS= total | dhrs >tvm
+		awk "$TVM" RS= total >tot
+		pa=`awk 'END { printf("%.1f%%", $2) }' tot`
+		dhrs tot >tvm
+		awk -F- "$FOO" total >tot
 		ta=`awk 'END { print $2 }' tot`
 		ca=`awk 'END { printf("%.1f", $2/24) }' tvm`
-		gnuplot -c trends "$da $la" "$ta $rs" "doubling-time (hours)
-$ca days"
+		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca"
 		/bin/mv a.png "$co"-"$rs".png
 
 		# no tested totals per county

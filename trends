@@ -3,7 +3,7 @@ set timefmt '%Y-%m-%d'
 set terminal pngcairo size 820,440
 set grid
 set xtics rotate by -55 format '%1m/%1d'
-set xlabel 'doubling-time trends'
+set xlabel ARG3.' day doubling-time'
 set key outside horizontal bottom center
 set ytics nomirror
 set logscale y
@@ -12,12 +12,12 @@ set ylabel ARG2
 #set logscale y2
 #set y2range [*:*] reverse
 set title ARG1
-set y2label ARG3
+set y2label 'doubling-time (hours)'
 set y2tics 12
 set output 'a.png'
 plot [:][:] \
 'tot' using 1:2 with linespoints notitle, \
-'5' using 1:2 axis x1y2 with points title '5 sample', \
-'10' using 1:2 axis x1y2 with points title '10 sample', \
-'15' using 1:2 axis x1y2 with points title '15 sample', \
-'tvm' using 1:2 axis x1y2 with linespoints title 'lifetime'
+'5' using 1:2 axis x1y2 with points title '5 sample =', \
+'10' using 1:2 axis x1y2 with points title '10 sample =', \
+'15' using 1:2 axis x1y2 with points title '15 sample =', \
+'tvm' using 1:2 axis x1y2 with linespoints title 'lifetime ='
