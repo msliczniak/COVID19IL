@@ -23,7 +23,7 @@ while [ $OPTIND -le $# ]
 do
 	while getopts ":d:" opt
 	do
-		if [ $opt = "d" ] 
+		if [ "$opt" = "d" ] 
 		then
 			unset gopt
 			break 2

@@ -94,7 +94,7 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		dhrs tot >tvm
 		awk -F- "$FOO" total >tot
 		ta=`awk 'END { print $2 }' tot`
-		ca=`awk 'END { printf("%.1f", $2/24) }' tvm`
+		ca=`awk 'END { printf("%.2f", $2/24) }' tvm`
 		gnuplot -c trends "$da $la $pa" "$rs = $ta" "$ca"
 		/bin/mv a.png "$co"-"$rs".png
 	done

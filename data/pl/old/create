@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# https://en.wikipedia.org/wiki/Template:
+# 2019%E2%80%9320_coronavirus_pandemic_data/Poland_medical_cases_by_voivodeship
+
 case $# in
   2)
 	;;

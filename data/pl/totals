@@ -1,6 +1,7 @@
 #!/usr/bin/awk -f
 BEGIN {
 	FS = ","
+	FILENAME = "0000-00-00"
 
 	select = "Cała Polska"
 	result = "Liczba"
@@ -25,4 +26,4 @@ FNR == 1 {
 
 tolower($1) ~ select { t += $i }
 
-END { if (t) print d, t }
+END { if (t != "") print d, t }

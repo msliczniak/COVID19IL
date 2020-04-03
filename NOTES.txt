@@ -3,6 +3,7 @@ $ ./run COVID19CountyResults-20*.json
 $ mv *-*.png ratio.png plots/
 
 $ cd data/pl
+$ find . -maxdepth 1 -name '*.json' -exec ./csv '{}' \;     # first time
 $ ./get
 $ ./run 20*.csv
 $ mv *-*.png ../../plots/pl/
