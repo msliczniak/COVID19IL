@@ -5,17 +5,17 @@ set xdata time
 set xtics rotate by -55 format '%1m/%1d'
 set x2data time
 set x2tics rotate by 55 format '%1d.%1m'
-set key outside horizontal bottom center
+set key outside horizontal top center
 set ytics nomirror
 set logscale y
 set format y '10^{%T}'
-set title ARG1
+set xlabel ARG1
 set y2tics 12
 set output 'plil.png'
 plot [:][:] \
 'dil' using 1:2 axis x1y2 with lines title ARG4.' hr doubling-time IL', \
-'il' using 1:2 with linespoints title ARG2.' = IL '.ARG6, \
 '15il' using 1:2 axis x1y2 with points title '15 sample IL '.ARG8, \
+'il' using 1:2 with linespoints title ARG2.' = IL '.ARG6, \
 'dpl' using 1:2 axis x1y2 with lines title ARG5.' godz czas podwojenia PL', \
-'pl' using 1:2 with linespoints title ARG3.' = PL '.ARG7, \
-'15pl' using 1:2 axis x1y2 with points title '15 prób PL '.ARG9
+'15pl' using 1:2 axis x1y2 with points title '15 prób PL '.ARG9, \
+'pl' using 1:2 with linespoints title ARG3.' = PL '.ARG7
