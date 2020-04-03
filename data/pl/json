@@ -1,0 +1,16 @@
+#!/usr/bin/awk -f
+
+# extract json data from html
+
+BEGIN { RS = "<"; FS = ">" }
+
+{ n = split($1, a, /[ 	]/) }
+
+tolower(a[1]) == "pre" {
+	for (i = 2; i <= n; i++) {
+		if (tolower(a[i]) != "id=\"registerdata\"") continue
+		
+		print $2
+		exit
+	}
+}

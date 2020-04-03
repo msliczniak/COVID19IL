@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# create CSV file from json
+
+case $# in
+  1)
+	;;
+  *)
+	set -- ''
+	;;
+esac
+
+# make sure awk does not treat filename as an arg
+case "$1" in
+  /* | .* )
+	;;
+  '')
+	echo 'Usage: csv json-file' >&2
+	exit 1
+	;;
+  *)
+	set -- './'"$1"
+	;;
+esac
+
+# pretty print the value
+data() {
+	./data "$@" | xargs -0n1 printf | tr -d '"\r'
+}
+
+d=`data k=aktualne "$1" | # timestamp
+  awk 'NF > 0 { # print only first nonblank line w/o extraneous whitespace
+	for (i = 1; i < NF; i++) printf("%s ",$i)
+	printf("%s", $i)
+	exit }'`
+
+FOO='NR == 1 {
+	if (NF < 3) exit 1
+
+	f = match(fn, /\.[^.]*$/)
+	if (f != 0)
+		f = substr(fn, 1, f) "csv"
+	else
+		f = fn ".csv"
+
+	printf("%s,%s,%s,%s\n", $1, $2, $3, ts) >f
+	next }
+
+NF >= 3 { printf("%s,%s,%s\n", $1, $2, $3) >f }'
+
+data "$1" | awk -F\; "$FOO" ts="$d" fn="$1"
