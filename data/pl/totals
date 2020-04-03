@@ -1,0 +1,28 @@
+#!/usr/bin/awk -f
+BEGIN {
+	FS = ","
+
+	select = "Cała Polska"
+	result = "Liczba"
+}
+
+NR == 1 {
+	select = "^(" tolower(select) ")$"
+	result = tolower(result)
+}
+
+FNR == 1 {
+	if (d != "") print d, t
+
+	for (i = 2; i < 4; i++) if (tolower($i) == result) break
+
+	# get date
+	d = match(FILENAME, "[^/]*$")
+	d = substr(substr(FILENAME, d), 1, 10)
+
+	t = 0
+}
+
+tolower($1) ~ select { t += $i }
+
+END { if (t) print d, t }

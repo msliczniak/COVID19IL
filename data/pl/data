@@ -1,0 +1,37 @@
+#!/usr/bin/awk -f
+
+BEGIN { RS = "<"; FS = ">" }
+
+{ n = split($1, a, /[ 	]/) }
+
+tolower(a[1]) == "pre" {
+	for (i = 2; i <= n; i++) {
+		if (tolower(a[i]) != "id=\"registerdata\"") continue
+
+		n = split($2, a, /,/)
+		for (i = 1; i <= n; i++) {
+			s = a[i]
+			j = index(s, ":") - 1
+			if (tolower(substr(s, 0, j)) !~ /"data"/) continue
+
+			s = substr(s, j + 2)
+			j = index(s, "\"") + 1
+			n = split(substr(s, j), a, /\\n/)
+			for (i = 1; i < n; i++) {
+				split(a[i], b, /\;/)
+				printf("%s", b[1])
+
+				for (j = 2; j < 4; j++) {
+					if (b[j] == "") b[j] = 0
+					printf(",%s", b[j])
+				}
+
+				printf("\n")
+			}
+
+			break
+		}
+
+		exit
+	}
+}

@@ -1,3 +1,12 @@
 $ ./get
-$ ./run COVID19CountyResults-20*
+$ ./run COVID19CountyResults-20*.json
 $ mv *-*.png ratio.png plots/
+
+$ cd data/pl
+$ ./get
+$ ./run 20*.csv
+$ mv *-*.png ../../plots/pl/
+$ cd ../..
+
+$ ./plil
+$ mv plil.png plots/

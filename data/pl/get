@@ -1,0 +1,8 @@
+#!/bin/sh
+
+o=`/bin/date -ju '+%Y-%m-%d-%H:%M:%S-UTC'` || exit
+u=https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2
+
+curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o".html
+./data "$o".html >"$o".csv
+/usr/bin/file -- "$o".csv

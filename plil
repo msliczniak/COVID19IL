@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# r = n[(A/P)^(1/nt) - 1]
+TVM='{
+	i = 1
+	ii = index($i, "-") - 1
+
+	j = substr($i, 1, ii) + 0
+	P = substr($i, ii + 12) + 0
+
+	while (i < NF) {
+		i += 1
+		ii = index($i, "-") - 1
+
+		n = substr($i, 1, ii) - j
+		A = substr($i, ii + 12) + 0
+
+		print substr($i, ii + 2, 10), exp(1/n * log(A/P)) * 100 - 100
+	}
+}'
+
+# k=samples
+TREND='{
+	j = 1; i = k
+	while (i <= NF) {
+		ii = index($i, "-") - 1
+		jj = index($j, "-") - 1
+		n = substr($i, 1, ii) - substr($j, 1, jj)
+		A = substr($i, ii + 12) + 0
+		P = substr($j, jj + 12) + 0
+
+		print substr($i, ii + 2, 10), exp(1/n * log(A/P)) * 100 - 100
+		j += 1; i += 1
+	}
+}'
+
+# doubling-time in hours
+dhrs() {
+	awk 'BEGIN { d = log(2) * 24 } { print $1, d/log($2/100 + 1) }' "$@"
+}
+
+./totals COVID19CountyResults-20*.json >il
+data/pl/totals data/pl/20*.csv >pl
+
+o=''; p=''; d=''
+for i in il pl; do
+	awk '$2 != t { print NR "-" $1 $2; t = $2 }' $i >d$i
+	awk "$TREND" RS= k=15 d$i >d
+	d="$d "`awk 'END { printf("%.1f%%", $2) }' d`
+	dhrs d >15$i
+	awk "$TVM" RS= d$i >d
+	p="$p "`awk 'END { printf("%.1f%%", $2) }' d`
+	dhrs d >d$i
+	o="$o "`awk 'END { printf("%.1f", $2) }' d$i`
+done
+
+set -- `tail -1 il`
+gnuplot -c plilplot "$@" `awk 'END { print $2 }' pl` $o $p $d

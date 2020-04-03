@@ -2,10 +2,12 @@
 
 [daily plots](https://msliczniak.github.io/COVID19IL/plots/index.html)
 
-![ratio](plots/ratio.png)
+[codzienne wykresy](https://msliczniak.github.io/COVID19IL/plots/pl/index.html)
+
+![PL IL](plots/plil.png)
 
 [NOTES](NOTES.txt)
 
-req imagemagick gnuplot(pngcairo)
+req gnuplot(pngcairo)
 
 edit paths in scripts if needed

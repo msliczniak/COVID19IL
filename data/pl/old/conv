@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# remove wiki cites
+sed 's/\[[^]]*\]//g
+s///g
+s/ ([^)]*)//g
+s/ *,/,/g
+s/ *$//g
+s/Poland //g
+s/Lower Silesia/dolnośląskie/
+s/Kuyavia-Pomerania/kujawsko-pomorskie/
+s/Lubusz/lubuskie/
+s/Łódź/łódzkie/
+s/Lublin/lubelskie/
+s/Lesser Poland/małopolskie/
+s/Masovia/mazowieckie/
+s/Opole/opolskie/
+s/Podlaskie/podlaskie/
+s/Subcarpathian/podkarpackie/
+s/Pomerania/pomorskie/
+s/Holy Cross/świętokrzyskie/
+s/Silesia/śląskie/
+s/Warmia–Masuria/warmińsko-mazurskie/
+s/Greater Poland/wielkopolskie/
+s/West Pomerania/zachodniopomorskie/
+s/daily/Cała Polska/
+s/March/3/
+s/April/4/
+' "$@" | awk -F, '{
+	n = split($1, a, " ")
+	if (n == 1)
+		printf("CET")
+	else
+		printf("%s-%02d-%02d", a[3], a[2], a[1])
+
+	for (n = 2; n <= NF; n++)
+		if ($n == "")
+			printf(",0")
+		else
+			printf(",%s", $n)
+
+	printf("\n") }'

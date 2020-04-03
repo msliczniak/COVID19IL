@@ -1,0 +1,77 @@
+#!/bin/sh
+
+case $# in
+  2)
+	;;
+  *)
+	echo 'usage: create cases.csv deaths.csv' >&2
+	exit 1
+	;;
+esac
+
+mkdir c d e || exit
+
+./conv <"$1" >c.csv
+./conv <"$2" >d.csv
+
+MUNGE='NR == 1 {
+	for (i = 2; i < NF; i++) if (k == $i) next
+	exit 1
+}
+
+{
+	t += $i
+	f = sprintf("%s/%s", d, $1)
+	print t "," k >>f
+	close(f)
+}'
+
+munge() {
+	awk -F, "$MUNGE" "$@"
+}
+
+for state in \
+  'Cała Polska' \
+  dolnośląskie \
+  kujawsko-pomorskie \
+  lubelskie \
+  lubuskie \
+  łódzkie \
+  małopolskie \
+  mazowieckie \
+  opolskie \
+  podkarpackie \
+  podlaskie \
+  pomorskie \
+  śląskie \
+  świętokrzyskie \
+  warmińsko-mazurskie \
+  wielkopolskie \
+  zachodniopomorskie; do
+	for result in c d; do
+		munge k="$state" d="$result" "$result".csv || exit
+	done
+done
+
+cd c || exit
+
+FOO='BEGIN { n = 0}
+{
+	s = state[$2] ","
+	if (s == ",") {
+		list[n] = $2
+		n += 1
+	}
+
+	state[$2] = s $1
+}
+END {
+	print "Województwo,Liczba,Liczba zgonów"
+
+	for (s = 0; s < n; s++)
+		print list[s] state[list[s]]
+}'
+
+for i in ????-??-??; do
+	awk -F, "$FOO" ../[cd]/$i >../e/"$i"-20:59:60-UTC.csv
+done
