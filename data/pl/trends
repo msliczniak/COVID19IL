@@ -1,5 +1,6 @@
 set xdata time
-set timefmt '%Y-%m-%d'
+set timefmt '%Y-%m-%d-%H'
+set xtic 86400
 set terminal pngcairo size 820,440
 set grid
 set xtics rotate by -55 format '%1d.%1m'
@@ -15,9 +16,10 @@ set title ARG1
 set y2label 'czas podwojenia (godz)'
 set y2tics 12
 set output 'a.png'
-plot [:][:] \
-'tot' using 1:2 with linespoints notitle, \
+plot \
+'tot' using 1:2 axis x1y1 with linespoints notitle, \
+'pred' using 1:2 axis x1y1 with lines notitle, \
 '5' using 1:2 axis x1y2 with points title '5 prób =', \
 '10' using 1:2 axis x1y2 with points title '10 prób =', \
 '15' using 1:2 axis x1y2 with points title '15 prób =', \
-'tvm' using 1:2 axis x1y2 with linespoints title 'pełny termin ='
+'dhrs' using 1:2 axis x1y2 with linespoints title 'pełny termin ='

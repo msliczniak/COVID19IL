@@ -1,3 +1,5 @@
+set timefmt '%Y-%m-%d-%H'
+set xtic 86400
 set timefmt '%Y-%m-%d'
 set terminal pngcairo size 820,440
 set grid
