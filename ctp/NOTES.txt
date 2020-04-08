@@ -1,0 +1,7 @@
+# https://photos.app.goo.gl/vvK9dyrQ4KQCBJVw6
+$ curl -O https://covidtracking.com/api/v1/states/daily.csv
+$ awk -F, 'NR == 1 { next } { print $2 }' daily.csv | sort | uniq > states
+$ for i in `cat states`; do awk -F, '$2 == "'$i'" { print ++i, $3 }' daily.csv >$i; done
+$ for i in `cat states`; do rm -f -- *-$i || break; n=`awk '{ print $2 "-'$i'"; exit }' $i`; echo $n; sort -nr $i | awk '{ print NR, $2 }' >$n; done >nstate
+$ rm -f -- *.png && sort -n nstate | xargs -n7 gnuplot -c trends
+$ j=0; for i in `printf '%s\n' *.png | sort -rn`; do mv -- $i $j$i; j=`expr $j + 1`; done
