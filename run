@@ -116,7 +116,7 @@ for co in Illinois Kane 'Chicago|Cook' \
 		ca=`awk 'END { printf("%.2f", $2/24) }' dhrs`
 		predict tot tvm >pred
 		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca"
-		/bin/mv a.png "$co"-"$rs".png
+		/bin/mv a.png "$co"-"$rs".png || exit
 
 		# no tested totals per county
 		case "$co"-"$rs" in

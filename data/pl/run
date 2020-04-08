@@ -108,6 +108,6 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		ca=`awk 'END { printf("%.2f", $2/24) }' dhrs`
 		predict tot tvm >pred
 		gnuplot -c trends "$da $la $pa" "$rs = $ta" "$ca"
-		/bin/mv a.png "$co"-"$rs".png
+		/bin/mv a.png "$co"-"$rs".png || exit
 	done
 done
