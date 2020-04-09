@@ -3,8 +3,8 @@ set autoscale fix
 set key outside horizontal bottom center
 set logscale y
 set format y '10^{%T}'
-set logscale x
-set xtics 2
+#set logscale x
+#set xtics 2
 
 set terminal pngcairo size 1440,900
 set output '-'.ARG1.'-'.ARG2.'-'.ARG3.'-'.ARG4.'-'.ARG5.'-'.ARG6.'-'.ARG7.'.png'
