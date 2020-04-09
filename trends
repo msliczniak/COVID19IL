@@ -19,12 +19,17 @@ set my2tics 2
 set terminal dumb
 set output '/dev/null'
 plot \
-'tot' using 1:2 axis x1y1 with linespoints notitle, \
-'pred' using 1:2 axis x1y1 with lines notitle, \
+'ftot' using 1:2:3 notitle with filledcurves above \
+  fs trans solid 0.25 border fc 'red', \
+'ftot' using 1:2:3 notitle with filledcurves below \
+  fs trans solid 0.25 border fc 'green', \
+'dhrs' using 1:2 axis x1y2 with lines lt -1 title 'lifetime =', \
+'tot' using 1:2 with lines lt 0 notitle, \
 '5' using 1:2 axis x1y2 with points title '5 sample =', \
 '10' using 1:2 axis x1y2 with points title '10 sample =', \
 '15' using 1:2 axis x1y2 with points title '15 sample =', \
-'dhrs' using 1:2 axis x1y2 with linespoints title 'lifetime ='
+'labels' using 1:2:3 with labels right offset -.5,-.5 font ',8' point pt 1 \
+  notitle
 
 # 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
 interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
@@ -33,4 +38,4 @@ set mxtics interval
 
 set terminal pngcairo size 820,440
 set output 'a.png'
-replot
+refresh

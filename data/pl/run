@@ -20,7 +20,7 @@ foo() {
 foo $# "$@"
 
 foo() {
-	printf '%d.%d.%d' $3 $2 $1
+	printf '%s.%s.%s' $3 $2 $1
 }
 
 # set date
@@ -85,6 +85,12 @@ predict() {
 	{ t = $5; print $3, P * exp(t * log(r)); r = $4 }'
 }
 
+labels() {
+	awk 'BEGIN { print 0 } { print $3 }' $2 | paste $1 - | #
+	  awk '{ t += $3 - l; l = $3 } t >= s { t -= s; print $1, $2, $2 }' \
+	    s=`awk 'NR == 1 { i = $3 } END { print int(($3 - i)/15) + 1 }' $2`
+}
+
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
 la='|lubuskie|małopolskie|podkarpackie'
@@ -107,6 +113,10 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		ta=`awk 'END { print $2 }' tot`
 		ca=`awk 'END { printf("%.2f", $2/24) }' dhrs`
 		predict tot tvm >pred
+		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
+		  paste tot - | # duplicate point if missing
+		  awk 'NF == 2 { print $1, $2, $2; next } { print }' >ftot
+		labels tot tvm >labels
 		gnuplot -c trends "$da $la $pa" "$rs = $ta" "$ca"
 		/bin/mv a.png "$co"-"$rs".png || exit
 	done
