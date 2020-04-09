@@ -1,16 +1,13 @@
-#set xdata time
-#set timefmt '%Y%m%d'
-#set xtics rotate by -55 format '%1m/%1d'
 set grid
 set autoscale fix
 set key outside horizontal bottom center
 set logscale y
 set format y '10^{%T}'
 set logscale x
-set format x '10^{%T}'
-#set xtics 100
-set terminal dumb
-set output '/dev/null'
+set xtics 2
+
+set terminal pngcairo size 1440,900
+set output '-'.ARG1.'-'.ARG2.'-'.ARG3.'-'.ARG4.'-'.ARG5.'-'.ARG6.'-'.ARG7.'.png'
 plot \
 ARG1 using 1:2 with linespoints title ARG1, \
 ARG2 using 1:2 with linespoints title ARG2, \
@@ -19,12 +16,3 @@ ARG4 using 1:2 with linespoints title ARG4, \
 ARG5 using 1:2 with linespoints title ARG5, \
 ARG6 using 1:2 with linespoints title ARG6, \
 ARG7 using 1:2 with linespoints title ARG7
-
-# 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
-interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
-set xtics interval * 86400
-set mxtics interval
-
-set terminal pngcairo size 1440,900
-set output '-'.ARG1.'-'.ARG2.'-'.ARG3.'-'.ARG4.'-'.ARG5.'-'.ARG6.'-'.ARG7.'.png'
-replot
