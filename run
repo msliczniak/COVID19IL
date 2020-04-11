@@ -96,9 +96,51 @@ predict() {
 }
 
 labels() {
-	awk 'BEGIN { print 0 } { print $3 }' $2 | paste $1 - | #
+	awk 'BEGIN { print 0 } { print $3 }' $2 | paste $1 - | awk '
+	{ d[NR] = $1; v[NR] = $2; n[NR] = $3 }
+	END {
+		for (i = NR; i > 1; i--) {
+			A = v[i]
+			printf("%s %s ", d[i], A)
+
+			s = sprintf("%.2e", A)
+			split(s, a, "e")
+			e = a[2]
+			printf("%s\\n", a[1]);
+
+			P = v[i - 1]
+			printf("%.1f^%%\\n", exp(1/(n[i] - n[i - 1]) * log(A/P)))
+
+			c = A - P
+			if (c < 1000) {
+				printf("%s\n", c)
+				continue
+			}
+
+			e += 0
+			split(sprintf("%.0e", c), a, "e")
+			a[2] += 0
+			if (e == a[2]) {
+				s = sprintf("%.2e", c)
+				split(s, a, "e")
+
+				if (e == a[2]) {
+					printf("%s\n", a[1])
+					continue
+				}
+
+				s = a[1]
+				printf(".%s\n", substr(s, 1, 1) substr(s, 3))
+				continue
+			}
+
+			printf("%s_{10}^{%d}\n", a[1], e - a[2])
+		}
+	}'
+
+	return
 	  awk '{ t += $3 - l; l = $3 } t >= s { t -= s; print $1, $2, $2 }' \
-	    s=`awk 'NR == 1 { i = $3 } END { print int(($3 - i)/15) + 1 }' $2`
+	    s=`awk 'NR == 1 { i = $3 } END { print int(($3 - i)/35) + 1 }' $2`
 }
 
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
