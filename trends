@@ -35,6 +35,7 @@ plot \
 'xdhrs' using 1:2:3 axis x1y2 notitle with filledcurves above \
   fs trans solid 0.25 border fc 'green', \
 'tot' using 1:2 with lines lt 0 notitle, \
+'x5t' using 1:2 with lines lt -1 lc 1 dt 4 notitle, \
 'xtot' using 1:2 with lines lt 0 notitle, \
 'x15' using 1:2 with lines lt -1 lc 3 dt 2 notitle, \
 'x10' using 1:2 with lines lt -1 lc 2 dt 2 notitle, \
