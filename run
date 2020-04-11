@@ -99,7 +99,7 @@ labels() {
 	{ d[NR] = $1; v[NR] = $2; n[NR] = $3 }
 	END {
 
-		f = int((n[NR] - n[2])/15) + 1
+		f = int((n[NR] - n[2])/15)
 		g = 0
 		i = NR
 		for (j = NR - 1; j > 0; j--) {
@@ -116,7 +116,7 @@ labels() {
 
 			s = sprintf("%.2e", A)
 			split(s, a, "e")
-			printf("%s_{10}^{%d}\\n", a[1], a[2]);
+			printf("%s_{10^{%d}}\\n", a[1], a[2]);
 
 			P = v[j]
 			c = exp(1/(n[i] - n[j]) * log(A/P))
@@ -195,6 +195,7 @@ for co in Illinois Kane 'Chicago|Cook' \
 			  $1, $2, $2, p * 100 - 100)
 			exit
 		}' p=$p xdhrs >xl
+		awk '{ print $0, $2; exit }' tot >ol
 
 		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca" "$ab" "$be"
 		/bin/mv a.png "$co"-"$rs".png || exit

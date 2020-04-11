@@ -1,7 +1,6 @@
 set xdata time
 set timefmt '%Y-%m-%d-%H'
 set grid
-#set xtics rangelimited rotate by -55 format '%1m/%1d'
 set autoscale fix
 set xtics rangelimited rotate by -55 format '%1m/%1d'
 set xlabel ARG3.' dn czas podwojenia'
@@ -48,6 +47,8 @@ plot \
 'xtotl' using 1:2:3 w labels left offset 2,-.5 font ',8' point pt 6 notitle, \
 'xl' using 1:2:3 axis x1y2 w labels right offset .5,1.5 font ',8' \
   point pt 6 notitle, \
+'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
+  point pt 6 notitle, \
 'labels' using 1:2:3 with labels right offset -.5,2 font ',8' point pt 6 \
   notitle #offset -.5,.25
 
@@ -58,6 +59,8 @@ set output 'a.png'
 interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
 set xtics interval * 86400
 set mxtics interval
+
+#set autoscale y2
 
 # break x and x2 axis
 #set object 1 rectangle from graph 0,0 to graph 1,1 fc rgb "gray" behind
