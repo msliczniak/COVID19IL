@@ -145,32 +145,14 @@ for co in Illinois Kane 'Chicago|Cook' \
 					print $1 i, t } }' r="$r" ftot
 		done
 
-		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dhrs >mdhrs
-		awk "$TVM" RS= mdhrs >tdhrs
-		awk -F- "$FOO" mdhrs >dhrs
-		predict dhrs tdhrs >pdhrs
-		awk 'BEGIN { print; print } { print $2 }' pdhrs | # filled-curve
-		  paste dhrs - | # skip early point(s)
-		  awk 'NF == 2 { next } { print }' >fdhrs
-
-		# %chg for the last day
-		p=`tail -2 mdhrs | trend 2 | awk '{ print $2 }'` || exit
-
-		# amortized daily %chg 
-		r=`awk 'END { print $2 }' tdhrs` || exit
-
-		awk 'END { ti = t = $2
+		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dhrs >fdhrs
+		p=`tail -2 fdhrs | trend 2 | awk '{ print $2 }'` || exit
+		awk -F- "$FOO" fdhrs >dhrs
+		awk 'NR != 1 { print $0, d } { d = $2 }' dhrs >fdhrs
+		awk 'END { t = $2
 		for (i = -24; i >= -96; i -= 24) {
-			t *= r; ti *= p
-			print $1 i, ti, t } }' r="$r" p="$p" fdhrs >xdhrs
-
-		for i in 5 10 15; do
-			r=`tail -$i tdhrs | awk '{ print $2; exit }'`
-			>xd$i awk 'END { t = $2
-				for (i = -24; i >= -96; i -= 24) {
-					t *= r
-					print $1 i, t } }' r="$r" fdhrs
-		done
+			t *= p
+			print $1 i, t, $2 } }' p="$p" fdhrs >xdhrs
 
 		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca"
 		/bin/mv a.png "$co"-"$rs".png || exit

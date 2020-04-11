@@ -23,28 +23,25 @@ plot \
   fs trans solid 0.25 border fc 'red', \
 'ftot' using 1:2:3 notitle with filledcurves below \
   fs trans solid 0.25 border fc 'green', \
-'fdhrs' using 1:2:3 axis x1y2 notitle with filledcurves above \
-  fs trans solid 0.25 border fc 'red', \
 'fdhrs' using 1:2:3 axis x1y2 notitle with filledcurves below \
+  fs trans solid 0.25 border fc 'red', \
+'fdhrs' using 1:2:3 axis x1y2 notitle with filledcurves above \
   fs trans solid 0.25 border fc 'green', \
 'xtot' using 1:2:3 notitle with filledcurves above \
   fs trans solid 0.25 border fc 'red', \
 'xtot' using 1:2:3 notitle with filledcurves below \
   fs trans solid 0.25 border fc 'green', \
-'xdhrs' using 1:2:3 axis x1y2 notitle with filledcurves above \
-  fs trans solid 0.25 border fc 'red', \
 'xdhrs' using 1:2:3 axis x1y2 notitle with filledcurves below \
+  fs trans solid 0.25 border fc 'red', \
+'xdhrs' using 1:2:3 axis x1y2 notitle with filledcurves above \
   fs trans solid 0.25 border fc 'green', \
 'tot' using 1:2 with lines lt 0 notitle, \
 'xtot' using 1:2 with lines lt 0 notitle, \
-'x15' using 1:2 with lines lt 0 lc 3 notitle, \
-'x10' using 1:2 with lines lt 0 lc 2 notitle, \
-'x5' using 1:2 with lines lt 0 lc 1 notitle, \
+'x15' using 1:2 with lines lt -1 lc 3 dt 2 notitle, \
+'x10' using 1:2 with lines lt -1 lc 2 dt 2 notitle, \
+'x5' using 1:2 with lines lt -1 lc 1 dt 2 notitle, \
 'dhrs' using 1:2 axis x1y2 with lines lt -1 title 'lifetime =', \
 'xdhrs' using 1:2 axis x1y2 with lines lt -1 notitle, \
-'xd5' using 1:2 axis x1y2 with lines lt -1 lc 1 notitle, \
-'xd10' using 1:2 axis x1y2 with lines lt -1 lc 2 notitle, \
-'xd15' using 1:2 axis x1y2 with lines lt -1 lc 3 notitle, \
 '5' using 1:2 axis x1y2 with points pt 1 lc 1 title '5 sample =', \
 '10' using 1:2 axis x1y2 with points pt 2 lc 2 title '10 sample =', \
 '15' using 1:2 axis x1y2 with points pt 3 lc 3 title '15 sample =', \
