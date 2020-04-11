@@ -3,7 +3,7 @@ set timefmt '%Y-%m-%d-%H'
 set grid
 #set xtics rangelimited rotate by -55 format '%1m/%1d'
 set autoscale fix
-set xtics rotate by -55 format '%1m/%1d'
+set xtics rangelimited rotate by -55 format '%1m/%1d'
 set xlabel ARG3.' day doubling-time'
 set key outside horizontal bottom center
 set ytics nomirror
@@ -23,19 +23,53 @@ plot \
   fs trans solid 0.25 border fc 'red', \
 'ftot' using 1:2:3 notitle with filledcurves below \
   fs trans solid 0.25 border fc 'green', \
-'dhrs' using 1:2 axis x1y2 with lines lt -1 title 'lifetime =', \
+'fdhrs' using 1:2:3 axis x1y2 notitle with filledcurves above \
+  fs trans solid 0.25 border fc 'red', \
+'fdhrs' using 1:2:3 axis x1y2 notitle with filledcurves below \
+  fs trans solid 0.25 border fc 'green', \
+'xtot' using 1:2:3 notitle with filledcurves above \
+  fs trans solid 0.25 border fc 'red', \
+'xtot' using 1:2:3 notitle with filledcurves below \
+  fs trans solid 0.25 border fc 'green', \
+'xdhrs' using 1:2:3 axis x1y2 notitle with filledcurves above \
+  fs trans solid 0.25 border fc 'red', \
+'xdhrs' using 1:2:3 axis x1y2 notitle with filledcurves below \
+  fs trans solid 0.25 border fc 'green', \
 'tot' using 1:2 with lines lt 0 notitle, \
-'5' using 1:2 axis x1y2 with points title '5 sample =', \
-'10' using 1:2 axis x1y2 with points title '10 sample =', \
-'15' using 1:2 axis x1y2 with points title '15 sample =', \
+'xtot' using 1:2 with lines lt 0 notitle, \
+'x15' using 1:2 with lines lt 0 lc 3 notitle, \
+'x10' using 1:2 with lines lt 0 lc 2 notitle, \
+'x5' using 1:2 with lines lt 0 lc 1 notitle, \
+'dhrs' using 1:2 axis x1y2 with lines lt -1 title 'lifetime =', \
+'xdhrs' using 1:2 axis x1y2 with lines lt -1 notitle, \
+'xd5' using 1:2 axis x1y2 with lines lt -1 lc 1 notitle, \
+'xd10' using 1:2 axis x1y2 with lines lt -1 lc 2 notitle, \
+'xd15' using 1:2 axis x1y2 with lines lt -1 lc 3 notitle, \
+'5' using 1:2 axis x1y2 with points pt 1 lc 1 title '5 sample =', \
+'10' using 1:2 axis x1y2 with points pt 2 lc 2 title '10 sample =', \
+'15' using 1:2 axis x1y2 with points pt 3 lc 3 title '15 sample =', \
 'labels' using 1:2:3 with labels right offset -.5,-.5 font ',8' point pt 1 \
   notitle
+
+set terminal pngcairo size 820,440
+set output 'a.png'
 
 # 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
 interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
 set xtics interval * 86400
 set mxtics interval
 
-set terminal pngcairo size 820,440
-set output 'a.png'
+# break x and x2 axis
+#set object 1 rectangle from graph 0,0 to graph 1,1 fc rgb "gray" behind
+#set obj 1 rect from x1max, graph 0 to x2min, graph 1 fs solid 1.0 border bgnd front
+# 280800 = 86400 * 3.25; 324000 + 86400 * 3.75
+set obj 1 \
+  rect from GPVAL_X_MAX - 324000,graph 0 to GPVAL_X_MAX - 280800,graph 1 \
+  fc 'gray' fs transparent pattern 6 noborder bgnd back
+
+# Draw a y axis at current date
+# 345600 = 86400 * 4
+set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600):345600]
+set y2zeroaxis ls -1
+
 refresh

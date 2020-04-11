@@ -11,6 +11,10 @@ paste() {
 	/usr/bin/paste "$@"
 }
 
+tail() {
+	/usr/bin/tail "$@"
+}
+
 foo() {
 	shift $1;
 	la="$1"
@@ -64,8 +68,9 @@ TVM='{
 	}
 }'
 
-# k=samples
-TREND='{
+trend() {
+	# k=samples
+	awk '{
 	j = 1; i = k
 	while (i <= NF) {
 		ii = index($i, "-") - 1
@@ -76,8 +81,8 @@ TREND='{
 
 		print substr($i, ii + 2, 10), exp(1/n * log(A/P))
 		j += 1; i += 1
-	}
-}'
+	} }' RS= k="$1" $2
+}
 
 # doubling-time in hours
 dhrs() {
@@ -88,11 +93,6 @@ predict() {
 	paste "$@" | awk 'NR == 1 { P = $2; r = $4; next }
 	NF < 5 { exit }
 	{ print $3, P * exp($5 * log(r)); r = $4 }'
-
-	return # gnuplot does not get xrange right with Y-m-d-24 
-	paste "$@" | awk 'NR == 1 { P = $2; r = $4; t = $5; next }
-	NF < 5 { t += 1; print $3 "-24", P * exp(t * log(r)); exit }
-	{ t = $5; print $3, P * exp(t * log(r)); r = $4 }'
 }
 
 labels() {
@@ -111,9 +111,9 @@ for co in Illinois Kane 'Chicago|Cook' \
 
 		./totals select="$co" result="$rs" "$@" >tot
 		awk '$2 != t { print NR "-" $1 $2; t = $2 }' tot >total
-		awk "$TREND" RS= k=5 total | dhrs >5
-		awk "$TREND" RS= k=10 total | dhrs >10
-		awk "$TREND" RS= k=15 total | dhrs >15
+		trend 5 total | dhrs >5
+		trend 10 total | dhrs >10
+		trend 15 total | dhrs >15
 		awk "$TVM" RS= total >tvm
 		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
 		dhrs tvm >dhrs
@@ -122,11 +122,59 @@ for co in Illinois Kane 'Chicago|Cook' \
 		ca=`awk 'END { printf("%.2f", $2/24) }' dhrs`
 		predict tot tvm >pred
 		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
-		  paste tot - | # duplicate point if missing
-		  awk 'NF == 2 { print $1, $2, $2; next } { print }' >ftot
+		  paste tot - | # skip early point(s)
+		  awk 'NF == 2 { next } { print }' >ftot
 		labels tot tvm >labels
+
+		# %chg for the last day
+		p=`tail -2 total | trend 2 | awk '{ print $2 }'` || exit
+
+		# amortized daily %chg 
+		r=`awk 'END { print $2 }' tvm` || exit
+
+		awk 'END { ti = t = $2
+		for (i = -24; i >= -96; i -= 24) {
+			t *= r; ti *= p
+			print $1 i, ti, t } }' r="$r" p="$p" ftot >xtot
+
+		for i in 5 10 15; do
+			r=`tail -$i tvm | awk '{ print $2; exit }'`
+			>x$i awk 'END { t = $2
+				for (i = -24; i >= -96; i -= 24) {
+					t *= r
+					print $1 i, t } }' r="$r" ftot
+		done
+
+		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dhrs >mdhrs
+		awk "$TVM" RS= mdhrs >tdhrs
+		awk -F- "$FOO" mdhrs >dhrs
+		predict dhrs tdhrs >pdhrs
+		awk 'BEGIN { print; print } { print $2 }' pdhrs | # filled-curve
+		  paste dhrs - | # skip early point(s)
+		  awk 'NF == 2 { next } { print }' >fdhrs
+
+		# %chg for the last day
+		p=`tail -2 mdhrs | trend 2 | awk '{ print $2 }'` || exit
+
+		# amortized daily %chg 
+		r=`awk 'END { print $2 }' tdhrs` || exit
+
+		awk 'END { ti = t = $2
+		for (i = -24; i >= -96; i -= 24) {
+			t *= r; ti *= p
+			print $1 i, ti, t } }' r="$r" p="$p" fdhrs >xdhrs
+
+		for i in 5 10 15; do
+			r=`tail -$i tdhrs | awk '{ print $2; exit }'`
+			>xd$i awk 'END { t = $2
+				for (i = -24; i >= -96; i -= 24) {
+					t *= r
+					print $1 i, t } }' r="$r" fdhrs
+		done
+
 		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca"
 		/bin/mv a.png "$co"-"$rs".png || exit
+		exit
 
 		# no tested totals per county
 		case "$co"-"$rs" in
