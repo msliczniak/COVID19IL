@@ -1,7 +1,7 @@
 set timefmt '%Y-%m-%d-%H'
+set autoscale fix
 set xtic 86400
 set timefmt '%Y-%m-%d'
-set terminal pngcairo size 820,440
 set grid
 set xdata time
 set xtics rotate by -55 format '%1m/%1d'
@@ -13,7 +13,10 @@ set logscale y
 set format y '10^{%T}'
 set xlabel ARG1
 set y2tics 12
-set output 'plil.png'
+
+set terminal dumb
+set output '/dev/null'
+
 plot [:][:] \
 'dil' using 1:2 axis x1y2 with lines title ARG4.' hr doubling-time IL', \
 '15il' using 1:2 axis x1y2 with points title '15 sample IL '.ARG8, \
@@ -21,3 +24,13 @@ plot [:][:] \
 'dpl' using 1:2 axis x1y2 with lines title ARG5.' godz czas podwojenia PL', \
 '15pl' using 1:2 axis x1y2 with points title '15 prób PL '.ARG9, \
 'pl' using 1:2 with linespoints title ARG3.' = PL '.ARG7
+
+# 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
+interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
+set xtics interval * 86400
+set mxtics interval
+
+set terminal pngcairo size 820,440
+set output 'plil.png'
+
+refresh
