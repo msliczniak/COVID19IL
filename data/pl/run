@@ -11,6 +11,10 @@ paste() {
 	/usr/bin/paste "$@"
 }
 
+tail() {
+	/usr/bin/tail "$@"
+}
+
 foo() {
 	shift $1;
 	la="$1"
@@ -54,8 +58,9 @@ TVM='{
 	}
 }'
 
-# k=samples
-TREND='{
+trend() {
+	# k=samples
+	awk '{
 	j = 1; i = k
 	while (i <= NF) {
 		ii = index($i, "-") - 1
@@ -66,8 +71,8 @@ TREND='{
 
 		print substr($i, ii + 2, 10), exp(1/n * log(A/P))
 		j += 1; i += 1
-	}
-}'
+	} }' RS= k="$1" $2
+}
 
 # doubling-time in hours
 dhrs() {
@@ -78,17 +83,42 @@ predict() {
 	paste "$@" | awk 'NR == 1 { P = $2; r = $4; next }
 	NF < 5 { exit }
 	{ print $3, P * exp($5 * log(r)); r = $4 }'
-
-	return # gnuplot does not get xrange right with Y-m-d-24
-	paste "$@" | awk 'NR == 1 { P = $2; r = $4; t = $5; next }
-	NF < 5 { t += 1; print $3 "-24", P * exp(t * log(r)); exit }
-	{ t = $5; print $3, P * exp(t * log(r)); r = $4 }'
 }
 
 labels() {
-	awk 'BEGIN { print 0 } { print $3 }' $2 | paste $1 - | #
-	  awk '{ t += $3 - l; l = $3 } t >= s { t -= s; print $1, $2, $2 }' \
-	    s=`awk 'NR == 1 { i = $3 } END { print int(($3 - i)/15) + 1 }' $2`
+	awk 'BEGIN { print 0 } { print $3 }' $2 | paste $1 - | awk '
+	{ d[NR] = $1; v[NR] = $2; n[NR] = $3 }
+	END {
+
+		f = int((n[NR] - n[2])/15) + 1
+		g = 0
+		i = NR
+		for (j = NR - 1; j > 0; j--) {
+			if (g < f) {
+				c = n[j] - n[j - 1]
+				g += c
+				continue
+			}
+
+			g = 0
+
+			A = v[i]
+			printf("%s %s ", d[i], A)
+
+			s = sprintf("%.2e", A)
+			split(s, a, "e")
+			printf("%s_{10}^{%d}\\n", a[1], a[2]);
+
+			P = v[j]
+			c = exp(1/(n[i] - n[j]) * log(A/P))
+			printf("%.1f^%%\\n", c * 100 - 100)
+
+			c = A - P
+			printf("%s\n", c)
+
+			i = j
+		}
+	}'
 }
 
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
@@ -97,15 +127,17 @@ la='|lubuskie|małopolskie|podkarpackie'
 for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
   'pomorskie|zachodniopomorskie|kujawsko-pomorskie|warmińsko-mazurskiei' \
   'łódzkie|wielkopolskie|dolnośląskie|opolskie|śląskie'"$la" ; do
+	ab="'green'"
+	be="'red'"
 	for rs in 'liczba' 'liczba zgonów'; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
 		./totals select="$co" result="$rs" "$@" >tot
 		awk '$2 != t { print NR "-" $1 $2; t = $2 }' tot >total
-		awk "$TREND" RS= k=5 total | dhrs >5
-		awk "$TREND" RS= k=10 total | dhrs >10
-		awk "$TREND" RS= k=15 total | dhrs >15
+		trend 5 total | dhrs >5
+		trend 10 total | dhrs >10
+		trend 15 total | dhrs >15
 		awk "$TVM" RS= total >tvm
 		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
 		dhrs tvm >dhrs
@@ -114,10 +146,50 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		ca=`awk 'END { printf("%.2f", $2/24) }' dhrs`
 		predict tot tvm >pred
 		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
-		  paste tot - | # duplicate point if missing
-		  awk 'NF == 2 { print $1, $2, $2; next } { print }' >ftot
+		  paste tot - | # skip early point(s)
+		  awk 'NF == 2 { next } { print }' >ftot
 		labels tot tvm >labels
-		gnuplot -c trends "$da $la $pa" "$rs = $ta" "$ca"
+
+		# %chg for the last day
+		p=`tail -2 total | trend 2 | awk '{ print $2 }'` || exit
+		awk 'END {
+			t = int($2 * p + .5)
+			p = p * 100 - 100
+			printf("%s-24 %s %s\\n%.1f%%\\n+%s\n",
+			  $1, t, t, p, t - $2)
+		}' p=$p tot >xtotl
+
+		# amortized daily %chg 
+		r=`awk 'END { print $2 }' tvm` || exit
+
+		awk 'END { ti = t = $2
+		for (i = -24; i >= -96; i -= 24) {
+			t *= r; ti *= p
+			print $1 i, ti, t } }' r="$r" p="$p" ftot >xtot
+
+		for i in 5 10 15; do
+			r=`tail -$i tvm | awk '{ print $2; exit }'`
+			>x$i awk 'END { t = $2
+				for (i = -24; i >= -96; i -= 24) {
+					t *= r
+					print $1 i, t } }' r="$r" ftot
+		done
+
+		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dhrs >fdhrs
+		p=`tail -2 fdhrs | trend 2 | awk '{ print $2 }'` || exit
+		awk -F- "$FOO" fdhrs >dhrs
+		awk 'NR != 1 { print $0, d } { d = $2 }' dhrs >fdhrs
+		awk 'END { t = $2
+		for (i = -24; i >= -96; i -= 24) {
+			t *= p
+			print $1 i, t, $2 } }' p="$p" fdhrs >xdhrs
+		awk '{
+			printf("%s %s %.1f\\n%.1f_%%\n",
+			  $1, $2, $2, p * 100 - 100)
+			exit
+		}' p=$p xdhrs >xl
+
+		gnuplot -c trends "$da $la $pa" "$rs = $ta" "$ca" "$ab" "$be"
 		/bin/mv a.png "$co"-"$rs".png || exit
 	done
 done
