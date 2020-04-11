@@ -38,10 +38,9 @@ awk 'BEGIN { RS="," } $1 ~ /"total_tested":$/ { print $2 }' \%chg >tested
 awk 'BEGIN { RS="," } $1 ~ /"confirmed_cases":$/ { print $2 }' \%chg >total
 awk 'BEGIN { RS="," } $(NF - 1) ~ /"testDate":$/ { print $NF }' \%chg | \
   paste - total tested | >ratio awk \
- '$3 != 0 { L = 100 * $2 / $3; printf("%s %s %.1f%%\n", $1, L, L) }'
+ '$3 != 0 { L = 100 * $2 / $3; printf("%s %s %.1f\n", $1, L, L) }'
 co=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' ratio`
-./plot -sgt "$da"' cases_{confirmed} / tested_{total} '"$co" \
-  "$d" -o ratio.png -T '"%m/%d/%Y"' ratio
+gnuplot -c ratioplot "$da"' cases/tested '"$co" || exit
 
 # split on |
 foo() {
