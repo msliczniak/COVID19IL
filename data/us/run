@@ -15,6 +15,8 @@ tail() {
 	/usr/bin/tail "$@"
 }
 
+st=$1; shift
+
 foo() {
 	shift $1;
 	la="$1"
@@ -123,7 +125,7 @@ labels() {
 
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
-for co in LA; do
+for co in "$st"; do
 	ab="'green'"
 	be="'red'"
 	for rs in positive death; do
