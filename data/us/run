@@ -128,7 +128,7 @@ FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 for co in "$st"; do
 	ab="'green'"
 	be="'red'"
-	for rs in positive death; do
+	for rs in positive death totalTestResults hospitalized; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 

@@ -4,3 +4,5 @@ $ ./run LA 2020-03-[01]?-LA.csv 2020-03-2[01234]-LA.csv
 $ curl -sO https://covidtracking.com/api/v1/states/daily.csv
 $ ./gen NY
 $ ./run NY 20*-NY.csv
+
+$ ./all
