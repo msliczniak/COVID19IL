@@ -1,0 +1,210 @@
+#!/bin/sh
+
+#d=-dpng
+d='-dpngcairo size 820,440'
+
+awk() {
+	/usr/bin/awk "$@"
+}
+
+paste() {
+	/usr/bin/paste "$@"
+}
+
+tail() {
+	/usr/bin/tail "$@"
+}
+
+foo() {
+	shift $1;
+	la="$1"
+}
+
+# set most recent input file
+foo $# "$@"
+
+foo() {
+	printf '%s/%s/%s' $2 $3 $1
+}
+
+# set date
+co="$IFS"
+IFS=-
+da=`foo $la` || exit
+IFS="$co"
+
+# split on |
+foo() {
+	echo $*
+}
+IFS='|'
+
+# r = n[(A/P)^(1/nt) - 1]
+TVM='{
+	i = 1
+	ii = index($i, "-") - 1
+
+	j = substr($i, 1, ii) + 0
+	P = substr($i, ii + 12) + 0
+
+	while (i < NF) {
+		i += 1
+		ii = index($i, "-") - 1
+
+		n = substr($i, 1, ii) - j
+		A = substr($i, ii + 12) + 0
+
+		print substr($i, ii + 2, 10), exp(1/n * log(A/P)), n
+	}
+}'
+
+trend() {
+	# k=samples
+	awk '{
+	j = 1; i = k
+	while (i <= NF) {
+		ii = index($i, "-") - 1
+		jj = index($j, "-") - 1
+		n = substr($i, 1, ii) - substr($j, 1, jj)
+		A = substr($i, ii + 12) + 0
+		P = substr($j, jj + 12) + 0
+
+		print substr($i, ii + 2, 10), exp(1/n * log(A/P))
+		j += 1; i += 1
+	} }' RS= k="$1" $2
+}
+
+# doubling-time in hours
+dhrs() {
+	awk 'BEGIN { d = log(2) * 24 } { print $1, d/log($2) }' "$@"
+}
+
+predict() {
+	paste "$@" | awk 'NR == 1 { P = $2; r = $4; next }
+	NF < 5 { exit }
+	{ print $3, P * exp($5 * log(r)); r = $4 }'
+}
+
+labels() {
+	awk 'BEGIN { print 0 } { print $3 }' $2 | paste $1 - | awk '
+	{ d[NR] = $1; v[NR] = $2; n[NR] = $3 }
+	END {
+
+		f = int((n[NR] - n[2])/15)
+		g = 0
+		i = NR
+		for (j = NR - 1; j > 0; j--) {
+			if (g < f) {
+				c = n[j] - n[j - 1]
+				g += c
+				continue
+			}
+
+			g = 0
+
+			A = v[i]
+			printf("%s %s ", d[i], A)
+
+			s = sprintf("%.2e", A)
+			split(s, a, "e")
+			printf("%s_{10^{%d}}\\n", a[1], a[2]);
+
+			P = v[j]
+			c = exp(1/(n[i] - n[j]) * log(A/P))
+			printf("%.1f^%%\\n", c * 100 - 100)
+
+			c = A - P
+			printf("%s\n", c)
+
+			i = j
+		}
+	}'
+}
+
+FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
+
+for co in LA; do
+	ab="'green'"
+	be="'red'"
+	for rs in positive death; do
+		la=`foo $co`
+		echo  "$rs $la" >&2
+
+		./totals select="$co" result="$rs" "$@" >tot
+		awk '$2 != t { print NR "-" $1 $2; t = $2 }' tot >total
+		trend 5 total >5t
+		dhrs 5t >5
+		trend 10 total | dhrs >10
+		trend 15 total | dhrs >15
+		awk "$TVM" RS= total >tvm
+		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
+		dhrs tvm >dhrs
+		awk -F- "$FOO" total >tot
+		ta=`awk 'END { print $2 }' tot`
+		ca=`awk 'END { printf("%.2f", $2/24) }' dhrs`
+		predict tot tvm >pred
+		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
+		  paste tot - | # skip early point(s)
+		  awk 'NF == 2 { next } { print }' >ftot
+		labels tot tvm >labels
+
+		# %chg for the last day
+		p=`tail -2 total | trend 2 | awk '{ print $2 }'` || exit
+		awk 'END {
+			t = int($2 * p + .5)
+			p = p * 100 - 100
+			printf("%s-24 %s %s\\n%.1f%%\\n+%s\n",
+			  $1, t, t, p, t - $2)
+		}' p=$p tot >xtotl
+
+		# amortized daily %chg 
+		r=`awk 'END { print $2 }' tvm` || exit
+
+		awk 'END { ti = t = $2
+		for (i = -24; i >= -96; i -= 24) {
+			t *= r; ti *= p
+			print $1 i, ti, t } }' r="$r" p="$p" ftot >xtot
+
+		for i in 5 10 15; do
+			r=`tail -$i tvm | awk '{ print $2; exit }'`
+			>x$i awk 'END { t = $2
+				for (i = -24; i >= -96; i -= 24) {
+					t *= r
+					print $1 i, t } }' r="$r" ftot
+		done
+
+		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dhrs >fdhrs
+		p=`tail -2 fdhrs | trend 2 | awk '{ print $2 }'` || exit
+		awk -F- "$FOO" fdhrs >dhrs
+		awk 'NR != 1 { print $0, d } { d = $2 }' dhrs >fdhrs
+		awk 'END { t = $2
+		for (i = -24; i >= -96; i -= 24) {
+			t *= p
+			print $1 i, t, $2 } }' p="$p" fdhrs >xdhrs
+		awk '{
+			printf("%s %s %.1f\\n%.1f_%%\n",
+			  $1, $2, $2, p * 100 - 100)
+			exit
+		}' p=$p xdhrs >xl
+		awk '{ print $0, $2; exit }' tot >ol
+		i=`tail -3 tot | awk '{ print $2; exit }'`
+		tail -3 5t | awk '{ print $1, t
+			for (i = -24; i >= -96; i -= 24) {
+			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
+
+		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca" "$ab" "$be"
+		/bin/mv a.png "$co"-"$rs".png || exit
+
+		# no tested totals per county
+		case "$co"-"$rs" in
+		  Illinois-*)
+		        # change sense
+		        ab="'red'"
+			be="'green'"
+			;;
+		  *-deaths)
+			break
+			;;
+		esac
+	done
+done
