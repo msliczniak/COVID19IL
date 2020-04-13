@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# HTTP 410 now
+exit 2
+
+# https://www.kanehealth.com/
+# profile/louise2101#!/vizhome/COVIDdashboard_15855315862970/Home
+# https://public.tableau.com
+
+awk() {
+	/usr/bin/awk "$@"
+}
+
+u='&%3AbootstrapWhenNotified=true&%3Amobile=true'
+u='&%3AshowVizHome=no&%3Adisplay_count=y&%3Adisplay_static_image=y'$u
+u='/COVIDdashboard_15855315862970/Home?%3Aembed=y'$u
+u=https://public.tableau.com/views$u
+
+u=`curl -qsL "$u" | awk -F\> 'tolower($1) ~ /^textarea / &&
+$1 ~ / id="tsConfigContainer"/ {
+	for (i = 2; i < NF; i++) printf("%s>", $i)
+	printf("%s", $i); exit
+}' RS=\< | python ./htmldecode | awk -F\" \
+  '$2 == "sessionid" && $3 ~ /:/{ print $4; exit }' RS=,`
+
+case "$u" in
+  *-*:*)
+	;;
+  *)
+	echo "bad session: $u" >&2
+	exit 1
+	;;
+esac
+
+u="$u"'/views/9923946406123244083_6995204609556513128?csv=true&showall=true'
+u=COVIDdashboard_15855315862970/v/Home/vud/sessions/$u
+u=https://public.tableau.com/vizql/w/$u
+
+curl -fsqL "$u" >kane.csv || exit
+file kane.csv
