@@ -1,6 +1,5 @@
 set xdata time
 set timefmt '%Y-%m-%d-%H'
-set grid
 set autoscale fix
 set xtics rangelimited rotate by -55 format '%1m/%1d'
 set xlabel ARG3.' day doubling-time'
@@ -13,8 +12,11 @@ set ylabel ARG2
 #set y2range [*:*] reverse
 set title ARG1
 set y2label 'doubling-time (hours)'
-set y2tics 24
-set my2tics 2
+set y2tics 168
+set logscale y2
+set my2tics 7
+set grid x y2
+
 set terminal dumb
 set output '/dev/null'
 plot \
