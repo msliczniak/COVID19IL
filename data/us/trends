@@ -9,12 +9,27 @@ set logscale y
 set format y '10^{%T}'
 set ylabel ARG2
 #set logscale y2
-#set y2range [*:*] reverse
 set title ARG1
-set y2label 'doubling-time (hours)'
-set y2tics 168
+set y2label 'doubling-time (days)'
+
 set logscale y2
-set my2tics 7
+
+set y2tics ( \
+'1' 24 0, \
+'2' 48 0, \
+'3' 72 0, \
+'4' 96 0, \
+'5' 120 1, \
+'6' 144 1, \
+'7' 168 0, \
+'14' 336 0, \
+'30' 720 0, \
+'91' 2184 0, \
+'365' 8760 0, \
+'1461' 35064 0, \
+'4383' 105192 0, \
+)
+
 set grid x y2
 
 set terminal dumb
