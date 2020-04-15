@@ -75,8 +75,8 @@ trend() {
 }
 
 # doubling-time in hours
-dhrs() {
-	awk 'BEGIN { d = log(2) * 24 } { print $1, d/log($2) }' "$@"
+dday() {
+	awk 'BEGIN { d = log(2) } { print $1, d/log($2) }' "$@"
 }
 
 predict() {
@@ -127,8 +127,8 @@ la='|lubuskie|małopolskie|podkarpackie'
 for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
   'pomorskie|zachodniopomorskie|kujawsko-pomorskie|warmińsko-mazurskiei' \
   'łódzkie|wielkopolskie|dolnośląskie|opolskie|śląskie'"$la" ; do
-	ab="'green'"
-	be="'red'"
+	ab=red
+	be=green
 	for rs in 'liczba' 'liczba zgonów'; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
@@ -136,15 +136,15 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		./totals select="$co" result="$rs" "$@" >tot
 		awk '$2 != t { print NR "-" $1 $2; t = $2 }' tot >total
 		trend 5 total >5t
-		dhrs 5t >5
-		trend 10 total | dhrs >10
-		trend 15 total | dhrs >15
+		dday 5t >5
+		trend 10 total | dday >10
+		trend 15 total | dday >15
 		awk "$TVM" RS= total >tvm
 		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
-		dhrs tvm >dhrs
+		dday tvm >dday
 		awk -F- "$FOO" total >tot
 		ta=`awk 'END { print $2 }' tot`
-		ca=`awk 'END { printf("%.2f", $2/24) }' dhrs`
+		ca=`awk 'END { printf("%.1f", $2) }' dday`
 		predict tot tvm >pred
 		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
 		  paste tot - | # skip early point(s)
@@ -176,26 +176,28 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 					print $1 i, t } }' r="$r" ftot
 		done
 
-		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dhrs >fdhrs
-		p=`tail -2 fdhrs | trend 2 | awk '{ print $2 }'` || exit
-		awk -F- "$FOO" fdhrs >dhrs
-		awk 'NR != 1 { print $0, d } { d = $2 }' dhrs >fdhrs
+		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dday >fdday
+		p=`tail -2 fdday | trend 2 | awk '{ print $2 }'` || exit
+		awk -F- "$FOO" fdday >dday
+		awk 'NR != 1 { print $0, d } { d = $2 }' dday >fdday
 		awk 'END { t = $2
 		for (i = -24; i >= -96; i -= 24) {
 			t *= p
-			print $1 i, t, $2 } }' p="$p" fdhrs >xdhrs
+			print $1 i, t, $2 } }' p="$p" fdday >xdday
 		awk '{
 			printf("%s %s %.1f\\n%.1f_%%\n",
 			  $1, $2, $2, p * 100 - 100)
 			exit
-		}' p=$p xdhrs >xl
+		}' p=$p xdday >xl
 		awk '{ print $0, $2; exit }' tot >ol
 		i=`tail -3 tot | awk '{ print $2; exit }'`
 		tail -3 5t | awk '{ print $1, t
 			for (i = -24; i >= -96; i -= 24) {
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
 
-		gnuplot -c trends "$da $la $pa" "$rs = $ta" "$ca" "$ab" "$be"
-		/bin/mv a.png "$co"-"$rs".png || exit
+		ta="$ta ="
+		/bin/rm -f a.png "$co"-"$rs".png || exit
+		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca" "$ab" "$be" && \
+		  { /bin/mv a.png "$co"-"$rs".png || exit; }
 	done
 done

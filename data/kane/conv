@@ -1,0 +1,32 @@
+#!/bin/sh
+
+ic() {
+	/usr/bin/iconv -c -t utf-8 -f "$1"
+}
+
+sed() {
+	/usr/bin/sed "$@"
+}
+
+tr() {
+	/usr/bin/tr "$@"
+}
+
+enc() {
+	/usr/bin/file -b --mime-encoding "$@"
+}
+
+utf8() {
+	c=`enc "$1"` || exit
+	case "$c" in
+	  [Uu][Tt][Ff]-16* | [Uu][Tt][Ff]16*)
+		# sometimes it's utf16le tsv
+		<"$1" ic "$c" | tr \	 ,
+		;;
+	  *)
+		<"$1" ic "$c"
+		;;
+	esac
+}
+
+utf8 "$1" | tr -s \\r \\n | sed 's/﻿//g'

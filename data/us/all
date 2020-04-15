@@ -6,7 +6,7 @@ curl -sfLO https://covidtracking.com/api/v1/states/daily.csv || exit
 for i in `awk -F, 'NR == 1 { next } { print $2 }' daily.csv | sort | uniq`; do
 	./gen "$i" || continue
 	./run $i 20*-"$i".csv
-	convert "$i"-positive.png "$i"-death.png \
-	  "$i"-totalTestResults.png "$i"-hospitalized.png \
+	convert "$i"-cases.png "$i"-deaths.png \
+	  "$i"-tested.png "$i"-hospitalized.png \
 	   -append ../../plots/us/"$i".png
 done

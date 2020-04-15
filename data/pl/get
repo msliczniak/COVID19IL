@@ -1,6 +1,6 @@
 #!/bin/sh
 
-o=`/bin/date -ju '+%Y-%m-%d-%H:%M:%S-UTC'` || exit
+o=`/bin/date -j '+%Y-%m-%d-%H:%M:%S-%Z'` || exit
 u=https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2
 
 curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o".html || exit

@@ -3,7 +3,7 @@
 #http://dph.illinois.gov/sites/default/files/COVID19/il_illinois_zip_codes.json
 #http://dph.illinois.gov/sites/default/files/Illinois_County_Geo_ch.json
 
-o=`/bin/date -j '+%Y %m %d %H:%M:%S-UTC'` || exit
+o=`/bin/date -j '+%Y %m %d %H:%M:%S-%Z'` || exit
 set -- $o
 o=-"$1"-"$2"-"$3"-"$4".json
 
