@@ -1,0 +1,1 @@
+for i in full.csv; do o=`stat -f%Sm -t%Y-%m-%d-%H:%M:%S-%Z "$i"` || break; ./conv "$i" >e0/kane-"$o".csv; done

@@ -1,0 +1,2 @@
+https://coronadatascraper.com/timeseries.json
+https://coronadatascraper.com/timeseries-byLocation.json

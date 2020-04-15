@@ -1,0 +1,359 @@
+Age Range,Age,Case Count,City,Death,F15,F16,F17,F18,F19,F20,Reported Date,Sex,State,Symptom Onset
+70-79,70,1,Geneva,,,,,,,Coronavirus Novel 2019,3/10/2020,Female,Illinois,2/13/2020
+70-79,73,1,Geneva,,,,,,,Coronavirus Novel 2019,3/12/2020,Male,Illinois,3/6/2020
+60-69,67,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/13/2020,Male,Illinois,3/3/2020
+50-59,51,1,South Elgin,,,,,,,Coronavirus Novel 2019,3/17/2020,Male,Illinois,3/7/2020
+60-69,69,1,Elgin,,,,,,,Coronavirus Novel 2019,3/18/2020,Male,Illinois,3/14/2020
+50-59,52,1,Aurora,,,,,,,Coronavirus Novel 2019,3/18/2020,Female,Illinois,3/7/2020
+0-9,3,1,Elgin,,,,,,,Coronavirus Novel 2019,3/18/2020,Male,Illinois,2/12/2020
+70-79,78,1,Huntley,,,,,,,Coronavirus Novel 2019,3/19/2020,Male,Illinois,3/6/2020
+50-59,59,1,Elgin,,,,,,,Coronavirus Novel 2019,3/19/2020,Female,Illinois,3/14/2020
+50-59,57,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/20/2020,Female,Illinois,3/14/2020
+90+,97,1,Aurora,1,,,,,,Coronavirus Novel 2019,3/20/2020,Male,Illinois,3/10/2020
+40-49,49,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/20/2020,Female,Illinois,3/15/2020
+50-59,56,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/21/2020,Male,Illinois,3/9/2020
+50-59,54,1,Carpentersville,,,,,,,Coronavirus Novel 2019,3/21/2020,Male,Illinois,3/18/2020
+50-59,55,1,Dundee,,,,,,,Coronavirus Novel 2019,3/21/2020,Male,Illinois,3/18/2020
+40-49,40,1,Elgin,,,,,,,Coronavirus Novel 2019,3/21/2020,Female,Illinois,3/17/2020
+40-49,47,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/22/2020,Female,Illinois,3/17/2020
+20-29,22,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/22/2020,Female,Illinois,3/16/2020
+50-59,51,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/23/2020,Male,Illinois,3/11/2020
+20-29,26,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/23/2020,Male,Illinois,3/18/2020
+20-29,23,1,Batavia,,,,,,,Coronavirus Novel 2019,3/23/2020,Male,Illinois,3/12/2020
+70-79,74,1,North Aurora,,,,,,,Coronavirus Novel 2019,3/23/2020,Male,Illinois,3/15/2020
+30-39,32,1,Batavia,,,,,,,Coronavirus Novel 2019,3/23/2020,Male,Illinois,3/15/2020
+60-69,62,1,Aurora,,,,,,,Coronavirus Novel 2019,3/23/2020,Female,Illinois,3/16/2020
+70-79,78,1,Aurora,1,,,,,,Coronavirus Novel 2019,3/23/2020,Male,Illinois,3/13/2020
+40-49,49,1,Aurora,,,,,,,Coronavirus Novel 2019,3/23/2020,Female,Illinois,3/13/2020
+50-59,53,1,Carpentersville,,,,,,,Coronavirus Novel 2019,3/23/2020,Female,Illinois,3/16/2020
+30-39,34,1,Batavia,,,,,,,Coronavirus Novel 2019,3/23/2020,Female,Illinois,3/14/2020
+70-79,77,1,Sleepy Hollow,,,,,,,Coronavirus Novel 2019,3/24/2020,Female,Illinois,3/13/2020
+60-69,62,1,Elgin,,,,,,,Coronavirus Novel 2019,3/24/2020,Female,Illinois,3/16/2020
+50-59,59,1,Aurora,,,,,,,Coronavirus Novel 2019,3/24/2020,Female,Illinois,3/19/2020
+50-59,53,1,Elgin,,,,,,,Coronavirus Novel 2019,3/24/2020,Male,Illinois,3/14/2020
+90+,92,1,Elgin,1,,,,,,Coronavirus Novel 2019,3/24/2020,Male,Illinois,3/14/2020
+40-49,47,1,Elgin,,,,,,,Coronavirus Novel 2019,3/24/2020,Male,Illinois,3/10/2020
+80-89,80,1,Sugar Grove,1,,,,,,Coronavirus Novel 2019,3/24/2020,Male,Illinois,3/18/2020
+50-59,54,1,Aurora,,,,,,,Coronavirus Novel 2019,3/24/2020,Male,Illinois,3/18/2020
+50-59,51,1,South Elgin,,,,,,,Coronavirus Novel 2019,3/24/2020,Female,Illinois,3/19/2020
+50-59,54,1,Geneva,,,,,,,Coronavirus Novel 2019,3/24/2020,Female,Illinois,3/18/2020
+80-89,88,1,Huntley,1,,,,,,Coronavirus Novel 2019,3/24/2020,Male,Illinois,3/14/2020
+20-29,28,1,Aurora,,,,,,,Coronavirus Novel 2019,3/24/2020,Female,Illinois,3/17/2020
+50-59,58,1,Elgin,,,,,,,Coronavirus Novel 2019,3/24/2020,Male,Illinois,3/18/2020
+40-49,40,1,Elgin,,,,,,,Coronavirus Novel 2019,3/24/2020,Female,Illinois,3/18/2020
+40-49,49,1,Aurora,,,,,,,Coronavirus Novel 2019,3/25/2020,Male,Illinois,3/18/2020
+40-49,45,1,South Elgin,,,,,,,Coronavirus Novel 2019,3/25/2020,Male,Illinois,3/22/2020
+50-59,50,1,Sugar Grove,,,,,,,Coronavirus Novel 2019,3/25/2020,Female,Illinois,3/20/2020
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,3/25/2020,Male,Illinois,3/15/2020
+60-69,63,1,Elgin,,,,,,,Coronavirus Novel 2019,3/25/2020,Female,Illinois,3/21/2020
+80-89,81,1,Elgin,,,,,,,Coronavirus Novel 2019,3/25/2020,Male,Illinois,3/23/2020
+50-59,55,1,Elgin,,,,,,,Coronavirus Novel 2019,3/25/2020,Male,Illinois,3/1/2020
+40-49,47,1,Elgin,,,,,,,Coronavirus Novel 2019,3/25/2020,Male,Illinois,3/14/2020
+20-29,24,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/25/2020,Male,Illinois,3/21/2020
+70-79,74,1,Aurora,1,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/17/2020
+40-49,40,1,Elgin,1,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/23/2020
+20-29,21,1,Elgin,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/24/2020
+20-29,27,1,Maple Park,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/20/2020
+50-59,50,1,Carpentersville,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/23/2020
+30-39,35,1,North Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/19/2020
+40-49,43,1,Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/11/2020
+70-79,71,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/22/2020
+20-29,25,1,Geneva,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/11/2020
+40-49,48,1,North Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/21/2020
+40-49,46,1,Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/15/2020
+40-49,48,1,Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/18/2020
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/18/2020
+70-79,71,1,Elgin,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/15/2020
+60-69,68,1,Huntley,1,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/19/2020
+90+,96,1,Aurora,1,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/21/2020
+80-89,83,1,Aurora,1,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/30/2020
+20-29,21,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/13/2020
+50-59,59,1,Elburn,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/19/2020
+20-29,26,1,Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/17/2020
+50-59,54,1,Geneva,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/23/2020
+30-39,33,1,North Aurora,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/18/2020
+40-49,44,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/21/2020
+70-79,71,1,Elgin,1,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/20/2020
+30-39,34,1,Pingree Grove,,,,,,,Coronavirus Novel 2019,3/26/2020,Female,Illinois,3/16/2020
+50-59,50,1,Elgin,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,
+50-59,55,1,East Dundee,,,,,,,Coronavirus Novel 2019,3/26/2020,Male,Illinois,3/25/2020
+60-69,66,1,Elgin,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/16/2020
+50-59,57,1,Montgomery,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/23/2020
+50-59,57,1,Aurora,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/14/2020
+60-69,64,1,Aurora,,,,,,,Coronavirus Novel 2019,3/27/2020,Female,Illinois,3/21/2020
+80-89,84,1,Gilberts,,,,,,,Coronavirus Novel 2019,3/27/2020,Female,Illinois,3/18/2020
+70-79,74,1,Elgin,1,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/16/2020
+20-29,21,1,Aurora,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/16/2020
+30-39,30,1,Aurora,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/18/2020
+50-59,56,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/18/2020
+60-69,61,1,Geneva,1,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/21/2020
+50-59,53,1,Aurora,,,,,,,Coronavirus Novel 2019,3/27/2020,Female,Illinois,3/9/2020
+40-49,41,1,Geneva,,,,,,,Coronavirus Novel 2019,3/27/2020,Female,Illinois,3/22/2020
+40-49,41,1,Algonquin,,,,,,,Coronavirus Novel 2019,3/27/2020,Female,Illinois,3/24/2020
+50-59,59,1,Aurora,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/16/2020
+40-49,49,1,Elgin,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,
+60-69,62,1,Dundee,,,,,,,Coronavirus Novel 2019,3/27/2020,Male,Illinois,3/22/2020
+40-49,44,1,North Aurora,,,,,,,Coronavirus Novel 2019,3/28/2020,Male,Illinois,3/20/2020
+40-49,48,1,South Elgin,,,,,,,Coronavirus Novel 2019,3/28/2020,Female,Illinois,3/25/2020
+50-59,57,1,Algonquin,,,,,,,Coronavirus Novel 2019,3/28/2020,Male,Illinois,3/18/2020
+20-29,29,1,Gilberts,,,,,,,Coronavirus Novel 2019,3/28/2020,Female,Illinois,3/21/2020
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,3/28/2020,Female,Illinois,3/25/2020
+40-49,43,1,Pingree Grove,,,,,,,Coronavirus Novel 2019,3/28/2020,Female,Illinois,3/24/2020
+50-59,55,1,Pingree Grove,,,,,,,Coronavirus Novel 2019,3/29/2020,Female,Illinois,3/18/2020
+50-59,58,1,Chicago,,,,,,,Coronavirus Novel 2019,3/29/2020,Female,Illinois,3/18/2020
+60-69,67,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/29/2020,Male,Illinois,3/13/2020
+40-49,49,1,South Elgin,,,,,,,Coronavirus Novel 2019,3/29/2020,Female,Illinois,3/25/2020
+80-89,82,1,South Elgin,,,,,,,Coronavirus Novel 2019,3/29/2020,Male,Illinois,3/9/2020
+20-29,20,1,Hampshire,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/20/2020
+70-79,78,1,Elgin,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/26/2020
+60-69,61,1,Elgin,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/19/2020
+90+,91,1,Elgin,1,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/19/2020
+90+,92,1,Aurora,1,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/19/2020
+20-29,22,1,Geneva,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/18/2020
+50-59,59,1,Geneva,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,3/21/2020
+50-59,57,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,3/18/2020
+30-39,33,1,Gilberts,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,3/19/2020
+40-49,48,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/11/2020
+50-59,50,1,Geneva,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/18/2020
+40-49,45,1,Elburn,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,3/17/2020
+40-49,48,1,Batavia,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,3/12/2020
+50-59,59,1,Aurora,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,
+40-49,42,1,Aurora,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,3/27/2020
+30-39,32,1,Batavia,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/27/2020
+30-39,37,1,Sugar Grove,,,,,,,Coronavirus Novel 2019,3/30/2020,Male,Illinois,3/28/2020
+20-29,28,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/30/2020,Female,Illinois,3/19/2020
+30-39,32,1,Oswego,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/27/2020
+70-79,77,1,Sugar Grove,1,,,,,,Coronavirus Novel 2019,3/31/2020,Female,Illinois,3/16/2020
+70-79,74,1,Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,
+90+,94,1,Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/20/2020
+50-59,59,1,Elgin,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/16/2020
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/20/2020
+40-49,49,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/14/2020
+50-59,51,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/22/2020
+40-49,42,1,St. Charles,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,
+30-39,34,1,Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Female,Illinois,
+20-29,27,1,Pingree Grove,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/23/2020
+60-69,60,1,Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/16/2020
+20-29,26,1,North Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,
+60-69,68,1,Elgin,,,,,,,Coronavirus Novel 2019,3/31/2020,Female,Illinois,3/23/2020
+50-59,54,1,Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Male,Illinois,3/21/2020
+50-59,58,1,Elgin,,,,,,,Coronavirus Novel 2019,3/31/2020,Female,Illinois,
+40-49,40,1,Aurora,,,,,,,Coronavirus Novel 2019,3/31/2020,Female,Illinois,
+40-49,47,1,Aurora,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/22/2020
+90+,95,1,Aurora,1,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/20/2020
+70-79,70,1,Montgomery,1,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,3/22/2020
+50-59,51,1,Aurora,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/23/2020
+60-69,61,1,South Elgin,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/20/2020
+50-59,56,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,3/21/2020
+50-59,58,1,Aurora,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/18/2020
+50-59,54,1,Aurora,,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,3/16/2020
+50-59,50,1,Algonquin,,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,3/25/2020
+40-49,49,1,Algonquin,,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,3/19/2020
+30-39,38,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,3/20/2020
+30-39,34,1,Aurora,,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,3/18/2020
+50-59,56,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/25/2020
+50-59,55,1,Hampshire,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/28/2020
+20-29,25,1,Elgin,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/24/2020
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,4/1/2020,Male,Illinois,
+40-49,45,1,Aurora,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/24/2020
+60-69,62,1,Elgin,1,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/22/2020
+30-39,33,1,Elgin,,,,,,,Coronavirus Novel 2019,4/1/2020,Female,Illinois,3/16/2020
+30-39,32,1,Hampshire,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,3/19/2020
+50-59,52,1,Gilberts,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,3/16/2020
+50-59,50,1,Gilberts,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/23/2020
+90+,90,1,Elgin,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/19/2020
+50-59,59,1,Elgin,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,3/25/2020
+30-39,34,1,Elgin,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/26/2020
+60-69,60,1,Elgin,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,4/1/2020
+70-79,73,1,Sugar Grove,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/23/2020
+60-69,64,1,Dundee,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,3/4/2020
+30-39,32,1,Hampshire,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,3/23/2020
+30-39,32,1,Elgin,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/27/2020
+50-59,58,1,Elgin,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,3/22/2020
+60-69,69,1,Elgin,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,
+50-59,51,1,Aurora,,,,,,,Coronavirus Novel 2019,4/2/2020,Male,Illinois,3/22/2020
+20-29,26,1,Aurora,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/24/2020
+20-29,20,1,Aurora,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/28/2020
+30-39,37,1,Algonquin,,,,,,,Coronavirus Novel 2019,4/2/2020,Female,Illinois,3/29/2020
+40-49,45,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,4/3/2020
+30-39,39,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,3/25/2020
+30-39,33,1,North Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/23/2020
+30-39,33,1,Pingree Grove,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/23/2020
+60-69,63,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,
+30-39,34,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,3/15/2020
+20-29,24,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,
+40-49,46,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,
+50-59,52,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/30/2020
+50-59,58,1,Sugar Grove,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,
+40-49,43,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,3/19/2020
+60-69,64,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,3/16/2020
+50-59,53,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/26/2020
+80-89,86,1,Aurora,1,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/23/2020
+70-79,74,1,North Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/23/2020
+30-39,31,1,Geneva,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/19/2020
+40-49,48,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,3/21/2020
+40-49,48,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,3/18/2020
+30-39,38,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/17/2020
+40-49,41,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,
+50-59,54,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,
+20-29,27,1,Batavia,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,3/21/2020
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,3/31/2020
+80-89,89,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,
+20-29,23,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/3/2020,Female,Illinois,
+20-29,23,1,Elgin,,,,,,,Coronavirus Novel 2019,4/3/2020,Male,Illinois,4/1/2020
+50-59,55,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/26/2020
+40-49,47,1,Aurora,,,,,,,Coronavirus Novel 2019,4/4/2020,Female,Illinois,3/15/2020
+40-49,46,1,Geneva,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/19/2020
+40-49,49,1,Aurora,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,4/4/2020,Female,Illinois,
+30-39,32,1,West Dundee,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,
+70-79,77,1,Sugar Grove,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/24/2020
+50-59,51,1,West Dundee,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/20/2020
+30-39,36,1,Algonquin,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/27/2020
+40-49,44,1,Aurora,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/29/2020
+60-69,69,1,Hampshire,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,
+40-49,47,1,Elgin,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,
+40-49,48,1,Aurora,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/20/2020
+50-59,50,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/22/2020
+50-59,52,1,Gilberts,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/27/2020
+30-39,34,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/4/2020,Female,Illinois,3/21/2020
+60-69,60,1,Huntley,,,,,,,Coronavirus Novel 2019,4/4/2020,Female,Illinois,3/23/2020
+100,102,1,Elgin,,,,,,,Coronavirus Novel 2019,4/4/2020,Male,Illinois,3/27/2020
+30-39,30,1,Geneva,,,,,,,Coronavirus Novel 2019,4/4/2020,Female,Illinois,3/16/2020
+50-59,50,1,Elgin,,,,,,,Coronavirus Novel 2019,4/4/2020,Female,Illinois,3/25/2020
+90+,91,1,Aurora,,,,,,,Coronavirus Novel 2019,4/5/2020,Female,Illinois,3/25/2020
+50-59,51,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/5/2020,Female,Illinois,3/27/2020
+40-49,47,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/5/2020,Female,Illinois,
+50-59,52,1,Elgin,,,,,,,Coronavirus Novel 2019,4/5/2020,Male,Illinois,
+60-69,64,1,South Elgin,,,,,,,Coronavirus Novel 2019,4/5/2020,Male,Illinois,
+60-69,61,1,Aurora,,,,,,,Coronavirus Novel 2019,4/5/2020,Female,Illinois,3/31/2020
+30-39,34,1,Algonquin,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,3/19/2020
+50-59,58,1,Algonquin,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,3/23/2020
+50-59,58,1,Elgin,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,3/26/2020
+80-89,80,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,
+50-59,52,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,
+80-89,83,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,3/28/2020
+70-79,74,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,
+50-59,55,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,4/3/2020
+30-39,31,1,Dundee,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,
+50-59,55,1,Elgin,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,
+50-59,59,1,Gilberts,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,
+40-49,44,1,Maple Park,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,3/28/2020
+40-49,46,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,
+70-79,76,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,
+40-49,45,1,Batavia,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,3/22/2020
+40-49,41,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,3/26/2020
+30-39,39,1,North Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,3/27/2020
+50-59,50,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,
+20-29,23,1,Aurora,,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,3/26/2020
+40-49,48,1,Elgin,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,
+90+,91,1,Elgin,1,,,,,,Coronavirus Novel 2019,4/6/2020,Female,Illinois,
+60-69,65,1,South Elgin,,,,,,,Coronavirus Novel 2019,4/6/2020,Male,Illinois,3/29/2020
+50-59,54,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+50-59,57,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,4/1/2020
+40-49,46,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,3/23/2020
+30-39,34,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,3/26/2020
+60-69,61,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,4/1/2020
+50-59,58,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,3/27/2020
+30-39,33,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,3/27/2020
+40-49,47,1,Elburn,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,4/2/2020
+50-59,51,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,
+30-39,37,1,Elgin,1,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,
+40-49,41,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,3/18/2020
+30-39,38,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,3/30/2020
+30-39,35,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,
+80-89,81,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,
+20-29,24,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,
+20-29,25,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+60-69,67,1,South Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,4/2/2020
+20-29,24,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,3/25/2020
+30-39,39,1,,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+20-29,23,1,Elgin,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,
+60-69,61,1,North Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+20-29,28,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,4/1/2020
+60-69,68,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,
+50-59,54,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+20-29,27,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,4/3/2020
+20-29,25,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+60-69,63,1,North Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Female,Illinois,4/1/2020
+50-59,59,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+70-79,76,1,Aurora,,,,,,,Coronavirus Novel 2019,4/7/2020,Male,Illinois,
+70-79,71,1,Elgin,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,4/3/2020
+70-79,78,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+20-29,21,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,3/28/2020
+70-79,71,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+50-59,53,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+50-59,51,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+30-39,35,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+30-39,37,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,4/6/2020
+60-69,66,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+70-79,74,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,4/2/2020
+50-59,53,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,4/7/2020
+60-69,68,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+40-49,42,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,3/30/2020
+50-59,51,1,North Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+60-69,62,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+80-89,88,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,
+70-79,77,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,4/1/2020
+70-79,77,1,Elgin,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,4/6/2020
+20-29,21,1,St. Charles,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,
+70-79,71,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+20-29,22,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,
+60-69,61,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+40-49,42,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,4/6/2020
+60-69,67,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+20-29,23,1,West Dundee,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,4/5/2020
+40-49,44,1,Elgin,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+20-29,27,1,Aurora,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+50-59,59,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/8/2020,Male,Illinois,
+60-69,60,1,Elgin,,,,,,,Coronavirus Novel 2019,4/8/2020,Female,Illinois,
+80-89,86,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+50-59,57,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+40-49,47,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+80-89,85,1,North Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+20-29,28,1,Elburn,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+60-69,63,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/9/2020,Male,Illinois,
+40-49,42,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Male,Illinois,
+30-39,35,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+20-29,22,1,Montgomery,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,3/23/2020
+40-49,48,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/9/2020,Male,Illinois,
+60-69,68,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+60-69,65,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Male,Illinois,
+20-29,22,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Male,Illinois,
+40-49,49,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Male,Illinois,
+90+,95,1,Hampshire,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+40-49,45,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+60-69,61,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Female,Illinois,
+40-49,47,1,Aurora,,,,,,,Coronavirus Novel 2019,4/9/2020,Male,Illinois,
+30-39,34,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+40-49,41,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+40-49,49,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+20-29,22,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+80-89,84,1,Elgin,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+30-39,30,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+60-69,64,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+60-69,65,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+40-49,43,1,Elburn,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+30-39,35,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+60-69,62,1,Dundee,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+50-59,58,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+20-29,26,1,Elgin,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+20-29,28,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+30-39,34,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+50-59,53,1,Elgin,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+40-49,46,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+30-39,34,1,Montgomery,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+30-39,34,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+30-39,33,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+20-29,21,1,Elgin,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+40-49,43,1,Elgin,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+50-59,57,1,Montgomery,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+30-39,30,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+70-79,74,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+70-79,72,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+80-89,88,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+50-59,53,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+40-49,44,1,Aurora,,,,,,,Coronavirus Novel 2019,4/10/2020,Male,Illinois,
+60-69,60,1,Gilberts,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+20-29,28,1,Carpentersville,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
+50-59,59,1,Pingree Grove,,,,,,,Coronavirus Novel 2019,4/10/2020,Female,Illinois,
