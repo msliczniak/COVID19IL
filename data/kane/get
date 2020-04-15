@@ -1,11 +1,14 @@
 #!/bin/sh
 
-# HTTP 410 now
-exit 2
-
 # https://www.kanehealth.com/
 # profile/louise2101#!/vizhome/COVIDdashboard_15855315862970/Home
 # https://public.tableau.com
+
+o=`/bin/date -j '+%Y %m %d %H:%M:%S-%Z'` || exit
+set -- $o
+
+u=kane
+o="$u"-"$1"-"$2"-"$3"-"$1"-"$2"-"$3"-"$4".csv
 
 awk() {
 	/usr/bin/awk "$@"
@@ -16,7 +19,7 @@ u='&%3AshowVizHome=no&%3Adisplay_count=y&%3Adisplay_static_image=y'$u
 u='/COVIDdashboard_15855315862970/Home?%3Aembed=y'$u
 u=https://public.tableau.com/views$u
 
-u=`curl -qsL "$u" | awk -F\> 'tolower($1) ~ /^textarea / &&
+u=`curl -qsL -- "$u" | awk -F\> 'tolower($1) ~ /^textarea / &&
 $1 ~ / id="tsConfigContainer"/ {
 	for (i = 2; i < NF; i++) printf("%s>", $i)
 	printf("%s", $i); exit
@@ -32,9 +35,71 @@ case "$u" in
 	;;
 esac
 
-u="$u"'/views/9923946406123244083_6995204609556513128?csv=true&showall=true'
+s="$u"
+
+# https://public.tableau.com/vizql/w/COVIDdashboard_15855315862970
+# /v/Home/sessions/78CA79EB9041436D9CC30364056A11D2-0:0/commands/tabsrv/
+# ensure-layout-for-sheet
+
+# both are UTF16LE now
+# 9923946406123244083_15952188591581136529 Sheet_1_data
+# 363095685422868605_17412751054064700973 Confirmed_Cases_by_Municipality_data
+
+# Confirmed_Cases_by_Municipality_data has missing entries as of4/14
+# < 30-39,32,1,Oswego,,3/31/2020,Male,Illinois,3/27/2020
+# < 30-39,32,1,West Dundee,,4/4/2020,Male,Illinois,3/29/2020
+# < 50-59,51,1,West Dundee,,4/4/2020,Male,Illinois,3/20/2020
+# < 30-39,39,1,,,4/7/2020,Male,Illinois,
+# < 70-79,74,1,Sycamore,,4/7/2020,Male,Illinois,4/1/2020
+# < 20-29,23,1,West Dundee,,4/8/2020,Male,Illinois,4/5/2020
+# < 50-59,55,1,,,4/14/2020,Unknown,Illinois,
+
+# "Confirmed Cases by Date Reported to Kane County Health Department" has all
+# the entries and is CSV UTF8, so use that
+
+# if it ever changes, layoutID is in:
+#
+# https://public.tableau.com/vizql/w/COVIDdashboard_15855315862970/v/Home
+#  /bootstrapSession/sessions/$s
+#
+# https://public.tableau.com/vizql/w/COVIDdashboard_15855315862970/v/Home
+#  /sessions/$u
+#  /commands/tabsrv/ensure-layout-for-sheet
+
+# tickle the server (HTTP HEAD not supported by server)
+u=/bootstrapSession/sessions/$s
+u=https://public.tableau.com/vizql/w/COVIDdashboard_15855315862970/v/Home$u
+curl -fsqLo /dev/null --data 'sheet_id=Home' -- "$u" || exit
+
+# "viewIds": {
+#   "Confirmed Case Count by Age Range": 
+#     "9923946406123244083_12930132051924820113"
+# 
+#   "Confirmed Case Count by Gender":
+#     "9923946406123244083_6995204609556513128"
+# 
+#   "Confirmed Cases by Date Reported to Kane County Health Department":
+#     "9923946406123244083_15135874788146684670"
+# 
+#   "Confirmed Cases by Municipality":
+#     "9923946406123244083_17412751054064700973"
+# 
+#   "Kane County Coronavirus Disease (COVID-19) Cases":
+#     "9923946406123244083_7724882319176448011"
+# 
+#   "Sheet 1":
+#     "9923946406123244083_15952188591581136529"
+# }
+
+# get the data
+#u="$s"'/views/9923946406123244083_15952188591581136529?csv=true&showall=true'
+u="$s"'/views/9923946406123244083_15135874788146684670?csv=true&showall=true'
 u=COVIDdashboard_15855315862970/v/Home/vud/sessions/$u
 u=https://public.tableau.com/vizql/w/$u
+curl -fsqLo daily -w 'status: %{http_code}\n' -- "$u" || exit
 
-curl -fsqL "$u" >kane.csv || exit
-file kane.csv
+./conv daily >"$o"
+/usr/bin/file -b -- "$o"
+echo "add $o"
+
+exit

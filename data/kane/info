@@ -1,0 +1,36 @@
+#!/bin/sh
+
+awk() {
+	/usr/bin/awk "$@"
+}
+
+sort() {
+	/usr/bin/sort "$@"
+}
+
+uniq() {
+	/usr/bin/uniq "$@"
+}
+
+awk -F, 'function which(k, i) {
+	for (i = 1; i <= NF; i++) if ($i == k) return i
+
+	exit 1
+}
+
+NR == 1 {
+	#i = which("Symptom Onset")
+	i = which("Reported Date")
+	j = which("Death")
+	next
+}
+
+{
+	t += $j
+	print $i
+}
+
+END {
+	print "1/c/10000", NR - 1
+	print "0/d/10000", t
+}' "$1" | sort -nrt/ -k3 -k1 -k2 | uniq -c
