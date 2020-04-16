@@ -1,0 +1,52 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+	FS = ","
+	result = "Case Count"
+	select = ".*"
+}
+
+NR == 1 {
+	result = tolower(result)
+
+	if (substr(select, 1, 1) == "-") {
+		select = substr(select, 2)
+		s = 1
+	}
+
+	select = "^(" tolower(select) ")$"
+}
+
+function which(k, i) {
+        for (i = 1; i <= NF; i++) if (tolower($i) == k) return i
+
+        exit 1
+}
+
+
+
+FNR == 1 {
+	if (t > l) {
+		print d, t
+		l = t
+	}
+
+	i = which("city")
+	j = which(result)
+
+	d = index(FILENAME, "-") + 1
+	d = substr(FILENAME, d, 10)
+
+	t = 0
+	next
+}
+
+!s && tolower($i) !~ select { next }
+
+s && tolower($i) ~ select { next }
+
+{ t += $j }
+
+END {
+	print d, t
+}
