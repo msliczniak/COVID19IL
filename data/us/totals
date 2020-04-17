@@ -1,29 +1,60 @@
 #!/usr/bin/awk -f
+
+# reqs: only print cur if bigger than prev and zero but print biggest last
+
 BEGIN {
 	FS = ","
-	FILENAME = "0000-00-00"
 
-	select = "Cała Polska"
-	result = "Liczba"
+	key = "state"
+	result = "positive"
+	select = ".*"
 }
 
 NR == 1 {
-	select = "^(" tolower(select) ")$"
+	key = tolower(key)
 	result = tolower(result)
+
+	if (substr(select, 1, 1) == "!") {
+		select = substr(select, 2)
+		s = 1
+	}
+
+	gsub(/,/, "|", select)
+	select = "^(" tolower(select) ")$"
+}
+
+function which(k, i) {
+        for (i = 1; i <= NF; i++) if (tolower($i) == k) return i
+
+        exit 1
 }
 
 FNR == 1 {
-	if (d != "") print d, t
+	if (t > l) {
+		print d, t
+		l = t
+	}
 
-	for (i = 2; i <= NF; i++) if (tolower($i) == result) break
+	i = which(key)
+	j = which(result)
+
+	# strip-off path
+	d = match(FILENAME, "[^/]*$")
+	d = substr(substr(FILENAME, d), 1)
 
 	# get date
-	d = match(FILENAME, "[^/]*$")
-	d = substr(substr(FILENAME, d), 1, 10)
+	if (d !~ /^[1-9][0-9][0-9][0-9]-/)
+		d = substr(d, index(d, "-") + 1, 10)
+	else
+		d = substr(d, 1, 10)
 
 	t = 0
 }
 
-tolower($2) ~ select { t += $i }
+!s && tolower($i) !~ select { next }
 
-END { if (t != "") print d, t }
+s && tolower($i) ~ select { next }
+
+{ t += $j }
+
+END { if (l > t) t = l; print d, t }

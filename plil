@@ -40,7 +40,10 @@ dhrs() {
 }
 
 ./totals COVID19CountyResults-20*.json >il
-data/pl/totals data/pl/20*.csv >pl
+
+cd data/pl || exit
+./totals 20*.csv >../../pl
+cd ../.. || exit
 
 o=''; p=''; d=''
 for i in il pl; do

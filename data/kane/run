@@ -33,12 +33,6 @@ IFS=-
 da=`foo $la` || exit
 IFS="$co"
 
-# split on |
-foo() {
-	echo $*
-}
-IFS='|'
-
 # r = n[(A/P)^(1/nt) - 1]
 TVM='{
 	i = 1
@@ -76,7 +70,14 @@ trend() {
 
 # doubling-time in hours
 dday() {
-	awk 'BEGIN { d = log(2) } { print $1, d/log($2) }' "$@"
+	awk 'NR == 1 {
+	if ($2 <= 1) {
+		print $1, $2
+		exit
+	}
+
+	d = log(2)
+	} { print $1, d/log($2) }' "$@"
 }
 
 predict() {
@@ -125,11 +126,10 @@ FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
 ab=red
 be=green
-for co in 'Aurora|North Aurora' 'Batavia|Geneva|St. Charles' \
-  'Elgin|South Elgin' \
-  '-(Aurora|North Aurora|Elgin|South Elgin|Batavia|Geneva|St. Charles)'; do
+for co in '!Aurora,North Aurora,Elgin,South Elgin,Batavia,Geneva,St. Charles'\
+  'Aurora,North Aurora' 'Elgin,South Elgin' 'Batavia,Geneva,St. Charles'; do
 	for rs in 'Case Count' Death; do
-		la=`foo $co`
+		la="$co"
 		echo  "$rs $la" >&2
 
 		./totals select="$co" result="$rs" "$@" >tot
@@ -143,7 +143,7 @@ for co in 'Aurora|North Aurora' 'Batavia|Geneva|St. Charles' \
 			;;
 		esac
 
-		awk '$2 != t { print NR "-" $1 $2; t = $2 }' tot >total
+		awk '{ print NR "-" $1 $2; t = $2 }' tot >total
 		trend 5 total >5t
 		dday 5t >5
 		trend 10 total | dday >10
@@ -157,7 +157,7 @@ for co in 'Aurora|North Aurora' 'Batavia|Geneva|St. Charles' \
 		predict tot tvm >pred
 		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
 		  paste tot - | # skip early point(s)
-		  awk 'NF == 2 { next } { print }' >ftot
+		  awk 'NF == 2 { print $0, $2; next } { print }' >ftot
 		labels tot tvm >labels
 
 		# %chg for the last day
@@ -188,7 +188,7 @@ for co in 'Aurora|North Aurora' 'Batavia|Geneva|St. Charles' \
 		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dday >fdday
 		p=`tail -2 fdday | trend 2 | awk '{ print $2 }'` || exit
 		awk -F- "$FOO" fdday >dday
-		awk 'NR != 1 { print $0, d } { d = $2 }' dday >fdday
+		awk 'NR == 1 { d = $2 } { print $0, d; d = $2 }' dday >fdday
 		awk 'END { t = $2
 		for (i = -24; i >= -96; i -= 24) {
 			t *= p
@@ -206,10 +206,9 @@ for co in 'Aurora|North Aurora' 'Batavia|Geneva|St. Charles' \
 
 		/bin/rm -f a.png "$co"-"$rs".png || exit
 		gnuplot -c ../../trends "$da $la $pa" "$ta $rs" "$ca" \
-		  "$ab" "$be" && \
-		  { /bin/mv a.png "$co"-"$rs".png || exit; }
+		  "$ab" "$be" || exit
+		/bin/mv a.png "$co"-"$rs".png || exit
+
+		#exit
 	done
 done
-
-# so far only one death so no plot generated
-/usr/bin/file 'Batavia|Geneva|St. Charles-deaths.png'

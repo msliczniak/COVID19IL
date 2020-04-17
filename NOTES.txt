@@ -17,3 +17,11 @@ $ ./get
 $ ./run kane-20*.csv
 $ mv -- *-*.png ../../plots/kane/
 $ cd ../..
+
+$ cd data/us
+$ ./all
+$ cd ../..
+
+$ cd data/idph
+$ ./get
+$ cd ../..
