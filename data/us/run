@@ -219,9 +219,11 @@ for co in "$st"; do
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
 
 		/bin/rm -f a.png "$co"-"$rs".png || exit
-		gnuplot -c ../../trends "$da $la $pa" "$ta $rs" "$ca" \
-		  "$ab" "$be" && { /bin/mv a.png "$co"-"$rs".png || exit; }
-		  
+		gnuplot ../../l.gp -c ../../trends\
+		  "$da $la $pa" "$ta $rs" "$ca"\
+		  "$ab" "$be" && \
+		{ /bin/mv a.png "$co"-"$rs".png || exit; }
+
 		#exit
 	done
 done

@@ -203,8 +203,10 @@ for co in Illinois Kane 'Chicago|Cook' \
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
 
 		/bin/rm -f a.png "$co"-"$rs".png || exit
-		gnuplot -c trends "$da $la $pa" "$ta $rs" "$ca" "$ab" "$be" && \
-		  { /bin/mv a.png "$co"-"$rs".png || exit; }
+		gnuplot l.gp -c trends\
+		  "$da $la $pa" "$ta $rs" "$ca"\
+		  "$ab" "$be" && \
+		{ /bin/mv a.png "$co"-"$rs".png || exit; }
 
 		# no tested totals per county
 		case "$co"-"$rs" in
