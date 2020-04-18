@@ -7,9 +7,14 @@ curl -sfLO https://covidtracking.com/api/v1/states/daily.csv || exit
 for i in .. `awk -F, 'NR == 1 { next } { print $2 }' daily.csv | sort | uniq`
 do
 	./run $i 20*-US.csv
+
+	case "$i" in
+	  ..)
+		i=US
+		;;
+	esac
+
 	convert "$i"-cases.png "$i"-deaths.png \
 	  "$i"-tested.png "$i"-hospitalized.png \
 	   -append ../../plots/us/"$i".png
 done
-
-/bin/mv ../../plots/us/...png ../../plots/us/US.png

@@ -5,7 +5,8 @@
 #
 # https://sourceforge.net/p/gnuplot/bugs/2115/#c101/8602
 
+xlabel_t = ' day doubling-time'
+
 set xtics rangelimited rotate by -55 format '%1m/%1d'
-set xlabel ARG3.' day doubling-time'
 set y2label 'doubling-time (days)'
 

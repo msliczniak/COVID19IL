@@ -135,11 +135,17 @@ FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 for co in "$st"; do
 	ab=red
 	be=green
+
+	case "$co" in
+	  ..)
+		co=US
+		;;
+	esac
 	for rs in positive death hospitalized totalTestResults; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
-		./totals select="$co" result="$rs" "$@" >tot
+		./totals select="$st" result="$rs" "$@" >tot
 
 		case "$rs" in
 		  positive)

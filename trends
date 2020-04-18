@@ -1,14 +1,83 @@
+set xlabel ARG3.xlabel_t
+
 set xdata time
 set timefmt '%Y-%m-%d-%H'
 set autoscale fix
 set key outside horizontal bottom center
 set ytics nomirror
-set logscale y
 set format y '10^{%T}'
 set ylabel ARG2
-#set logscale y2
 set title ARG1
 
+good = ARG4
+bad = ARG5
+
+set terminal dumb
+set output '/dev/null'
+plot \
+'ftot' using 1:2:3 notitle with filledcurves above \
+  fs trans solid 0.25 border fc rgbcolor good, \
+'ftot' using 1:2:3 notitle with filledcurves below \
+  fs trans solid 0.25 border fc rgbcolor bad, \
+'fdday' using 1:2:3 axis x1y2 notitle with filledcurves below \
+  fs trans solid 0.25 border fc rgbcolor good, \
+'fdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
+  fs trans solid 0.25 border fc rgbcolor bad, \
+'xtot' using 1:2:3 notitle with filledcurves above \
+  fs trans solid 0.25 border fc rgbcolor good, \
+'xtot' using 1:2:3 notitle with filledcurves below \
+  fs trans solid 0.25 border fc rgbcolor bad, \
+'xdday' using 1:2:3 axis x1y2 notitle with filledcurves below \
+  fs trans solid 0.25 border fc rgbcolor good, \
+'xdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
+  fs trans solid 0.25 border fc rgbcolor bad, \
+'tot' using 1:2 with linespoints lt 0 pt 10 notitle, \
+'x5t' using 1:2 with lines lt -1 lc 1 dt 4 notitle, \
+'xtot' using 1:2 with lines lt 0 notitle, \
+'x15' using 1:2 with lines lt -1 lc 3 dt 2 notitle, \
+'x10' using 1:2 with lines lt -1 lc 2 dt 2 notitle, \
+'x5' using 1:2 with lines lt -1 lc 1 dt 2 notitle, \
+'dday' using 1:2 axis x1y2 with linespoints lt -1 pt 23 title 'lifetime =', \
+'xdday' using 1:2 axis x1y2 with lines lt -1 notitle, \
+'5' using 1:2 axis x1y2 with points pt 1 lc 1 title '5 sample =', \
+'10' using 1:2 axis x1y2 with points pt 2 lc 2 title '10 sample =', \
+'15' using 1:2 axis x1y2 with points pt 3 lc 3 title '15 sample =', \
+'xtotl' using 1:2:3 w labels left offset 0,-.5 font ',8' point pt 11 notitle,\
+'xl' using 1:2:3 axis x1y2 w labels left offset 0,1.5 font ',8' \
+  point pt 24 notitle, \
+'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
+  point pt 11 notitle, \
+'labels' using 1:2:3 with labels right offset -.5,2 font ',8' point pt 11 \
+  notitle #offset -.5,.25
+
+set terminal pngcairo size 820,440
+#set output 'test.png'
+#test
+
+# 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
+interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
+set xtics interval * 86400
+set mxtics interval
+
+# break x and x2 axis
+#set object 1 rectangle from graph 0,0 to graph 1,1 fc rgb "gray" behind
+#set obj 1 rect from x1max, graph 0 to x2min, graph 1 fs solid 1.0 border bgnd front
+# 280800 = 86400 * 3.25; 324000 + 86400 * 3.75
+set obj 1 \
+  rect from GPVAL_X_MAX - 324000,graph 0 to GPVAL_X_MAX - 280800,graph 1 \
+  fc 'gray' fs transparent pattern 6 noborder bgnd back
+
+# Draw a y axis at current date
+# 345600 = 86400 * 4
+set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600):345600]
+set y2zeroaxis ls -1
+
+#print GPVAL_Y_MIN
+#print GPVAL_Y_MAX
+
+set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX + 100]
+
+set logscale y
 set logscale y2
 
 # with leap days taken into account
@@ -55,71 +124,6 @@ set y2tics (\
      '400y' 146097)
 
 set grid x y2
-
-good = ARG4
-bad = ARG5
-
-set terminal dumb
-set output '/dev/null'
-plot \
-'ftot' using 1:2:3 notitle with filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'ftot' using 1:2:3 notitle with filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor bad, \
-'fdday' using 1:2:3 axis x1y2 notitle with filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'fdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor bad, \
-'xtot' using 1:2:3 notitle with filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'xtot' using 1:2:3 notitle with filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor bad, \
-'xdday' using 1:2:3 axis x1y2 notitle with filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'xdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor bad, \
-'tot' using 1:2 with linespoints lt 0 pt 10 notitle, \
-'x5t' using 1:2 with lines lt -1 lc 1 dt 4 notitle, \
-'xtot' using 1:2 with lines lt 0 notitle, \
-'x15' using 1:2 with lines lt -1 lc 3 dt 2 notitle, \
-'x10' using 1:2 with lines lt -1 lc 2 dt 2 notitle, \
-'x5' using 1:2 with lines lt -1 lc 1 dt 2 notitle, \
-'dday' using 1:2 axis x1y2 with linespoints lt -1 pt 23 title 'lifetime =', \
-'xdday' using 1:2 axis x1y2 with lines lt -1 notitle, \
-'5' using 1:2 axis x1y2 with points pt 1 lc 1 title '5 sample =', \
-'10' using 1:2 axis x1y2 with points pt 2 lc 2 title '10 sample =', \
-'15' using 1:2 axis x1y2 with points pt 3 lc 3 title '15 sample =', \
-'xtotl' using 1:2:3 w labels left offset 2,-.5 font ',8' point pt 11 notitle, \
-'xl' using 1:2:3 axis x1y2 w labels right offset .5,1.5 font ',8' \
-  point pt 24 notitle, \
-'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
-  point pt 11 notitle, \
-'labels' using 1:2:3 with labels right offset -.5,2 font ',8' point pt 11 \
-  notitle #offset -.5,.25
-
-set terminal pngcairo size 820,440
-#set output 'test.png'
-#test
-
-# 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
-interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
-set xtics interval * 86400
-set mxtics interval
-
-#set autoscale y2
-
-# break x and x2 axis
-#set object 1 rectangle from graph 0,0 to graph 1,1 fc rgb "gray" behind
-#set obj 1 rect from x1max, graph 0 to x2min, graph 1 fs solid 1.0 border bgnd front
-# 280800 = 86400 * 3.25; 324000 + 86400 * 3.75
-set obj 1 \
-  rect from GPVAL_X_MAX - 324000,graph 0 to GPVAL_X_MAX - 280800,graph 1 \
-  fc 'gray' fs transparent pattern 6 noborder bgnd back
-
-# Draw a y axis at current date
-# 345600 = 86400 * 4
-set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600):345600]
-set y2zeroaxis ls -1
 
 set output 'a.png'
 refresh
