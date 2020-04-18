@@ -6,4 +6,6 @@ u=https://www.gov.pl/web/koronawirus/wykaz-zarazen-koronawirusem-sars-cov-2
 curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o".html || exit
 ./json "$o".html >"$o".json || exit
 ./csv "$o".json || exit
-/usr/bin/file -- "$o".csv
+
+/usr/bin/awk -F, '{ printf("%s: add ", $NF); exit }' "$o".csv
+/usr/bin/file -- "$o".json "$o".csv
