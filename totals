@@ -1,37 +1,55 @@
 #!/usr/bin/awk -f
+
+# reqs: only print cur if bigger than prev and zero but print biggest last
+
 BEGIN {
 	# BSD awk can only do single char RS
 	FS = "[][}{,]|\"[ \t]*:[ \t]*"
 
+	key = "County"
 	select = "Illinois"
 	result = "confirmed cases"
 }
 
 NR == 1 {
-	select = "\"(" tolower(select) ")\""
+	key = "\"" tolower(key) "$"
 
 	# prevent gnuplot from using subscripts in enhanced title
-	sub(/ /, "_", result)
+	gsub(/ /, "_", result)
 	result = "\"" result "$"
 
-	# don't output an initial blank line
-	FNR = 2
+	if (substr(select, 1, 1) == "!") {
+		select = substr(select, 2)
+		s = 1
+	}
+
+	gsub(/,/, "|", select)
+	select = "\"(" tolower(select) ")\""
 }
 
 FNR == 1 {
-	print d, t
+	if (t > l) {
+		print d, t
+		l = t
+	}
+
+	# strip-off path
+	d = match(FILENAME, "[^/]*$")
+	d = substr(substr(FILENAME, d), 1)
+
+	# get date
+	if (d !~ /^[1-9][0-9][0-9][0-9]-/)
+		d = substr(d, index(d, "-") + 1, 10)
+	else
+		d = substr(d, 1, 10)
+
 	t = 0
 }
 
-$1 ~ /"County$/ && tolower($2) ~ select {
-	# get date
-	d = index(FILENAME, "-")
-	d = substr(FILENAME, d + 1, 10)
+!s && tolower($1) ~ key && tolower($2) ~ select { found = 1; next }
 
-	if (found) exit 1 # make plots with missing data obvious
-	found = 1
-}
+s && tolower($1) ~ key && tolower($2) !~ select { found = 1; next }
 
-found && $1 ~ result { t += $2; found = 0 }
+found && tolower($1) ~ result { t += $2; found = 0 }
 
-END { if (t) print d, t }
+END { if (l > t) t = l; print d, t }
