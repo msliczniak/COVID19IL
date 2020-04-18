@@ -205,11 +205,6 @@ for co in '!Aurora,North Aurora,Elgin,South Elgin,Batavia,Geneva,St. Charles'\
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
 
 		/bin/rm -f a.png "$co"-"$rs".png || exit
-		gnuplot -c ../../trends "$da $la $pa" "$ta $rs" "$ca" \
-		  "$ab" "$be" || exit
-		/bin/mv a.png "$co"-"$rs".png || exit
-
-		/bin/rm -f a.png "$co"-"$rs".png || exit
 		gnuplot ../../l.gp -c ../../trends\
 		  "$da $la $pa" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
