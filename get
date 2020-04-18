@@ -14,4 +14,7 @@ u=sitefiles/$u
 u=https://dph.illinois.gov/$u
 
 curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o"
+/usr/bin/awk '/"LastUpdateDate"/ { found = 1; next }
+found && /}/ { printf(": "); exit }
+!found { next } { printf("%s", $NF) }' "$o"
 /usr/bin/file -- "$o"
