@@ -201,11 +201,12 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		tail -3 5t | awk '{ print $1, t
 			for (i = -24; i >= -96; i -= 24) {
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
+		di=+`awk '{ ll = l; l = $2 } END { print l - ll }' tot`
 
 		ta="$ta ="
 		/bin/rm -f a.png "$co"-"$rs".png || exit
 		gnuplot l.gp -c ../../trends\
-		  "$da $la $pa" "$ta $rs" "$ca"\
+		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$co"-"$rs".png || exit; }
 
