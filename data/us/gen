@@ -1,7 +1,14 @@
 #!/bin/sh
 
-exec /usr/bin/awk -F, 'NR == 1 { l = $0; next } $2 == st {
-	f = sprintf("%s-%s-%s-%s.csv", substr($1, 1, 4), substr($1, 5, 2),
-	   substr($1, 7, 2), st)
-	print l >f; print >f; close(f)
-}' st=$1 daily.csv
+exec /usr/bin/awk -F, 'NR == 1 { l = $0; next }
+d != $1 {
+	d = $1
+	close(f)
+	f = sprintf("%s-%s-%s-US.csv", substr($1, 1, 4), substr($1, 5, 2),
+	   substr($1, 7, 2))
+	print l >f
+}
+
+{
+	print >>f
+}' daily.csv
