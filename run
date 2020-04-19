@@ -39,7 +39,7 @@ awk 'BEGIN { RS="," } $1 ~ /"confirmed_cases":$/ { print $2 }' \%chg >total
 awk 'BEGIN { RS="," } $(NF - 1) ~ /"testDate":$/ { print $NF }' \%chg | \
   paste - total tested | >ratio awk \
  '$3 != 0 { L = 100 * $2 / $3; printf("%s %s %.1f\n", $1, L, L) }'
-co=`awk '{ t += $2 } END { printf("%.1f%%", t / NR) }' ratio`
+co=`awk '{ t += $2 } END { printf("%.1f~%%{.8-}*", t / NR) }' ratio`
 gnuplot -c ratioplot "$da"' cases/tested '"$co" || exit
 
 # split on |
@@ -167,16 +167,16 @@ for co in Illinois Kane 'Chicago|Cook' \
 
 		# %chg for the last day
 		p=`tail -2 total | trend 2 | awk '{ print $2 }'` || exit
-		awk 'END {
-			t = int($2 * p + .5)
-			p = p * 100 - 100
-			printf("%s-24 %s %s\\n%.1f%%\\n+%s\n",
-			  $1, t, t, p, t - $2)
-		}' p=$p tot >xtotl
 
 		# amortized daily %chg 
 		r=`awk 'END { print $2 }' tvm` || exit
 
+		awk 'END {
+			t = int($2 * p + .5)
+			p = p * 100 - 100
+			printf("%s-24 %s %s\\n%.1f%%*\\n+%s\n",
+			  $1, t, t, p, t - $2)
+		}' p=$p tot >xtotl
 		awk 'END { ti = t = $2
 		for (i = -24; i >= -96; i -= 24) {
 			t *= r; ti *= p
@@ -199,7 +199,7 @@ for co in Illinois Kane 'Chicago|Cook' \
 			t *= p
 			print $1 i, t, $2 } }' p="$p" fdday >xdday
 		awk '{
-			printf("%s %s %.1f\\n%.1f_%%\n",
+			printf("%s %s %.1f\\n%.1f_%%*\n",
 			  $1, $2, $2, p * 100 - 100)
 			exit
 		}' p=$p xdday >xl

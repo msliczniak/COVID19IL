@@ -160,16 +160,16 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 
 		# %chg for the last day
 		p=`tail -2 total | trend 2 | awk '{ print $2 }'` || exit
-		awk 'END {
-			t = int($2 * p + .5)
-			p = p * 100 - 100
-			printf("%s-24 %s %s\\n%.1f%%\\n+%s\n",
-			  $1, t, t, p, t - $2)
-		}' p=$p tot >xtotl
 
 		# amortized daily %chg 
 		r=`awk 'END { print $2 }' tvm` || exit
 
+		awk 'END {
+			t = int($2 * p + .5)
+			p = p * 100 - 100
+			printf("%s-24 %s %s\\n%.1f%%*\\n+%s\n",
+			  $1, t, t, p, t - $2)
+		}' p=$p tot >xtotl
 		awk 'END { ti = t = $2
 		for (i = -24; i >= -96; i -= 24) {
 			t *= r; ti *= p
@@ -192,7 +192,7 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 			t *= p
 			print $1 i, t, $2 } }' p="$p" fdday >xdday
 		awk '{
-			printf("%s %s %.1f\\n%.1f_%%\n",
+			printf("%s %s %.1f\\n%.1f_%%*\n",
 			  $1, $2, $2, p * 100 - 100)
 			exit
 		}' p=$p xdday >xl
