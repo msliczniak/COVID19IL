@@ -1,8 +1,5 @@
 #!/bin/sh
 
-#d=-dpng
-d='-dpngcairo size 820,440'
-
 awk() {
 	/usr/bin/awk "$@"
 }
@@ -13,6 +10,11 @@ paste() {
 
 tail() {
 	/usr/bin/tail "$@"
+}
+
+tr() {
+
+	/usr/bin/tr "$@"
 }
 
 foo() {
@@ -33,20 +35,20 @@ IFS=-
 da=`foo $la` || exit
 IFS="$co"
 
-awk '/state_testing_results/ { F = 1 } F { print }' "$la" >\%chg
-awk 'BEGIN { RS="," } $1 ~ /"total_tested":$/ { print $2 }' \%chg >tested
-awk 'BEGIN { RS="," } $1 ~ /"confirmed_cases":$/ { print $2 }' \%chg >total
-awk 'BEGIN { RS="," } $(NF - 1) ~ /"testDate":$/ { print $NF }' \%chg | \
-  paste - total tested | >ratio awk \
- '$3 != 0 { L = 100 * $2 / $3; printf("%s %s %.1f\n", $1, L, L) }'
-co=`awk '{ t += $2 } END { printf("%.1f~%%{.8-}*", t / NR) }' ratio`
-gnuplot -c ratioplot "$da"' cases/tested '"$co" || exit
+g0=Illinois
 
-# split on |
-foo() {
-	echo $*
-}
-IFS='|'
+awk '/state_testing_results/ { F = 1 } F { print }' "$la" >\%chg
+/bin/rm -f ratio.png tested || exit
+co=`awk '$1 ~ /"total_tested":$/ { print $2 >f; t++ }
+END { print int(t/32) + 1 }' RS=, f=tested \%chg`
+awk '$1 ~ /"confirmed_cases":$/ { print $2 }' RS=, \%chg >total
+awk '$(NF - 1) ~ /"testDate":$/ { print $NF }' RS=, \%chg | \
+  paste - total tested | >ratio awk '$3 > 0 {
+	L = 100 * $2 / $3; printf("%s %s", $1, L); i++
+	if (i >= n) { i = 0; printf(" %.1f", L) }
+	printf("\n") }' n="$co"
+co=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
+gnuplot -c ratioplot "$da $g0"' 5 sample test-positivity rate '"$co" || exit
 
 # r = n[(A/P)^(1/nt) - 1]
 TVM='{
@@ -139,15 +141,40 @@ labels() {
 
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
-for co in Illinois Kane 'Chicago|Cook' \
-  'McHenry|Lake|Kane|DuPage|Kendall|Will|Grundy|Kankakee'; do
-	ab=red
-	be=green
+g1='Chicago,Cook'
+g2='McHenry,Lake,Kane,DuPage,Kendall,Will,Grundy,Kankakee'
+g3='Winnebago,Boone,DeKalb,Ogle'
+g4='Rock Island,Whiteside,Henry'
+g5='St. Clair,Madison,Monroe,Randolph,Jackson'
+g6='Champaign,McLean,Tazewell,Peoria'
+g7='Sangamon,Macon,Christian'
+g8='Kane'
+cg="!$g1","$g2","$g3","$g4","$g5","$g6","$g7","$g8","$g0"
+
+ot=Other
+ev=ot
+
+ab=red
+be=green
+
+for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
+	eval la="\$$ev"; ev=co
 	for rs in 'confirmed cases' deaths 'total tested'; do
-		la=`foo $co`
 		echo  "$rs $la" >&2
 
 		./totals select="$co" result="$rs" "$@" >tot
+
+		of="`printf '%s' "$la" | tr 'A-Z' 'a-z' | tr -Cs 'a-z0-9' _`"
+		case "$rs" in
+		  'confirmed cases')
+			rs=cases
+			;;
+		  'total tested')
+			rs=tested
+			;;
+		esac
+		of="$of"-"$rs".png
+
 		awk '{ print NR "-" $1 $2; t = $2 }' tot >total
 		trend 5 total >5t
 		dday 5t >5
@@ -210,14 +237,14 @@ for co in Illinois Kane 'Chicago|Cook' \
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
 		di=+`awk '{ ll = l; l = $2 } END { print l - ll }' tot`
 
-		/bin/rm -f a.png "$co"-"$rs".png || exit
+		/bin/rm -f a.png "$of" || exit
 		gnuplot l.gp -c trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
-		{ /bin/mv a.png "$co"-"$rs".png || exit; }
+		{ /bin/mv a.png "$of" || exit; }
 
 		# no tested totals per county
-		case "$co"-"$rs" in
+		case "$la"-"$rs" in
 		  Illinois-deaths)
 		        # change sense
 			ab=green
