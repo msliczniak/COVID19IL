@@ -175,7 +175,7 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		esac
 		of="$of"-"$rs".png
 
-		awk '{ print NR "-" $1 $2; t = $2 }' tot >total
+		awk '{ print $3 "-" $1 $2 }' tot >total
 		trend 5 total >5t
 		dday 5t >5
 		trend 10 total | dday >10

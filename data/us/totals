@@ -11,8 +11,8 @@ BEGIN {
 }
 
 NR == 1 {
-	key = tolower(key)
-	result = tolower(result)
+	key = "^(" tolower(key) ")$"
+	result = "^(" tolower(result) ")$"
 
 	if (substr(select, 1, 1) == "!") {
 		select = substr(select, 2)
@@ -24,16 +24,17 @@ NR == 1 {
 }
 
 function which(k, i) {
-        for (i = 1; i <= NF; i++) if (tolower($i) == k) return i
+        for (i = 1; i <= NF; i++) if (tolower($i) ~ k) return i
 
         exit 1
 }
 
 FNR == 1 {
 	if (t > l) {
-		print d, t
+		print d, t, k
 		l = t
 	}
+	k++
 
 	i = which(key)
 	j = which(result)
@@ -57,4 +58,4 @@ s && tolower($i) ~ select { next }
 
 { t += $j }
 
-END { if (l > t) t = l; print d, t }
+END { if (l > t) t = l; print d, t, k }

@@ -141,7 +141,8 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		echo  "$rs $la" >&2
 
 		./totals select="$co" result="$rs" "$@" >tot
-		awk '{ print NR "-" $1 $2; t = $2 }' tot >total
+
+		awk '{ print $3 "-" $1 $2 }' tot >total
 		trend 5 total >5t
 		dday 5t >5
 		trend 10 total | dday >10

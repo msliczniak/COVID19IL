@@ -1,0 +1,29 @@
+#!/bin/sh
+
+d=../../../COVID-19/csse_covid_19_data/csse_covid_19_daily_reports
+
+(cd "$d" && git pull) || exit
+
+foo() {
+	set -- $# "$@"
+	shift $1
+	o="$1"
+}
+
+bar() {
+	o="$1"
+}
+
+baz() {
+	o="$3"-"$1"-"$2"-UTC.csv
+}
+
+# still occasionally has ~n
+for i in "$d"/??-??-????.csv; do
+	IFS=/; foo $i
+	IFS=.; bar $o
+	IFS=-; baz $o
+	../kane/conv "$i" >"$o"
+done
+
+echo 'add ????-??-??-UTC.csv'

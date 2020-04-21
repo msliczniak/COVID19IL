@@ -58,4 +58,4 @@ for i in il pl; do
 done
 
 set -- `tail -1 il`
-gnuplot -c plilplot "$@" `awk 'END { print $2 }' pl` $o $p $d
+gnuplot -c plilplot "$1" "$2" `awk 'END { print $2 }' pl` $o $p $d

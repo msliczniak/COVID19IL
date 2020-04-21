@@ -29,9 +29,10 @@ NR == 1 {
 
 FNR == 1 {
 	if (t > l) {
-		print d, t
+		print d, t, k
 		l = t
 	}
+	k++
 
 	# strip-off path
 	d = match(FILENAME, "[^/]*$")
@@ -52,4 +53,4 @@ s && tolower($1) ~ key && tolower($2) !~ select { found = 1; next }
 
 found && tolower($1) ~ result { t += $2; found = 0 }
 
-END { if (l > t) t = l; print d, t }
+END { if (l > t) t = l; print d, t, k }
