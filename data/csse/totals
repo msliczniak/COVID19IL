@@ -1,0 +1,57 @@
+#!/usr/bin/awk -f
+
+# reqs: only print cur if bigger than prev and zero but print biggest last
+
+BEGIN {
+	FS = ","
+
+	key="^Country.Region$"
+	result="Confirmed"
+	select = ".*"
+}
+
+NR == 1 {
+	key = tolower(key)
+	result = tolower(result)
+
+	if (substr(select, 1, 1) == "!") {
+		select = substr(select, 2)
+		s = 1
+	}
+
+	gsub(/,/, "|", select)
+	select = "^(" tolower(select) ")$"
+}
+
+function which(k, i) {
+        for (i = 1; i <= NF; i++) if (tolower($i) ~ k) return i
+
+        exit 1
+}
+
+FNR == 1 {
+	if (t > l) {
+		print d, t
+		l = t
+	}
+
+	i = which(key)
+	j = which(result)
+
+	# strip-off path
+	d = match(FILENAME, "[^/]*$")
+	d = substr(substr(FILENAME, d), 1)
+
+	# get date
+	d = substr(d, 7, 4) "-" substr(d, 1, 5)
+
+	t = 0
+}
+
+!s && tolower($i) !~ select { next }
+
+s && tolower($i) ~ select { next }
+
+{ t += $j }
+
+END { if (l > t) t = l; print d, t }

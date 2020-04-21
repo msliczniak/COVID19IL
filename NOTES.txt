@@ -25,3 +25,14 @@ $ cd ../..
 $ cd data/idph
 $ ./get
 $ cd ../..
+
+$ cd ../COVID-19
+$ git pull
+$ cd 
+$ cd ../COVID19IL
+$ cd /data/csse
+$ ./run Sweden \
+  ../../../COVID-19/csse_covid_19_data/csse_covid_19_daily_reports/*.csv \
+  v=-`date -u +%Y-%m-%d`
+$ ls -- *-*.png
+$ cd ../..
