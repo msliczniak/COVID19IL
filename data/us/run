@@ -147,25 +147,34 @@ for co in "$st"; do
 		co=US
 		;;
 	esac
+
 	for rs in positive death hospitalized totalTestResults; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
 		./totals select="$st" result="$rs" "$@" >"$tc"
 
+		of="$co"-
 		case "$rs" in
 		  positive)
 			rs=cases
+			of="$of"2c
 			;;
 		  death)
 			rs=deaths
+			of="$of"2d
 			;;
 		  totalTestResults)
 			rs=tested
+			of="$of"5t
 
 		        # change sense
 			ab=green
 		        be=red
+			;;
+		  hospitalized)
+			rs=deaths
+			of="$of"8h
 			;;
 		esac
 
@@ -231,17 +240,16 @@ for co in "$st"; do
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
 		di=+`awk '{ ll = l; l = $2 } END { print l - ll }' tot`
 
-		/bin/rm -f a.png "$co"-"$rs".png || exit
+		/bin/rm -f a.png "$of".png || exit
 		gnuplot ../../l.gp -c ../../trends\
-		  "$da $la $pa $di" "$ta $rs" "$ca"\
-		  "$ab" "$be" && \
-		{ /bin/mv a.png "$co"-"$rs".png || exit; }
+		  "$da $la $pa $di" "$ta $rs" "$ca" "$ab" "$be" &&\
+		{ /bin/mv a.png "$of".png || exit; }
 
 		#exit
 	done
 done
 
-/bin/rm -f tot ratio.png || exit
+/bin/rm -f tot ratio.png "$co"-5r.png || exit
 awk '{
 	printf("\"%s/%s/%s\" %s",
 	  substr($1, 6, 2), substr($1, 9, 2), substr($1, 1, 4), $2); i++
@@ -260,4 +268,4 @@ END { print int(n/32) + 1 }'` tot >ratio
 ti=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
 gnuplot -c ../../ratioplot\
   "$da $co"' 5 sample test-positivity rate '"$ti" || exit
-/bin/mv ratio.png "$co"-ratio.png
+/bin/mv ratio.png "$co"-5r.png

@@ -50,7 +50,7 @@ plot \
 'labels' using 1:2:3 with labels right offset -.5,2 font ',8' point pt 11 \
   notitle #offset -.5,.25
 
-set terminal pngcairo size 820,440
+set terminal pngcairo size 820,440 transparent
 #set output 'test.png'
 #test
 

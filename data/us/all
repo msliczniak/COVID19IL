@@ -2,19 +2,70 @@
 
 mkdir -p ../../plots/us
 curl -sfLO https://covidtracking.com/api/v1/states/daily.csv || exit
-./gen ||  exit
+./gen || exit
 
+wh='width="820" height="440" border="0" hspace="0" vspace="0" src="%s">'
+bg=''
+r=1
+
+echo '<p>' >index || exit
+echo '<html>
+<head><title>COVID19US</title><head>
+<body style="background-color:white;">' >html || exit
+
+foo() {
+	printf '<a'"$2"' name="C%s" name="C%s" href="#%s">%s</a>\n' $1 $1 $1 $1
+}
+
+#for i in .. FL LA IL MI NY OH WA
 for i in .. `awk -F, 'NR == 1 { next } { print $2 }' daily.csv | sort | uniq`
 do
-	./run $i 20*-US.csv
-
 	case "$i" in
 	  ..)
-		i=US
+		j=US
+		;;
+	  *)
+		j="$i"
 		;;
 	esac
 
-	convert "$i"-cases.png "$i"-deaths.png "$i"-ratio.png \
-	  "$i"-tested.png "$i"-hospitalized.png \
-	   -append ../../plots/us/"$i".png
+	/bin/rm -f -- "$j"-*.png || exit
+	./run "$i" 20*-US.csv
+	i="$j"
+
+	set -- "$i"-*.png
+	/bin/mv -- "$@" ../../plots/us/ || continue
+	r=0
+
+	case "$bg" in
+	  '')
+		bg=' style="background-color:#faf0e6;"'
+		;;
+	  *)
+		bg=''
+		;;
+	esac
+
+	foo "$i" "$bg" >>html
+
+	printf '<a name="%s" id="%s" href="#C%s">' $i $i $i >>index
+	printf '<img'"$bg $wh" "$@" >>index
+	printf '</a>' >>index
+
 done
+
+case $r in
+  0)
+	;;
+  *)
+	echo 'no images' >&2
+	exit $r
+	;;
+esac
+
+echo '<p>
+<em>%*</em> indicates from previous sample, all others amortized over time
+</body>
+</html>' | /bin/cat html index - >../../plots/us/index.html || exit
+
+echo 'add ../../plots/us/??-*.png'

@@ -12,7 +12,7 @@ plot [:][:] 'ratio' using 1:2 with lines notitle\
 , '' using 1:2:3 with labels right offset -.5,.25 font ',7' point pt 6 notitle\
 , '' using 1:2:4 with labels center offset 0,-.75 font ',7' point pt 6 notitle
 
-set terminal pngcairo size 820,440
+set terminal pngcairo size 820,440 transparent
 set output "ratio.png"
 
 # 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
