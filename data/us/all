@@ -14,7 +14,7 @@ do
 		;;
 	esac
 
-	convert "$i"-cases.png "$i"-deaths.png \
+	convert "$i"-cases.png "$i"-deaths.png "$i"-ratio.png \
 	  "$i"-tested.png "$i"-hospitalized.png \
 	   -append ../../plots/us/"$i".png
 done

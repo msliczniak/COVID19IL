@@ -11,6 +11,10 @@ paste() {
 	/usr/bin/paste "$@"
 }
 
+sort() {
+	/usr/bin/sort "$@"
+}
+
 tail() {
 	/usr/bin/tail "$@"
 }
@@ -132,6 +136,8 @@ labels() {
 
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
+tc=totc
+
 for co in "$st"; do
 	ab=red
 	be=green
@@ -145,7 +151,7 @@ for co in "$st"; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
-		./totals select="$st" result="$rs" "$@" >tot
+		./totals select="$st" result="$rs" "$@" >"$tc"
 
 		case "$rs" in
 		  positive)
@@ -163,7 +169,7 @@ for co in "$st"; do
 			;;
 		esac
 
-		awk '{ print $3 "-" $1 $2 }' tot >total
+		awk '{ print $3 "-" $1 $2 }' "$tc" >total; tc=toti
 		trend 5 total >5t
 		dday 5t >5
 		trend 10 total | dday >10
@@ -234,3 +240,24 @@ for co in "$st"; do
 		#exit
 	done
 done
+
+/bin/rm -f tot ratio.png || exit
+awk '{
+	printf("\"%s/%s/%s\" %s",
+	  substr($1, 6, 2), substr($1, 9, 2), substr($1, 1, 4), $2); i++
+	if (i >= n) { i = 0; printf(" %.1f", $2) }
+	printf("\n")
+}' n=`awk '{ print $0, "t" }' toti | sort -mnk3 totc - | awk 'd != $1 && t > 0 {
+	print d, c * 100 / t >"tot"
+	d = $1; n++
+} 
+
+NF == 4 { t = $2 }
+
+NF == 3 { c = $2 }
+
+END { print int(n/32) + 1 }'` tot >ratio
+ti=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
+gnuplot -c ../../ratioplot\
+  "$da $co"' 5 sample test-positivity rate '"$ti" || exit
+/bin/mv ratio.png "$co"-ratio.png
