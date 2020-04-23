@@ -31,7 +31,7 @@ $ git pull
 $ cd 
 $ cd ../COVID19IL
 
-$ cd /data/csse
+$ cd data/csse
 $ ./get
 $ ./run Sweden *.csv
 $ ls -- *-*.png
