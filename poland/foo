@@ -3,7 +3,36 @@
 #https://en.m.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=revisions%7Cinfo&rvprop=content%7Ctimestamp&titles=Template%3A2019%E2%80%9320%20coronavirus%20pandemic%20data%2FPoland%20medical%20cases&intestactions=edit&intestactionsdetail=full
 
 PYTHONIOENCODING=utf-8 ./foo.py |\
-  sed 's/^|-$//' | awk -F\\n '$1 !~ /^\|/ { next }
+  sed 's/^|-$//' | awk -F\\n '$1 !~ /^\|/ {
+	# header
+	for (i = 1; i < NF; i++) {
+		if ($i !~ /^!/) continue
+
+		printf("Date")
+		i++
+		break
+	}
+
+	for (k = 1; i < NF; i++) {
+		if ($i !~ /^!/) continue
+
+		n = split($i, a, /\{(\{*)/)
+		if (n > 2) n = 2
+		s = a[n]
+
+		n = split(s, a, /\|(\|*)/)
+		if (a[n] == "") n--
+		s = a[n]
+
+		n = split(s, a, /\}(\}*)/)
+		printf("|%s", a[1])
+		k++
+	}
+
+	printf("\n")
+	next
+}
+ 
 $1 == "|}" { exit }
 
 {
@@ -44,7 +73,11 @@ $1 == "|}" { exit }
 		printf("%s-%s-%s", a[3], a[2], a[1])
 	}
 
-	s = substr($5, 2)
-	gsub(/,/, "", s)
-	printf("|%s\n", s)
+	for (i = 2; i <= k; i++) {
+		s = substr($i, 2)
+		gsub(/,/, "", s)
+		printf("|%d", s)
+	}
+
+	printf("\n")
 }' RS=
