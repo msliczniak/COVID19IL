@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# python is horrible about unicode and stdio
+#
+# 2.7: sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
+# 3.1: sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+# 3.7: sys.stdout.reconfigure(encoding='utf-8')
+#
+# this env var does the right thing in all versions without needing locale
+
+PYTHONIOENCODING=utf-8 exec python2.7 -c 'from json import load
+from sys import stdin, stdout
+
+stdout.write(load(stdin)'"$1"')
+stdout.flush()'

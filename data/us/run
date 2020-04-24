@@ -173,7 +173,7 @@ for co in "$st"; do
 		        be=red
 			;;
 		  hospitalized)
-			rs=deaths
+			rs=hospitalized
 			of="$of"8h
 			;;
 		esac

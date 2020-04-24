@@ -1,0 +1,84 @@
+#!/usr/bin/awk -f
+BEGIN {
+	FS="\n"
+	RS=""
+}
+
+$1 !~ /^\|/ {
+	# header
+	for (i = 1; i < NF; i++) {
+		if ($i !~ /^!/) continue
+
+		printf("Date")
+		i++
+		break
+	}
+
+	for (k = 1; i < NF; i++) {
+		if ($i !~ /^!/) continue
+
+		n = split($i, a, /\{(\{*)/)
+		if (n > 2) n = 2
+		s = a[n]
+
+		n = split(s, a, /\|(\|*)/)
+		if (a[n] == "") n--
+		s = a[n]
+
+		n = split(s, a, /\}(\}*)/)
+		printf("|%s", a[1])
+		k++
+	}
+
+	printf("\n")
+	next
+}
+ 
+$1 == "|}" { exit }
+
+{
+	# remove initial |
+	s = substr($1, 2)
+	n = split(s, a, "|")
+
+	if (n >= 2) printf("%s", a[2])
+	else {
+		n = split(s, a, " ")
+		if (n < 3) exit 4
+
+		n = tolower(a[2])
+		if (n ~ /^jan/) a[2] = 1
+		else if (n ~ /^feb/) a[2] = 2
+		else if (n ~ /^mar/) a[2] = 3
+		else if (n ~ /^apr/) a[2] = 4
+		else if (n ~ /^may/) a[2] = 5
+		else if (n ~ /^jun/) a[2] = 6
+		else if (n ~ /^jul/) a[2] = 7
+		else if (n ~ /^aug/) a[2] = 8
+		else if (n ~ /^sep/) a[2] = 9
+		else if (n ~ /^oct/) a[2] = 10
+		else if (n ~ /^nov/) a[2] = 11
+		else if (n ~ /^dec/) a[2] = 12
+
+		n = 4
+		s = "%04d"
+		for (i = 3; i > 0; i--) {
+			a[i] = sprintf(s, a[i])
+			if (length(a[i]) != n) exit i
+			if ((a[i]) == 0) exit i
+
+			n = 2
+			s = "%02d"
+		}
+
+		printf("%s-%s-%s", a[3], a[2], a[1])
+	}
+
+	for (i = 2; i <= k; i++) {
+		s = substr($i, 2)
+		gsub(/,/, "", s)
+		printf("|%d", s)
+	}
+
+	printf("\n")
+}

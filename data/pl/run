@@ -130,19 +130,21 @@ labels() {
 
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
+tc=totc
+ab=red
+be=green
+
 la='|lubuskie|małopolskie|podkarpackie'
 for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
   'pomorskie|zachodniopomorskie|kujawsko-pomorskie|warmińsko-mazurskiei' \
   'łódzkie|wielkopolskie|dolnośląskie|opolskie|śląskie'"$la" ; do
-	ab=red
-	be=green
 	for rs in 'liczba' 'liczba zgonów'; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
-		./totals select="$co" result="$rs" "$@" >tot
+		./totals select="$co" result="$rs" "$@" >"$tc"
 
-		awk '{ print $3 "-" $1 $2 }' tot >total
+		awk '{ print $3 "-" $1 $2 }' "$tc" >total; tc=toti
 		trend 5 total >5t
 		dday 5t >5
 		trend 10 total | dday >10
@@ -214,3 +216,45 @@ for co in 'Cała Polska' 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		#exit
 	done
 done
+
+co=Poland
+/bin/rm -f tot ratio.png || exit
+awk '{
+	printf("\"%s/%s/%s\" %s",
+	  substr($1, 6, 2), substr($1, 9, 2), substr($1, 1, 4), $2); i++
+	if (i >= n) { i = 0; printf(" %.1f", $2) }
+	printf("\n")
+}' n=`awk -F\| 'function which(k, i) {
+	for (i = 1; i <= NF; i++) if (tolower($i) ~ k) return i
+
+	exit 1
+}
+
+NR == 1 {
+	i = which("date")
+	j = which("^tested")
+	next
+}
+
+$j > t {
+	t = $j
+	print $i, t, NR, "t"
+}' wiki.csv | sort -m - totc | awk '
+d != $1 && t > 0 && c > 0 {
+	print d, c * 100 / t, n >"tot"
+	n++
+} 
+
+{ d = $1 }
+
+NF == 4 { t = $2 }
+
+NF == 3 { c = $2; n = $3 }
+
+END {
+	print $1, c * 100 / t, n >"tot"
+	print int(n/32) + 1xi
+}'` tot >ratio
+ti=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
+gnuplot -c ../../ratioplot\
+  "$da $co"' 5 sample test-positivity rate '"$ti" || exit
