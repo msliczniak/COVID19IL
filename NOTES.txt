@@ -36,3 +36,5 @@ $ ./get
 $ ./run Sweden *.csv
 $ ls -- *-*.png
 $ cd ../..
+
+convert i.png -background white -flatten o.png
