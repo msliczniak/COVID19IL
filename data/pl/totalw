@@ -1,0 +1,25 @@
+#!/usr/bin/awk -f
+
+# values from wiki.csv
+
+BEGIN {
+	FS = "|"
+	k = "^tested"
+}
+
+function which(k, i) {
+	for (i = 1; i <= NF; i++) if (tolower($i) ~ k) return i
+
+	exit 1
+}
+
+NR == 1 {
+	i = which("date")
+	j = which(k)
+	next
+}
+
+$j > t {
+	t = $j
+	print $i, t, NR
+}
