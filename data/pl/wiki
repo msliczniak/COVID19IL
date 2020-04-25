@@ -41,7 +41,7 @@ $1 == "|}" { exit }
 	s = substr($1, 2)
 	n = split(s, a, "|")
 
-	if (n >= 2) printf("%s", a[2])
+	if (n >= 2) s = a[2]
 	else {
 		n = split(s, a, " ")
 		if (n < 3) exit 4
@@ -71,8 +71,16 @@ $1 == "|}" { exit }
 			s = "%02d"
 		}
 
-		printf("%s-%s-%s", a[3], a[2], a[1])
+		s = sprintf("%s-%s-%s", a[3], a[2], a[1])
 	}
+
+	while (getline d <"-") {
+		d = substr(d, 1, 10)
+		if (d == s) break
+		print ""
+	}
+
+	printf("%s", s)
 
 	for (i = 2; i <= k; i++) {
 		s = substr($i, 2)

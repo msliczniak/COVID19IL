@@ -10,10 +10,15 @@ curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o".html || exit
 /usr/bin/awk -F, '{ printf("%s: add ", $NF); exit }' "$o".csv
 /usr/bin/file -- "$o".json "$o".csv
 
-errexit() {
-	echo "failed to create wiki.csv with status: $1" >&2
-	exit $1
-}
+# https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_
+# coronavirus_pandemic_data/Poland_medical_cases
+
+# https://en.wikipedia.org/wiki/User:Natanieluz
+
+# https://twitter.com/micalrg/status/1238508622591725568
+
+# https://docs.google.com/spreadsheets/d/
+# 1ierEhD6gcq51HAm433knjnVwey4ZE5DCnu1bW7PRG3E/htmlview?usp=sharing#
 
 u='Poland%20medical%20cases&intestactions=edit&intestactionsdetail=full'
 u='&titles=Template%3A2019%E2%80%9320%20coronavirus%20pandemic%20data%2F'"$u"
@@ -24,5 +29,5 @@ u='https://en.m.wikipedia.org/w/api.php?action=query'"$u"
 
 curl -sqL -- "$u" |\
   ../json '["query"]["pages"][0]["revisions"][0]["content"]' |\
-  /usr/bin/sed 's/^|-$//' | ./wiki >tot || errxit $?
-/bin/mv tot wiki.csv
+  /usr/bin/sed 's/^|-$//' >wiki.sgml || exit
+printf '%s\n\n' 20*-???.csv | ./wiki wiki.sgml >wiki.csv || exit

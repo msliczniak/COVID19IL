@@ -6,7 +6,7 @@ $ cd data/pl
 $ find . -maxdepth 1 -name '*.json' -exec ./csv '{}' \;     # first time
 $ ./get
 $ ./run 20*.csv
-$ mv *-*.png ../../plots/pl/
+$ mv *-*.png ratio.png tested.png ../../plots/pl/
 $ cd ../..
 
 $ ./plil
@@ -26,15 +26,10 @@ $ cd data/idph
 $ ./get
 $ cd ../..
 
-$ cd ../COVID-19
-$ git pull
-$ cd 
-$ cd ../COVID19IL
-
 $ cd data/csse
 $ ./get
 $ ./run Sweden *.csv
 $ ls -- *-*.png
 $ cd ../..
 
-convert i.png -background white -flatten o.png
+$ convert i.png -background white -flatten o.png
