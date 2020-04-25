@@ -148,7 +148,8 @@ for co in "$st"; do
 		;;
 	esac
 
-	for rs in positive death hospitalized totalTestResults; do
+	for rs in positive death hospitalized recovered inIcuCumulative\
+	  onVentilatorCumulative totalTestResults; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
@@ -175,6 +176,18 @@ for co in "$st"; do
 		  hospitalized)
 			rs=hospitalized
 			of="$of"8h
+			;;
+		  recovered)
+			rs=recovered
+			of="$of"8r
+			;;
+		  inIcuCumulative)
+			rs='in ICU'
+			of="$of"8xi
+			;;
+		  onVentilatorCumulative)
+			rs=vented
+			of="$of"8xv
 			;;
 		esac
 
