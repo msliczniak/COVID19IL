@@ -1,0 +1,987 @@
+Age Range,Age,Case Count,City,Death,Reported Date,Sex,State,Symptom Onset
+60-69,69,1,Geneva,,3/10/2020,Female,Illinois,2/13/2020
+70-79,73,1,Geneva,,3/12/2020,Male,Illinois,3/6/2020
+60-69,67,1,St. Charles,,3/13/2020,Male,Illinois,3/3/2020
+50-59,51,1,South Elgin,,3/17/2020,Male,Illinois,3/7/2020
+60-69,69,1,Elgin,,3/18/2020,Male,Illinois,3/14/2020
+50-59,52,1,Aurora,,3/18/2020,Female,Illinois,3/7/2020
+0-9,3,1,Elgin,,3/18/2020,Male,Illinois,2/12/2020
+70-79,78,1,Huntley,,3/19/2020,Male,Illinois,3/6/2020
+50-59,59,1,Elgin,,3/19/2020,Female,Illinois,3/14/2020
+50-59,57,1,St. Charles,,3/20/2020,Female,Illinois,3/14/2020
+90+,97,1,Aurora,1,3/20/2020,Male,Illinois,3/10/2020
+40-49,49,1,St. Charles,,3/20/2020,Female,Illinois,3/14/2020
+50-59,56,1,St. Charles,,3/21/2020,Male,Illinois,3/4/2020
+50-59,54,1,Carpentersville,,3/21/2020,Male,Illinois,3/18/2020
+50-59,55,1,Dundee,,3/21/2020,Male,Illinois,3/18/2020
+40-49,40,1,Elgin,1,3/21/2020,Female,Illinois,3/17/2020
+40-49,47,1,St. Charles,,3/22/2020,Female,Illinois,3/17/2020
+20-29,22,1,St. Charles,,3/22/2020,Female,Illinois,3/16/2020
+50-59,51,1,St. Charles,,3/23/2020,Male,Illinois,3/11/2020
+20-29,26,1,St. Charles,,3/23/2020,Male,Illinois,3/18/2020
+20-29,23,1,Batavia,,3/23/2020,Male,Illinois,3/11/2020
+70-79,74,1,North Aurora,1,3/23/2020,Male,Illinois,3/15/2020
+30-39,32,1,Batavia,,3/23/2020,Male,Illinois,3/15/2020
+60-69,62,1,Aurora,,3/23/2020,Female,Illinois,3/16/2020
+70-79,78,1,Aurora,1,3/23/2020,Male,Illinois,3/13/2020
+40-49,49,1,Aurora,,3/23/2020,Female,Illinois,3/13/2020
+50-59,53,1,Carpentersville,,3/23/2020,Female,Illinois,3/16/2020
+30-39,34,1,Batavia,,3/23/2020,Female,Illinois,3/14/2020
+70-79,77,1,Sleepy Hollow,,3/24/2020,Female,Illinois,3/13/2020
+60-69,62,1,Elgin,,3/24/2020,Female,Illinois,3/16/2020
+50-59,59,1,Aurora,,3/24/2020,Female,Illinois,3/19/2020
+50-59,53,1,Elburn,,3/24/2020,Male,Illinois,3/14/2020
+90+,91,1,Elgin,1,3/24/2020,Male,Illinois,3/14/2020
+40-49,47,1,Elgin,,3/24/2020,Male,Illinois,3/10/2020
+80-89,80,1,Sugar Grove,1,3/24/2020,Male,Illinois,3/18/2020
+50-59,54,1,Aurora,,3/24/2020,Male,Illinois,3/18/2020
+50-59,51,1,South Elgin,,3/24/2020,Female,Illinois,3/19/2020
+50-59,54,1,Geneva,,3/24/2020,Female,Illinois,3/18/2020
+80-89,88,1,Huntley,1,3/24/2020,Male,Illinois,3/14/2020
+20-29,28,1,Aurora,,3/24/2020,Female,Illinois,3/17/2020
+50-59,58,1,Elgin,,3/24/2020,Male,Illinois,3/18/2020
+40-49,40,1,Elgin,,3/24/2020,Female,Illinois,3/18/2020
+40-49,49,1,Aurora,,3/25/2020,Male,Illinois,3/18/2020
+40-49,45,1,South Elgin,,3/25/2020,Male,Illinois,3/22/2020
+50-59,50,1,Sugar Grove,,3/25/2020,Female,Illinois,3/20/2020
+50-59,50,1,Aurora,,3/25/2020,Male,Illinois,3/20/2020
+60-69,63,1,Elgin,,3/25/2020,Female,Illinois,3/21/2020
+80-89,81,1,Elgin,,3/25/2020,Male,Illinois,3/23/2020
+50-59,55,1,Elgin,,3/25/2020,Male,Illinois,3/1/2020
+40-49,47,1,Elgin,,3/25/2020,Male,Illinois,3/14/2020
+20-29,24,1,St. Charles,,3/25/2020,Male,Illinois,3/21/2020
+70-79,74,1,Aurora,1,3/26/2020,Male,Illinois,3/17/2020
+40-49,40,1,Elgin,1,3/26/2020,Male,Illinois,3/23/2020
+20-29,21,1,Elgin,,3/26/2020,Female,Illinois,3/24/2020
+20-29,27,1,Maple Park,,3/26/2020,Female,Illinois,3/20/2020
+50-59,50,1,Carpentersville,,3/26/2020,Male,Illinois,3/23/2020
+30-39,35,1,North Aurora,,3/26/2020,Male,Illinois,3/19/2020
+40-49,43,1,Aurora,,3/26/2020,Female,Illinois,3/9/2020
+70-79,71,1,St. Charles,,3/26/2020,Female,Illinois,3/22/2020
+20-29,25,1,Geneva,,3/26/2020,Female,Illinois,3/11/2020
+40-49,48,1,North Aurora,,3/26/2020,Male,Illinois,3/21/2020
+40-49,46,1,Aurora,,3/26/2020,Female,Illinois,3/15/2020
+40-49,48,1,Aurora,,3/26/2020,Female,Illinois,3/18/2020
+40-49,49,1,Aurora,,3/26/2020,Male,Illinois,3/18/2020
+70-79,71,1,Elgin,,3/26/2020,Male,Illinois,3/15/2020
+60-69,68,1,Huntley,1,3/26/2020,Male,Illinois,3/19/2020
+90+,96,1,Aurora,1,3/26/2020,Male,Illinois,3/21/2020
+80-89,83,1,Aurora,1,3/26/2020,Female,Illinois,3/30/2020
+20-29,21,1,St. Charles,,3/26/2020,Male,Illinois,3/13/2020
+50-59,59,1,Elburn,,3/26/2020,Female,Illinois,3/19/2020
+20-29,26,1,Aurora,,3/26/2020,Male,Illinois,3/17/2020
+50-59,54,1,Geneva,,3/26/2020,Female,Illinois,3/23/2020
+30-39,33,1,North Aurora,,3/26/2020,Female,Illinois,3/18/2020
+40-49,44,1,St. Charles,,3/26/2020,Female,Illinois,3/21/2020
+70-79,71,1,Elgin,1,3/26/2020,Male,Illinois,3/20/2020
+30-39,34,1,Pingree Grove,,3/26/2020,Female,Illinois,3/16/2020
+50-59,50,1,Elgin,,3/26/2020,Male,Illinois,3/26/2020
+50-59,54,1,East Dundee,,3/26/2020,Male,Illinois,3/25/2020
+60-69,66,1,Elgin,,3/27/2020,Male,Illinois,3/16/2020
+50-59,57,1,Montgomery,,3/27/2020,Male,Illinois,3/23/2020
+50-59,57,1,Aurora,,3/27/2020,Male,Illinois,3/14/2020
+60-69,64,1,Aurora,,3/27/2020,Female,Illinois,3/24/2020
+80-89,84,1,Gilberts,,3/27/2020,Female,Illinois,3/18/2020
+70-79,74,1,Elgin,1,3/27/2020,Male,Illinois,3/16/2020
+20-29,21,1,Aurora,,3/27/2020,Male,Illinois,3/16/2020
+30-39,30,1,Aurora,,3/27/2020,Male,Illinois,3/18/2020
+50-59,56,1,St. Charles,,3/27/2020,Male,Illinois,3/18/2020
+60-69,61,1,Geneva,1,3/27/2020,Male,Illinois,3/21/2020
+50-59,53,1,Aurora,,3/27/2020,Female,Illinois,3/9/2020
+40-49,41,1,Geneva,,3/27/2020,Female,Illinois,3/22/2020
+40-49,41,1,Algonquin,,3/27/2020,Female,Illinois,3/24/2020
+50-59,59,1,Aurora,,3/27/2020,Male,Illinois,3/16/2020
+40-49,49,1,Elgin,,3/27/2020,Male,Illinois,
+60-69,62,1,Dundee,,3/27/2020,Male,Illinois,3/22/2020
+40-49,44,1,North Aurora,,3/28/2020,Male,Illinois,3/20/2020
+40-49,48,1,South Elgin,,3/28/2020,Female,Illinois,3/25/2020
+50-59,57,1,Algonquin,1,3/28/2020,Male,Illinois,3/18/2020
+20-29,29,1,Gilberts,,3/28/2020,Female,Illinois,3/21/2020
+50-59,50,1,Aurora,,3/28/2020,Female,Illinois,3/25/2020
+40-49,43,1,Pingree Grove,,3/28/2020,Female,Illinois,3/24/2020
+50-59,55,1,Pingree Grove,,3/29/2020,Female,Illinois,3/18/2020
+60-69,67,1,St. Charles,,3/29/2020,Male,Illinois,3/13/2020
+40-49,49,1,South Elgin,,3/29/2020,Female,Illinois,3/25/2020
+80-89,82,1,South Elgin,,3/29/2020,Male,Illinois,3/9/2020
+20-29,20,1,Hampshire,,3/30/2020,Female,Illinois,3/20/2020
+70-79,78,1,Elgin,,3/30/2020,Female,Illinois,3/26/2020
+60-69,61,1,Elgin,,3/30/2020,Female,Illinois,3/19/2020
+90+,91,1,Elgin,1,3/30/2020,Female,Illinois,3/19/2020
+90+,92,1,Aurora,1,3/30/2020,Female,Illinois,3/19/2020
+20-29,22,1,Geneva,,3/30/2020,Female,Illinois,3/18/2020
+50-59,59,1,Geneva,,3/30/2020,Male,Illinois,3/21/2020
+50-59,57,1,St. Charles,,3/30/2020,Male,Illinois,3/18/2020
+20-29,20,1,Gilberts,,3/30/2020,,Illinois,3/21/2020
+30-39,33,1,Gilberts,,3/30/2020,Male,Illinois,3/19/2020
+40-49,48,1,St. Charles,,3/30/2020,Female,Illinois,3/11/2020
+50-59,50,1,Geneva,,3/30/2020,Female,Illinois,3/18/2020
+40-49,45,1,Elburn,,3/30/2020,Male,Illinois,3/17/2020
+40-49,48,1,Batavia,,3/30/2020,Male,Illinois,3/12/2020
+50-59,59,1,Aurora,,3/30/2020,Male,Illinois,3/20/2020
+40-49,42,1,Aurora,,3/30/2020,Male,Illinois,3/27/2020
+30-39,32,1,Batavia,,3/30/2020,Female,Illinois,3/29/2020
+30-39,37,1,Sugar Grove,,3/30/2020,Male,Illinois,3/28/2020
+20-29,28,1,St. Charles,,3/30/2020,Female,Illinois,3/19/2020
+30-39,32,1,Oswego,,3/31/2020,Male,Illinois,3/27/2020
+70-79,77,1,Sugar Grove,1,3/31/2020,Female,Illinois,3/16/2020
+70-79,74,1,Aurora,,3/31/2020,Male,Illinois,
+90+,94,1,Aurora,1,3/31/2020,Male,Illinois,3/20/2020
+50-59,59,1,Elgin,,3/31/2020,Male,Illinois,3/16/2020
+50-59,50,1,Aurora,,3/31/2020,Male,Illinois,3/6/2020
+40-49,49,1,St. Charles,,3/31/2020,Male,Illinois,3/14/2020
+50-59,51,1,St. Charles,,3/31/2020,Male,Illinois,3/22/2020
+40-49,42,1,St. Charles,,3/31/2020,Male,Illinois,
+30-39,34,1,Aurora,,3/31/2020,Female,Illinois,
+20-29,27,1,Pingree Grove,,3/31/2020,Male,Illinois,3/23/2020
+60-69,60,1,Aurora,,3/31/2020,Male,Illinois,3/16/2020
+20-29,26,1,North Aurora,,3/31/2020,Male,Illinois,3/21/2020
+60-69,68,1,Elgin,,3/31/2020,Female,Illinois,3/23/2020
+50-59,54,1,Aurora,,3/31/2020,Male,Illinois,3/15/2020
+50-59,58,1,Elgin,,3/31/2020,Female,Illinois,3/26/2020
+40-49,40,1,Aurora,,3/31/2020,Female,Illinois,3/27/2020
+40-49,47,1,Aurora,,4/1/2020,Female,Illinois,3/22/2020
+90+,94,1,Aurora,1,4/1/2020,Female,Illinois,3/20/2020
+70-79,70,1,Montgomery,1,4/1/2020,Male,Illinois,3/22/2020
+50-59,51,1,Aurora,,4/1/2020,Female,Illinois,3/23/2020
+60-69,61,1,South Elgin,,4/1/2020,Female,Illinois,3/20/2020
+50-59,56,1,St. Charles,,4/1/2020,Male,Illinois,3/21/2020
+50-59,58,1,Aurora,,4/1/2020,Female,Illinois,3/18/2020
+50-59,54,1,Aurora,,4/1/2020,Male,Illinois,3/16/2020
+50-59,50,1,Algonquin,,4/1/2020,Male,Illinois,3/25/2020
+40-49,49,1,Algonquin,,4/1/2020,Male,Illinois,3/19/2020
+30-39,38,1,Carpentersville,,4/1/2020,Male,Illinois,3/20/2020
+30-39,34,1,Aurora,,4/1/2020,Male,Illinois,3/18/2020
+50-59,56,1,St. Charles,,4/1/2020,Female,Illinois,3/6/2020
+50-59,55,1,Hampshire,,4/1/2020,Female,Illinois,3/28/2020
+20-29,25,1,Elgin,,4/1/2020,Female,Illinois,3/24/2020
+50-59,50,1,Aurora,,4/1/2020,Male,Illinois,
+40-49,43,1,Elgin,,4/1/2020,Male,Illinois,3/22/2020
+40-49,45,1,Aurora,,4/1/2020,Female,Illinois,3/24/2020
+60-69,62,1,Elgin,1,4/1/2020,Female,Illinois,3/22/2020
+30-39,33,1,Elgin,,4/1/2020,Female,Illinois,3/16/2020
+30-39,32,1,Hampshire,,4/2/2020,Male,Illinois,3/19/2020
+50-59,52,1,Gilberts,,4/2/2020,Male,Illinois,3/16/2020
+50-59,50,1,Gilberts,,4/2/2020,Female,Illinois,3/23/2020
+80-89,89,1,Elgin,,4/2/2020,Female,Illinois,3/24/2020
+50-59,59,1,Elgin,,4/2/2020,Male,Illinois,3/25/2020
+30-39,34,1,Elgin,,4/2/2020,Female,Illinois,3/26/2020
+60-69,60,1,Elgin,,4/2/2020,Female,Illinois,4/1/2020
+70-79,72,1,Sugar Grove,,4/2/2020,Female,Illinois,3/10/2020
+60-69,64,1,East Dundee,,4/2/2020,Male,Illinois,3/4/2020
+30-39,32,1,Hampshire,,4/2/2020,Male,Illinois,3/23/2020
+30-39,32,1,Elgin,,4/2/2020,Female,Illinois,3/27/2020
+50-59,58,1,Elgin,,4/2/2020,Male,Illinois,3/22/2020
+60-69,69,1,Elgin,,4/2/2020,Male,Illinois,3/20/2020
+50-59,51,1,Aurora,,4/2/2020,Male,Illinois,3/22/2020
+20-29,26,1,Aurora,,4/2/2020,Female,Illinois,3/24/2020
+60-69,61,1,Aurora,,4/2/2020,Male,Illinois,3/30/2020
+20-29,20,1,Aurora,,4/2/2020,Female,Illinois,3/28/2020
+30-39,37,1,Algonquin,,4/2/2020,Female,Illinois,3/29/2020
+40-49,45,1,Aurora,,4/3/2020,Female,Illinois,4/3/2020
+30-39,39,1,Elgin,,4/3/2020,Male,Illinois,3/25/2020
+30-39,33,1,North Aurora,,4/3/2020,Female,Illinois,3/23/2020
+30-39,33,1,Pingree Grove,,4/3/2020,Female,Illinois,3/23/2020
+60-69,63,1,Elgin,,4/3/2020,Male,Illinois,4/1/2020
+30-39,34,1,Aurora,,4/3/2020,Male,Illinois,3/15/2020
+20-29,24,1,Aurora,,4/3/2020,Female,Illinois,3/27/2020
+40-49,46,1,Elgin,,4/3/2020,Male,Illinois,3/23/2020
+50-59,52,1,Aurora,,4/3/2020,Female,Illinois,3/30/2020
+50-59,58,1,Sugar Grove,1,4/3/2020,Male,Illinois,3/22/2020
+40-49,43,1,Elgin,,4/3/2020,Male,Illinois,3/19/2020
+60-69,64,1,Aurora,,4/3/2020,Male,Illinois,3/16/2020
+50-59,53,1,Aurora,,4/3/2020,Female,Illinois,3/26/2020
+80-89,86,1,Aurora,1,4/3/2020,Female,Illinois,3/23/2020
+70-79,74,1,North Aurora,,4/3/2020,Female,Illinois,3/23/2020
+30-39,31,1,Geneva,,4/3/2020,Female,Illinois,3/19/2020
+40-49,48,1,Aurora,,4/3/2020,Male,Illinois,3/21/2020
+40-49,48,1,Elgin,,4/3/2020,Male,Illinois,3/18/2020
+30-39,38,1,St. Charles,,4/3/2020,Female,Illinois,3/17/2020
+40-49,41,1,Elgin,,4/3/2020,Female,Illinois,3/24/2020
+50-59,54,1,Elgin,,4/3/2020,Male,Illinois,3/31/2020
+20-29,27,1,Batavia,,4/3/2020,Female,Illinois,3/21/2020
+50-59,50,1,Aurora,,4/3/2020,Male,Illinois,3/31/2020
+80-89,89,1,Elgin,,4/3/2020,Female,Illinois,3/23/2020
+20-29,23,1,Carpentersville,,4/3/2020,Female,Illinois,3/31/2020
+20-29,23,1,Elgin,,4/3/2020,Male,Illinois,4/1/2020
+20-29,28,1,Aurora,,4/3/2020,Female,Illinois,3/24/2020
+50-59,55,1,Carpentersville,,4/4/2020,Male,Illinois,3/26/2020
+40-49,47,1,Aurora,,4/4/2020,Female,Illinois,3/16/2020
+40-49,46,1,Geneva,,4/4/2020,Male,Illinois,3/19/2020
+40-49,49,1,Aurora,,4/4/2020,Male,Illinois,3/18/2020
+50-59,50,1,Aurora,,4/4/2020,Female,Illinois,3/16/2020
+30-39,32,1,West Dundee,,4/4/2020,Male,Illinois,3/29/2020
+70-79,77,1,Sugar Grove,,4/4/2020,Male,Illinois,3/24/2020
+50-59,51,1,West Dundee,,4/4/2020,Male,Illinois,3/20/2020
+30-39,36,1,Algonquin,,4/4/2020,Male,Illinois,3/23/2020
+40-49,44,1,Aurora,,4/4/2020,Male,Illinois,3/29/2020
+60-69,69,1,Hampshire,,4/4/2020,Male,Illinois,3/17/2020
+40-49,48,1,Aurora,,4/4/2020,Male,Illinois,3/20/2020
+50-59,50,1,St. Charles,,4/4/2020,Male,Illinois,3/22/2020
+50-59,52,1,Gilberts,,4/4/2020,Male,Illinois,3/27/2020
+30-39,34,1,St. Charles,,4/4/2020,Female,Illinois,3/21/2020
+60-69,60,1,Huntley,,4/4/2020,Female,Illinois,3/23/2020
+100,102,1,Elgin,1,4/4/2020,Male,Illinois,3/27/2020
+30-39,30,1,Geneva,,4/4/2020,Female,Illinois,3/16/2020
+50-59,50,1,Elgin,,4/4/2020,Female,Illinois,4/3/2020
+90+,90,1,Aurora,,4/5/2020,Female,Illinois,3/25/2020
+50-59,51,1,St. Charles,,4/5/2020,Female,Illinois,3/27/2020
+40-49,47,1,St. Charles,,4/5/2020,Female,Illinois,3/26/2020
+50-59,52,1,Elgin,,4/5/2020,Male,Illinois,
+60-69,64,1,South Elgin,,4/5/2020,Male,Illinois,4/2/2020
+30-39,32,1,Aurora,,4/5/2020,Female,Illinois,3/30/2020
+60-69,61,1,Aurora,,4/5/2020,Female,Illinois,3/31/2020
+30-39,34,1,Algonquin,,4/6/2020,Female,Illinois,3/19/2020
+50-59,58,1,Algonquin,,4/6/2020,Female,Illinois,3/23/2020
+50-59,57,1,Elgin,,4/6/2020,Male,Illinois,3/26/2020
+80-89,80,1,Aurora,,4/6/2020,Female,Illinois,3/23/2020
+50-59,52,1,Aurora,,4/6/2020,Female,Illinois,
+80-89,83,1,Aurora,,4/6/2020,Male,Illinois,3/28/2020
+70-79,74,1,Aurora,,4/6/2020,Male,Illinois,3/22/2020
+50-59,59,1,Geneva,,4/6/2020,Female,Illinois,3/27/2020
+50-59,55,1,Aurora,,4/6/2020,Female,Illinois,4/3/2020
+30-39,31,1,Dundee,,4/6/2020,Male,Illinois,3/26/2020
+50-59,55,1,Elgin,,4/6/2020,Male,Illinois,3/30/2020
+50-59,59,1,Gilberts,,4/6/2020,Male,Illinois,3/26/2020
+40-49,44,1,Maple Park,,4/6/2020,Male,Illinois,3/28/2020
+30-39,37,1,Aurora,,4/6/2020,Female,Illinois,3/27/2020
+40-49,46,1,Aurora,,4/6/2020,Female,Illinois,3/26/2020
+70-79,76,1,Aurora,,4/6/2020,Female,Illinois,
+40-49,45,1,Batavia,,4/6/2020,Male,Illinois,3/22/2020
+50-59,57,1,Aurora,,4/6/2020,Male,Illinois,3/29/2020
+40-49,49,1,Aurora,,4/6/2020,Female,Illinois,3/25/2020
+40-49,41,1,St. Charles,,4/6/2020,Male,Illinois,3/26/2020
+30-39,39,1,North Aurora,,4/6/2020,Female,Illinois,3/27/2020
+50-59,50,1,Aurora,,4/6/2020,Male,Illinois,3/30/2020
+20-29,23,1,Aurora,,4/6/2020,Female,Illinois,3/26/2020
+40-49,48,1,Elgin,,4/6/2020,Male,Illinois,3/22/2020
+40-49,41,1,Carpentersville,,4/6/2020,Female,Illinois,
+90+,91,1,Elgin,1,4/6/2020,Female,Illinois,3/26/2020
+60-69,65,1,South Elgin,,4/6/2020,Male,Illinois,3/29/2020
+40-49,46,1,Aurora,,4/6/2020,Male,Illinois,3/27/2020
+60-69,61,1,Batavia,,4/6/2020,Male,Illinois,3/22/2020
+50-59,54,1,St. Charles,,4/7/2020,Male,Illinois,
+50-59,57,1,Elgin,,4/7/2020,Male,Illinois,4/1/2020
+40-49,46,1,Elgin,,4/7/2020,Male,Illinois,3/23/2020
+30-39,34,1,Aurora,,4/7/2020,Female,Illinois,3/26/2020
+60-69,61,1,Elgin,,4/7/2020,Male,Illinois,4/1/2020
+50-59,50,1,Carpentersville,,4/7/2020,Unknown,Illinois,4/1/2020
+50-59,58,1,Aurora,,4/7/2020,Male,Illinois,3/27/2020
+30-39,33,1,Carpentersville,,4/7/2020,Female,Illinois,3/27/2020
+40-49,47,1,Elburn,,4/7/2020,Female,Illinois,4/2/2020
+50-59,51,1,Aurora,,4/7/2020,Female,Illinois,
+30-39,37,1,Elgin,,4/7/2020,Female,Illinois,
+40-49,41,1,Carpentersville,,4/7/2020,Female,Illinois,3/18/2020
+30-39,38,1,Elgin,,4/7/2020,Male,Illinois,3/30/2020
+30-39,35,1,St. Charles,,4/7/2020,Female,Illinois,4/5/2020
+80-89,81,1,Elgin,1,4/7/2020,Female,Illinois,4/5/2020
+20-29,24,1,Elgin,,4/7/2020,Female,Illinois,4/5/2020
+20-29,25,1,Elgin,,4/7/2020,Male,Illinois,
+60-69,67,1,South Elgin,,4/7/2020,Female,Illinois,4/2/2020
+20-29,24,1,Aurora,,4/7/2020,Female,Illinois,3/25/2020
+30-39,39,1,,,4/7/2020,Male,Illinois,
+20-29,23,1,Elgin,,4/7/2020,Female,Illinois,4/2/2020
+70-79,74,1,Sycamore,,4/7/2020,Male,Illinois,4/1/2020
+60-69,61,1,North Aurora,,4/7/2020,Male,Illinois,3/28/2020
+20-29,28,1,Aurora,,4/7/2020,Female,Illinois,4/1/2020
+60-69,68,1,Aurora,,4/7/2020,Female,Illinois,3/25/2020
+50-59,54,1,Aurora,,4/7/2020,Male,Illinois,
+20-29,27,1,Aurora,,4/7/2020,Male,Illinois,4/3/2020
+20-29,25,1,Aurora,,4/7/2020,Male,Illinois,3/30/2020
+60-69,63,1,North Aurora,,4/7/2020,Female,Illinois,4/1/2020
+50-59,59,1,Aurora,,4/7/2020,Male,Illinois,3/24/2020
+70-79,76,1,Aurora,,4/7/2020,Male,Illinois,3/28/2020
+70-79,77,1,St. Charles,,4/8/2020,Female,Illinois,3/31/2020
+40-49,43,1,Aurora,,4/8/2020,Male,Illinois,4/4/2020
+30-39,32,1,South Elgin,,4/8/2020,Female,Illinois,4/1/2020
+70-79,71,1,Elgin,,4/8/2020,Female,Illinois,4/3/2020
+70-79,78,1,St. Charles,,4/8/2020,Male,Illinois,3/28/2020
+20-29,21,1,Aurora,,4/8/2020,Female,Illinois,3/28/2020
+50-59,52,1,Aurora,,4/8/2020,Male,Illinois,3/28/2020
+50-59,51,1,Aurora,,4/8/2020,Male,Illinois,3/28/2020
+30-39,35,1,Aurora,,4/8/2020,Male,Illinois,
+30-39,37,1,Aurora,,4/8/2020,Male,Illinois,4/6/2020
+60-69,66,1,Aurora,,4/8/2020,Male,Illinois,
+70-79,74,1,Aurora,,4/8/2020,Female,Illinois,4/2/2020
+50-59,53,1,Aurora,1,4/8/2020,Male,Illinois,4/4/2020
+60-69,68,1,Aurora,,4/8/2020,Male,Illinois,4/3/2020
+40-49,42,1,Aurora,,4/8/2020,Female,Illinois,3/30/2020
+50-59,51,1,North Aurora,,4/8/2020,Male,Illinois,3/28/2020
+60-69,62,1,Aurora,,4/8/2020,Male,Illinois,4/2/2020
+80-89,88,1,Aurora,,4/8/2020,Female,Illinois,
+70-79,77,1,Carpentersville,1,4/8/2020,Male,Illinois,4/1/2020
+70-79,77,1,Elgin,,4/8/2020,Male,Illinois,3/30/2020
+20-29,21,1,St. Charles,,4/8/2020,Female,Illinois,3/28/2020
+20-29,21,1,St. Charles,,4/8/2020,Female,Illinois,3/28/2020
+70-79,71,1,Carpentersville,,4/8/2020,Male,Illinois,4/7/2020
+20-29,22,1,Aurora,,4/8/2020,Female,Illinois,3/30/2020
+60-69,61,1,Aurora,,4/8/2020,Male,Illinois,3/29/2020
+40-49,42,1,Aurora,,4/8/2020,Female,Illinois,4/6/2020
+60-69,67,1,Aurora,,4/8/2020,Male,Illinois,
+20-29,23,1,West Dundee,,4/8/2020,Male,Illinois,4/5/2020
+20-29,27,1,St. Charles,,4/8/2020,Male,Illinois,3/30/2020
+40-49,44,1,Elgin,,4/8/2020,Male,Illinois,3/27/2020
+20-29,27,1,Aurora,,4/8/2020,Male,Illinois,3/31/2020
+50-59,59,1,Carpentersville,,4/8/2020,Male,Illinois,4/4/2020
+70-79,76,1,Elgin,1,4/8/2020,Male,Illinois,3/29/2020
+60-69,60,1,Elgin,,4/8/2020,Female,Illinois,3/29/2020
+80-89,86,1,Aurora,,4/9/2020,Female,Illinois,4/8/2020
+50-59,57,1,Aurora,,4/9/2020,Female,Illinois,4/2/2020
+40-49,47,1,Aurora,,4/9/2020,Female,Illinois,4/2/2020
+40-49,47,1,Aurora,,4/9/2020,Female,Illinois,4/2/2020
+20-29,27,1,Carpentersville,,4/9/2020,Female,Illinois,4/9/2020
+30-39,35,1,Aurora,,4/9/2020,Male,Illinois,3/31/2020
+50-59,55,1,Aurora,,4/9/2020,Male,Illinois,3/29/2020
+20-29,28,1,Elburn,,4/9/2020,Female,Illinois,4/5/2020
+40-49,43,1,Carpentersville,,4/9/2020,Male,Illinois,3/30/2020
+60-69,63,1,Carpentersville,,4/9/2020,Male,Illinois,3/29/2020
+40-49,42,1,Aurora,,4/9/2020,Male,Illinois,3/29/2020
+30-39,35,1,Carpentersville,,4/9/2020,Female,Illinois,4/2/2020
+20-29,22,1,Montgomery,,4/9/2020,Female,Illinois,3/23/2020
+40-49,48,1,Carpentersville,,4/9/2020,Male,Illinois,3/29/2020
+60-69,68,1,Aurora,,4/9/2020,Female,Illinois,
+60-69,65,1,Aurora,,4/9/2020,Male,Illinois,3/29/2020
+20-29,22,1,Aurora,,4/9/2020,Male,Illinois,3/14/2020
+40-49,49,1,Aurora,,4/9/2020,Female,Illinois,3/18/2020
+90+,95,1,Elgin,1,4/9/2020,Female,Illinois,4/5/2020
+40-49,43,1,Aurora,,4/9/2020,Female,Illinois,3/30/2020
+40-49,45,1,Aurora,,4/9/2020,Female,Illinois,4/6/2020
+60-69,68,1,Aurora,,4/9/2020,Female,Illinois,4/6/2020
+60-69,61,1,Aurora,,4/9/2020,Female,Illinois,4/3/2020
+40-49,47,1,Aurora,,4/9/2020,Male,Illinois,
+20-29,25,1,Geneva,,4/10/2020,Male,Illinois,4/8/2020
+30-39,34,1,Aurora,,4/10/2020,Male,Illinois,3/30/2020
+40-49,41,1,Aurora,,4/10/2020,Male,Illinois,4/6/2020
+40-49,49,1,Aurora,,4/10/2020,Male,Illinois,3/30/2020
+20-29,22,1,Aurora,,4/10/2020,Female,Illinois,4/9/2020
+80-89,84,1,Elgin,,4/10/2020,Female,Illinois,4/6/2020
+30-39,30,1,Aurora,,4/10/2020,Male,Illinois,2/10/2020
+60-69,63,1,Aurora,,4/10/2020,Female,Illinois,3/25/2020
+60-69,65,1,Aurora,,4/10/2020,Male,Illinois,3/27/2020
+40-49,43,1,Elburn,,4/10/2020,Male,Illinois,3/28/2020
+30-39,35,1,Carpentersville,,4/10/2020,Male,Illinois,3/28/2020
+60-69,62,1,Dundee,,4/10/2020,Female,Illinois,4/6/2020
+50-59,58,1,Aurora,,4/10/2020,Female,Illinois,
+20-29,26,1,Elgin,,4/10/2020,Female,Illinois,3/28/2020
+20-29,28,1,Aurora,,4/10/2020,Female,Illinois,3/15/2020
+30-39,34,1,Aurora,,4/10/2020,Male,Illinois,
+40-49,46,1,Aurora,,4/10/2020,Female,Illinois,3/30/2020
+30-39,34,1,Aurora,,4/10/2020,Female,Illinois,3/24/2020
+30-39,33,1,Aurora,,4/10/2020,Male,Illinois,
+20-29,21,1,Elgin,,4/10/2020,Female,Illinois,4/4/2020
+30-39,30,1,Aurora,,4/10/2020,Male,Illinois,4/2/2020
+70-79,74,1,Aurora,,4/10/2020,Male,Illinois,
+70-79,72,1,Aurora,,4/10/2020,Male,Illinois,
+50-59,53,1,Aurora,,4/10/2020,Male,Illinois,4/9/2020
+40-49,44,1,Aurora,,4/10/2020,Male,Illinois,3/31/2020
+40-49,42,1,Algonquin,,4/10/2020,Male,Illinois,4/8/2020
+60-69,60,1,Gilberts,,4/10/2020,Female,Illinois,4/10/2020
+70-79,75,1,Huntley,,4/10/2020,Male,Illinois,3/30/2020
+20-29,28,1,Carpentersville,,4/10/2020,Female,Illinois,4/1/2020
+50-59,58,1,Pingree Grove,,4/10/2020,Female,Illinois,3/31/2020
+30-39,38,1,Aurora,,4/10/2020,Female,Illinois,4/8/2020
+30-39,34,1,Aurora,,4/10/2020,Male,Illinois,4/7/2020
+30-39,34,1,Aurora,,4/10/2020,Male,Illinois,4/7/2020
+20-29,20,1,Aurora,,4/10/2020,Female,Illinois,3/30/2020
+0-9,0,1,Elgin,,4/11/2020,Male,Illinois,4/8/2020
+20-29,25,1,St. Charles,,4/11/2020,Male,Illinois,2/21/2020
+60-69,62,1,Aurora,,4/11/2020,Female,Illinois,4/2/2020
+50-59,51,1,Aurora,,4/11/2020,Male,Illinois,4/4/2020
+30-39,33,1,Batavia,,4/11/2020,Female,Illinois,4/6/2020
+40-49,47,1,Aurora,,4/11/2020,Female,Illinois,
+90+,91,1,Batavia,,4/11/2020,Male,Illinois,
+30-39,34,1,St. Charles,,4/11/2020,Female,Illinois,4/5/2020
+60-69,66,1,Elgin,,4/11/2020,Unknown,Illinois,3/31/2020
+30-39,36,1,Elgin,,4/11/2020,Unknown,Illinois,4/2/2020
+60-69,60,1,Elgin,,4/11/2020,Female,Illinois,
+30-39,33,1,Batavia,,4/11/2020,Unknown,Illinois,4/7/2020
+30-39,39,1,Aurora,,4/11/2020,Female,Illinois,
+80-89,81,1,Aurora,,4/11/2020,Male,Illinois,3/31/2020
+30-39,37,1,Aurora,,4/11/2020,Female,Illinois,
+40-49,49,1,Gilberts,,4/11/2020,Female,Illinois,
+70-79,77,1,Gilberts,1,4/11/2020,Female,Illinois,4/5/2020
+30-39,35,1,Elgin,,4/11/2020,Female,Illinois,
+40-49,48,1,Aurora,,4/11/2020,Male,Illinois,
+30-39,35,1,South Elgin,,4/11/2020,Male,Illinois,
+30-39,39,1,South Elgin,,4/11/2020,Female,Illinois,4/2/2020
+40-49,40,1,Aurora,,4/12/2020,Male,Illinois,4/18/2020
+60-69,68,1,Elgin,,4/12/2020,Female,Illinois,4/8/2020
+40-49,45,1,Aurora,,4/12/2020,Male,Illinois,4/1/2020
+20-29,27,1,Aurora,,4/12/2020,Female,Illinois,4/4/2020
+20-29,27,1,Aurora,,4/12/2020,Female,Illinois,4/4/2020
+20-29,26,1,Aurora,,4/12/2020,Male,Illinois,4/4/2020
+60-69,65,1,Aurora,,4/12/2020,Female,Illinois,
+90+,92,1,Elgin,1,4/12/2020,Female,Illinois,4/5/2020
+60-69,68,1,Elgin,,4/12/2020,Female,Illinois,
+70-79,74,1,Elgin,,4/12/2020,Female,Illinois,
+20-29,24,1,Aurora,,4/12/2020,Female,Illinois,4/4/2020
+50-59,51,1,Aurora,,4/12/2020,Male,Illinois,
+50-59,54,1,Elgin,,4/12/2020,Male,Illinois,4/8/2020
+50-59,54,1,Elgin,,4/12/2020,Male,Illinois,4/8/2020
+30-39,35,1,Elgin,,4/12/2020,Female,Illinois,4/3/2020
+60-69,60,1,Elgin,,4/12/2020,Male,Illinois,
+50-59,57,1,St. Charles,,4/12/2020,Female,Illinois,
+40-49,46,1,Aurora,,4/12/2020,Male,Illinois,
+50-59,57,1,Elburn,,4/12/2020,Female,Illinois,4/2/2020
+50-59,59,1,Elburn,,4/12/2020,Male,Illinois,4/3/2020
+40-49,45,1,Batavia,,4/12/2020,Male,Illinois,4/6/2020
+30-39,38,1,North Aurora,,4/12/2020,Female,Illinois,4/8/2020
+40-49,40,1,Carpentersville,,4/12/2020,Male,Illinois,
+50-59,58,1,Elgin,,4/12/2020,Male,Illinois,4/7/2020
+60-69,60,1,Geneva,,4/12/2020,Female,Illinois,4/8/2020
+80-89,82,1,Elgin,,4/12/2020,Male,Illinois,
+60-69,63,1,Batavia,,4/12/2020,Male,Illinois,4/4/2020
+30-39,33,1,Hampshire,,4/13/2020,Female,Illinois,3/27/2020
+80-89,83,1,Huntley,,4/13/2020,Female,Illinois,
+60-69,65,1,Elgin,,4/13/2020,Male,Illinois,4/12/2020
+40-49,46,1,Aurora,,4/13/2020,Male,Illinois,3/29/2020
+70-79,73,1,Aurora,,4/13/2020,Male,Illinois,
+60-69,65,1,Aurora,,4/13/2020,Male,Illinois,4/9/2020
+60-69,67,1,Aurora,,4/13/2020,Female,Illinois,4/2/2020
+20-29,22,1,Aurora,,4/13/2020,Male,Illinois,4/10/2020
+20-29,26,1,Carpentersville,,4/13/2020,Female,Illinois,4/17/2020
+20-29,28,1,Carpentersville,,4/13/2020,Female,Illinois,4/2/2020
+40-49,41,1,Elgin,,4/13/2020,Female,Illinois,4/4/2020
+40-49,44,1,St. Charles,,4/13/2020,Male,Illinois,4/7/2020
+40-49,48,1,Carpentersville,,4/13/2020,Female,Illinois,
+40-49,44,1,Elgin,,4/13/2020,Female,Illinois,4/7/2020
+20-29,28,1,Aurora,,4/13/2020,Female,Illinois,3/23/2020
+80-89,80,1,Elgin,,4/13/2020,Male,Illinois,
+60-69,64,1,Aurora,,4/13/2020,Male,Illinois,4/3/2020
+50-59,54,1,Aurora,,4/13/2020,,Illinois,
+50-59,55,1,Elgin,,4/14/2020,Unknown,Illinois,
+70-79,75,1,Elgin,,4/14/2020,Male,Illinois,
+60-69,69,1,Elgin,,4/14/2020,Female,Illinois,
+20-29,20,1,Sugar Grove,,4/14/2020,Male,Illinois,4/12/2020
+20-29,29,1,Aurora,,4/14/2020,Male,Illinois,
+80-89,82,1,Aurora,,4/14/2020,Male,Illinois,
+50-59,51,1,Aurora,,4/14/2020,Female,Illinois,4/3/2020
+50-59,52,1,Aurora,,4/14/2020,Female,Illinois,3/30/2020
+30-39,36,1,Aurora,,4/14/2020,Male,Illinois,4/2/2020
+30-39,36,1,Carpentersville,,4/14/2020,Female,Illinois,
+30-39,36,1,Carpentersville,,4/14/2020,Male,Illinois,4/4/2020
+30-39,30,1,Carpentersville,,4/14/2020,Male,Illinois,
+50-59,59,1,Dundee,,4/14/2020,Male,Illinois,
+90+,90,1,Elgin,,4/14/2020,Female,Illinois,
+70-79,72,1,St. Charles,,4/14/2020,Male,Illinois,
+50-59,50,1,South Elgin,,4/14/2020,Male,Illinois,4/6/2020
+60-69,68,1,Elgin,,4/14/2020,Male,Illinois,
+50-59,59,1,West Dundee,,4/14/2020,Male,Illinois,4/4/2020
+50-59,53,1,St. Charles,,4/14/2020,Female,Illinois,4/9/2020
+70-79,76,1,Batavia,,4/14/2020,Female,Illinois,
+50-59,52,1,South Elgin,,4/14/2020,Male,Illinois,4/5/2020
+50-59,52,1,Aurora,,4/15/2020,Male,Illinois,4/3/2020
+20-29,26,1,Carpentersville,,4/15/2020,,Illinois,
+30-39,31,1,Elgin,,4/15/2020,Male,Illinois,4/5/2020
+40-49,47,1,Elgin,,4/15/2020,Female,Illinois,
+50-59,50,1,Aurora,,4/15/2020,Male,Illinois,
+50-59,52,1,Aurora,,4/15/2020,Female,Illinois,
+30-39,39,1,Aurora,,4/15/2020,Male,Illinois,4/12/2020
+10-19,18,1,Aurora,,4/15/2020,Male,Illinois,4/4/2020
+60-69,63,1,South Elgin,,4/15/2020,Female,Illinois,
+20-29,22,1,Aurora,,4/15/2020,Female,Illinois,
+50-59,59,1,Carpentersville,,4/15/2020,Female,Illinois,4/7/2020
+60-69,60,1,Elgin,,4/15/2020,Male,Illinois,
+50-59,54,1,Aurora,,4/15/2020,Male,Illinois,
+30-39,39,1,Carpentersville,,4/15/2020,Male,Illinois,
+40-49,44,1,Pingree Grove,,4/15/2020,Male,Illinois,
+50-59,58,1,South Elgin,,4/15/2020,Male,Illinois,4/11/2020
+60-69,65,1,Pingree Grove,,4/15/2020,Female,Illinois,
+30-39,37,1,Batavia,,4/15/2020,Male,Illinois,
+40-49,48,1,Aurora,,4/15/2020,Male,Illinois,
+40-49,47,1,Carpentersville,,4/15/2020,Female,Illinois,
+50-59,52,1,Elgin,,4/15/2020,Male,Illinois,4/5/2020
+20-29,24,1,South Elgin,,4/15/2020,Female,Illinois,
+40-49,42,1,Pingree Grove,,4/15/2020,Female,Illinois,
+20-29,25,1,East Dundee,,4/15/2020,Female,Illinois,4/14/2020
+60-69,64,1,Aurora,,4/15/2020,Male,Illinois,4/6/2020
+30-39,37,1,Aurora,,4/15/2020,Female,Illinois,4/9/2020
+50-59,57,1,Elgin,1,4/15/2020,Male,Illinois,
+40-49,41,1,Elgin,,4/15/2020,Male,Illinois,
+40-49,45,1,Big Rock,,4/15/2020,Female,Illinois,4/12/2020
+40-49,47,1,Montgomery,,4/15/2020,Male,Illinois,4/6/2020
+50-59,55,1,Batavia,,4/16/2020,Female,Illinois,4/8/2020
+20-29,29,1,Aurora,,4/16/2020,Female,Illinois,4/5/2020
+50-59,58,1,Aurora,,4/16/2020,Female,Illinois,4/1/2020
+70-79,75,1,Aurora,,4/16/2020,Female,Illinois,4/6/2020
+30-39,31,1,Aurora,,4/16/2020,Female,Illinois,4/11/2020
+50-59,50,1,South Elgin,,4/16/2020,Female,Illinois,4/8/2020
+50-59,55,1,Aurora,,4/16/2020,Female,Illinois,4/12/2020
+30-39,39,1,Elgin,,4/16/2020,Male,Illinois,
+40-49,45,1,South Elgin,,4/16/2020,Male,Illinois,
+50-59,57,1,Aurora,,4/16/2020,Male,Illinois,4/9/2020
+60-69,61,1,Aurora,,4/16/2020,Male,Illinois,
+40-49,47,1,Aurora,,4/16/2020,Female,Illinois,
+70-79,77,1,Aurora,,4/16/2020,Male,Illinois,
+30-39,39,1,North Aurora,,4/16/2020,Female,Illinois,
+70-79,70,1,Aurora,,4/16/2020,Female,Illinois,
+50-59,50,1,Aurora,,4/16/2020,Female,Illinois,
+50-59,56,1,Elgin,,4/16/2020,Male,Illinois,4/2/2020
+50-59,58,1,Elgin,,4/16/2020,Male,Illinois,4/5/2020
+50-59,56,1,Elgin,,4/16/2020,Female,Illinois,
+40-49,44,1,North Aurora,,4/16/2020,Male,Illinois,
+20-29,24,1,Gilberts,,4/16/2020,Female,Illinois,4/6/2020
+20-29,26,1,Carpentersville,,4/16/2020,Female,Illinois,
+20-29,26,1,Carpentersville,,4/16/2020,Male,Illinois,4/3/2020
+10-19,16,1,St. Charles,,4/16/2020,Female,Illinois,
+50-59,51,1,West Dundee,,4/16/2020,Male,Illinois,4/8/2020
+60-69,67,1,Sugar Grove,,4/16/2020,Male,Illinois,3/24/2020
+20-29,24,1,Elgin,,4/16/2020,Female,Illinois,4/11/2020
+80-89,84,1,West Dundee,,4/16/2020,Female,Illinois,
+80-89,84,1,Elgin,1,4/16/2020,Male,Illinois,
+50-59,50,1,Carpentersville,,4/16/2020,Male,Illinois,
+30-39,37,1,Aurora,,4/16/2020,Male,Illinois,4/7/2020
+30-39,34,1,Aurora,,4/16/2020,Female,Illinois,4/9/2020
+50-59,58,1,Aurora,,4/16/2020,Male,Illinois,4/7/2020
+90+,91,1,Elgin,,4/16/2020,Male,Illinois,
+20-29,25,1,Aurora,,4/16/2020,Female,Illinois,4/6/2020
+70-79,71,1,Sleepy Hollow,,4/16/2020,Male,Illinois,
+60-69,66,1,Elgin,,4/16/2020,Female,Illinois,
+50-59,51,1,Pingree Grove,,4/16/2020,Female,Illinois,
+40-49,47,1,Aurora,,4/16/2020,Male,Illinois,3/14/2020
+40-49,47,1,Aurora,,4/16/2020,Female,Illinois,4/2/2020
+40-49,47,1,South Elgin,,4/16/2020,Female,Illinois,4/10/2020
+40-49,47,1,South Elgin,,4/16/2020,Female,Illinois,4/10/2020
+50-59,58,1,Pingree Grove,,4/16/2020,Male,Illinois,4/9/2020
+50-59,58,1,Carpentersville,,4/16/2020,Male,Illinois,4/6/2020
+60-69,60,1,Elgin,,4/16/2020,Male,Illinois,4/6/2020
+20-29,28,1,Aurora,,4/17/2020,Female,Illinois,4/9/2020
+70-79,78,1,St. Charles,,4/17/2020,Male,Illinois,
+40-49,46,1,Aurora,,4/17/2020,Male,Illinois,4/9/2020
+50-59,51,1,Aurora,,4/17/2020,Male,Illinois,4/12/2020
+60-69,69,1,Aurora,,4/17/2020,Male,Illinois,4/8/2020
+30-39,30,1,Aurora,,4/17/2020,Female,Illinois,4/13/2020
+60-69,65,1,Elgin,,4/17/2020,Male,Illinois,4/15/2020
+50-59,53,1,Carpentersville,,4/17/2020,Female,Illinois,
+60-69,63,1,Aurora,,4/17/2020,Male,Illinois,
+50-59,54,1,Elgin,,4/17/2020,Female,Illinois,
+40-49,48,1,Elgin,,4/17/2020,Male,Illinois,
+40-49,46,1,Aurora,,4/17/2020,Female,Illinois,
+80-89,82,1,Aurora,,4/17/2020,Female,Illinois,4/12/2020
+50-59,51,1,Aurora,,4/17/2020,Male,Illinois,
+60-69,69,1,Aurora,,4/17/2020,Female,Illinois,
+70-79,77,1,North Aurora,1,4/17/2020,Female,Illinois,
+20-29,27,1,Gilberts,,4/17/2020,Female,Illinois,
+60-69,60,1,Carpentersville,,4/17/2020,Male,Illinois,
+60-69,64,1,Carpentersville,,4/17/2020,Female,Illinois,
+60-69,60,1,Elgin,,4/17/2020,Male,Illinois,
+20-29,29,1,Elgin,,4/17/2020,Female,Illinois,
+20-29,21,1,Aurora,,4/17/2020,Female,Illinois,
+40-49,41,1,Elgin,,4/17/2020,Female,Illinois,
+40-49,46,1,Elgin,,4/17/2020,Male,Illinois,
+60-69,63,1,South Elgin,,4/17/2020,Female,Illinois,4/13/2020
+40-49,46,1,St. Charles,,4/17/2020,Female,Illinois,
+40-49,46,1,St. Charles,,4/17/2020,Female,Illinois,
+40-49,41,1,Carpentersville,,4/17/2020,Male,Illinois,
+40-49,44,1,Aurora,,4/17/2020,Male,Illinois,4/11/2020
+50-59,51,1,Aurora,,4/17/2020,Male,Illinois,4/8/2020
+30-39,38,1,Aurora,,4/17/2020,Male,Illinois,
+80-89,84,1,Aurora,1,4/17/2020,Male,Illinois,
+10-19,19,1,Carpentersville,,4/17/2020,Male,Illinois,3/30/2020
+40-49,43,1,Carpentersville,,4/17/2020,Female,Illinois,3/25/2020
+50-59,50,1,Batavia,,4/17/2020,Male,Illinois,
+50-59,58,1,South Elgin,,4/17/2020,Female,Illinois,
+20-29,29,1,Aurora,,4/18/2020,Male,Illinois,
+30-39,30,1,Carpentersville,,4/18/2020,Male,Illinois,
+90+,90,1,St. Charles,,4/18/2020,Female,Illinois,
+50-59,51,1,Elgin,,4/18/2020,Female,Illinois,
+40-49,43,1,Geneva,,4/18/2020,Male,Illinois,
+60-69,68,1,Aurora,,4/18/2020,Female,Illinois,
+70-79,79,1,Aurora,,4/18/2020,Male,Illinois,
+10-19,19,1,Aurora,,4/18/2020,Female,Illinois,
+80-89,80,1,Aurora,,4/18/2020,Female,Illinois,
+70-79,72,1,Aurora,,4/18/2020,Male,Illinois,
+50-59,50,1,Aurora,,4/18/2020,Male,Illinois,
+40-49,46,1,Elgin,,4/18/2020,Female,Illinois,
+40-49,46,1,Elgin,,4/18/2020,Male,Illinois,
+30-39,31,1,Elgin,,4/18/2020,Female,Illinois,
+50-59,57,1,Aurora,,4/18/2020,Female,Illinois,
+50-59,55,1,Elgin,,4/18/2020,Female,Illinois,
+50-59,56,1,Aurora,,4/18/2020,Female,Illinois,
+40-49,43,1,Elgin,,4/18/2020,Female,Illinois,
+30-39,38,1,Elgin,,4/18/2020,Female,Illinois,
+30-39,39,1,Elgin,,4/18/2020,Male,Illinois,
+30-39,38,1,Carpentersville,,4/18/2020,Female,Illinois,
+20-29,21,1,St. Charles,,4/18/2020,Male,Illinois,
+20-29,26,1,Elgin,,4/18/2020,Female,Illinois,
+30-39,36,1,East Dundee,,4/18/2020,Female,Illinois,4/13/2020
+70-79,79,1,Geneva,,4/18/2020,Female,Illinois,
+30-39,32,1,South Elgin,,4/18/2020,Female,Illinois,
+50-59,50,1,Elgin,,4/18/2020,Male,Illinois,
+60-69,62,1,Elgin,,4/18/2020,Male,Illinois,
+40-49,42,1,Aurora,,4/18/2020,Male,Illinois,3/24/2020
+40-49,46,1,Aurora,,4/19/2020,Male,Illinois,4/7/2020
+20-29,22,1,Batavia,,4/19/2020,Female,Illinois,
+60-69,67,1,South Elgin,,4/19/2020,Male,Illinois,
+70-79,73,1,Elgin,,4/19/2020,Female,Illinois,
+80-89,85,1,Elgin,,4/19/2020,Female,Illinois,
+60-69,65,1,St. Charles,,4/19/2020,,Illinois,
+50-59,59,1,Elgin,,4/19/2020,Female,Illinois,
+90+,91,1,Elgin,,4/19/2020,Male,Illinois,
+70-79,70,1,Aurora,,4/19/2020,Female,Illinois,
+60-69,67,1,Aurora,,4/19/2020,Male,Illinois,
+60-69,64,1,Elgin,,4/19/2020,Male,Illinois,
+20-29,26,1,South Elgin,,4/19/2020,Female,Illinois,4/8/2020
+40-49,41,1,Elgin,,4/19/2020,Male,Illinois,
+30-39,35,1,East Dundee,,4/19/2020,Female,Illinois,
+40-49,45,1,Aurora,,4/19/2020,Female,Illinois,4/11/2020
+30-39,33,1,South Elgin,,4/19/2020,Female,Illinois,
+30-39,33,1,Carpentersville,,4/19/2020,Female,Illinois,
+60-69,62,1,Aurora,,4/19/2020,Female,Illinois,
+30-39,32,1,Aurora,,4/20/2020,Female,Illinois,4/9/2020
+50-59,59,1,Aurora,,4/20/2020,Male,Illinois,4/14/2020
+20-29,20,1,St. Charles,,4/20/2020,Male,Illinois,
+50-59,51,1,Carpentersville,,4/20/2020,Male,Illinois,
+20-29,28,1,Aurora,,4/20/2020,Male,Illinois,
+40-49,48,1,Elgin,,4/20/2020,Female,Illinois,4/16/2020
+40-49,42,1,Aurora,,4/20/2020,Female,Illinois,4/10/2020
+50-59,52,1,Aurora,,4/20/2020,Male,Illinois,4/10/2020
+40-49,48,1,Aurora,,4/20/2020,Male,Illinois,4/10/2020
+40-49,45,1,Aurora,,4/20/2020,Female,Illinois,4/14/2020
+20-29,28,1,Aurora,,4/20/2020,Female,Illinois,4/14/2020
+30-39,31,1,Aurora,,4/20/2020,Female,Illinois,4/14/2020
+50-59,57,1,Aurora,,4/20/2020,Male,Illinois,4/3/2020
+60-69,67,1,Aurora,,4/20/2020,Male,Illinois,4/10/2020
+20-29,20,1,Aurora,,4/20/2020,Female,Illinois,4/3/2020
+90+,90,1,Geneva,,4/20/2020,Female,Illinois,
+0-9,5,1,Aurora,,4/20/2020,Female,Illinois,4/16/2020
+50-59,57,1,Montgomery,,4/20/2020,Female,Illinois,
+50-59,57,1,Aurora,,4/20/2020,Male,Illinois,4/15/2020
+30-39,37,1,Aurora,,4/20/2020,Female,Illinois,4/13/2020
+30-39,35,1,Elgin,,4/20/2020,Male,Illinois,4/9/2020
+80-89,80,1,Geneva,,4/20/2020,Female,Illinois,4/17/2020
+40-49,47,1,Elgin,,4/20/2020,Male,Illinois,
+60-69,69,1,Elgin,,4/20/2020,Male,Illinois,
+20-29,20,1,Elgin,,4/20/2020,Female,Illinois,
+50-59,52,1,Elgin,,4/20/2020,Male,Illinois,
+30-39,31,1,Elgin,,4/20/2020,Male,Illinois,
+60-69,67,1,Elgin,,4/20/2020,Male,Illinois,
+50-59,54,1,Aurora,,4/20/2020,Male,Illinois,
+50-59,53,1,Aurora,,4/20/2020,Male,Illinois,
+70-79,78,1,Aurora,,4/20/2020,Male,Illinois,
+70-79,72,1,Aurora,,4/20/2020,Male,Illinois,
+50-59,52,1,Aurora,,4/20/2020,Male,Illinois,
+20-29,25,1,Aurora,,4/20/2020,Female,Illinois,
+20-29,29,1,Aurora,,4/20/2020,Male,Illinois,
+10-19,19,1,Carpentersville,,4/20/2020,Male,Illinois,
+20-29,25,1,Carpentersville,,4/20/2020,Male,Illinois,
+50-59,58,1,Carpentersville,,4/20/2020,Male,Illinois,
+70-79,72,1,St. Charles,,4/20/2020,Female,Illinois,
+70-79,72,1,St. Charles,,4/20/2020,Female,Illinois,
+50-59,57,1,Carpentersville,,4/20/2020,Female,Illinois,
+20-29,24,1,Aurora,,4/20/2020,Female,Illinois,
+30-39,30,1,Hampshire,,4/20/2020,Female,Illinois,4/9/2020
+50-59,50,1,Aurora,,4/20/2020,Female,Illinois,
+60-69,60,1,Montgomery,,4/20/2020,Female,Illinois,
+20-29,23,1,Batavia,,4/20/2020,Female,Illinois,
+30-39,32,1,Geneva,,4/20/2020,Female,Illinois,
+80-89,84,1,Elgin,,4/20/2020,Female,Illinois,
+30-39,37,1,Carpentersville,,4/20/2020,Male,Illinois,
+30-39,31,1,South Elgin,,4/20/2020,Female,Illinois,
+40-49,48,1,St. Charles,,4/21/2020,Female,Illinois,4/17/2020
+40-49,43,1,Aurora,,4/21/2020,Female,Illinois,4/16/2020
+90+,91,1,Geneva,,4/21/2020,Female,Illinois,4/16/2020
+30-39,32,1,Aurora,,4/21/2020,Female,Illinois,4/7/2020
+60-69,61,1,Aurora,,4/21/2020,Male,Illinois,4/16/2020
+50-59,56,1,Aurora,,4/21/2020,Male,Illinois,4/13/2020
+10-19,13,1,Aurora,,4/21/2020,Female,Illinois,4/15/2020
+40-49,47,1,Aurora,,4/21/2020,Female,Illinois,4/15/2020
+90+,90,1,Geneva,,4/21/2020,Male,Illinois,
+30-39,33,1,Aurora,,4/21/2020,Female,Illinois,4/16/2020
+80-89,86,1,Geneva,,4/21/2020,Female,Illinois,4/17/2020
+40-49,47,1,Aurora,,4/21/2020,Female,Illinois,4/12/2020
+30-39,39,1,Aurora,,4/21/2020,Male,Illinois,4/14/2020
+60-69,67,1,Aurora,,4/21/2020,Female,Illinois,4/19/2020
+50-59,54,1,Aurora,,4/21/2020,Female,Illinois,4/18/2020
+60-69,60,1,Aurora,,4/21/2020,Female,Illinois,4/17/2020
+90+,90,1,Geneva,,4/21/2020,Female,Illinois,4/17/2020
+80-89,80,1,Geneva,,4/21/2020,Female,Illinois,4/17/2020
+60-69,61,1,Geneva,,4/21/2020,Female,Illinois,4/18/2020
+50-59,54,1,Carpentersville,,4/21/2020,,Illinois,
+50-59,51,1,Elgin,,4/21/2020,Male,Illinois,
+50-59,54,1,Elgin,,4/21/2020,Female,Illinois,
+30-39,31,1,Algonquin,,4/21/2020,Female,Illinois,
+30-39,32,1,Batavia,,4/21/2020,Male,Illinois,
+30-39,32,1,Aurora,,4/21/2020,Female,Illinois,
+70-79,75,1,Aurora,,4/21/2020,Female,Illinois,
+80-89,81,1,Aurora,,4/21/2020,Female,Illinois,
+60-69,65,1,Aurora,,4/21/2020,Male,Illinois,
+50-59,57,1,Aurora,,4/21/2020,Male,Illinois,
+40-49,47,1,Aurora,,4/21/2020,Male,Illinois,
+50-59,52,1,Aurora,,4/21/2020,Male,Illinois,
+20-29,25,1,Aurora,,4/21/2020,Male,Illinois,
+20-29,21,1,Pingree Grove,,4/21/2020,Male,Illinois,
+60-69,64,1,Elgin,,4/21/2020,Male,Illinois,
+30-39,30,1,Elgin,,4/21/2020,Female,Illinois,
+30-39,32,1,North Aurora,,4/21/2020,Male,Illinois,
+60-69,61,1,St. Charles,,4/21/2020,Female,Illinois,
+10-19,17,1,Carpentersville,,4/21/2020,Male,Illinois,
+50-59,56,1,Elgin,,4/21/2020,Female,Illinois,
+20-29,22,1,Carpentersville,,4/21/2020,Female,Illinois,
+20-29,24,1,North Aurora,,4/21/2020,Female,Illinois,
+30-39,33,1,Carpentersville,,4/21/2020,Male,Illinois,
+20-29,26,1,North Aurora,,4/21/2020,Female,Illinois,
+10-19,18,1,Carpentersville,,4/21/2020,Male,Illinois,
+50-59,53,1,Carpentersville,,4/21/2020,Female,Illinois,
+20-29,20,1,Carpentersville,,4/21/2020,Male,Illinois,
+80-89,87,1,Elgin,,4/21/2020,Female,Illinois,
+60-69,60,1,Aurora,,4/21/2020,Male,Illinois,
+80-89,80,1,Aurora,,4/21/2020,Female,Illinois,
+50-59,50,1,Aurora,,4/21/2020,Male,Illinois,
+70-79,70,1,Aurora,,4/21/2020,Male,Illinois,
+20-29,22,1,Aurora,,4/21/2020,Male,Illinois,
+50-59,55,1,Pingree Grove,,4/21/2020,Male,Illinois,4/9/2020
+50-59,57,1,Elgin,,4/21/2020,Male,Illinois,
+40-49,49,1,Carpentersville,,4/21/2020,Male,Illinois,
+10-19,19,1,South Elgin,,4/21/2020,Male,Illinois,
+10-19,19,1,South Elgin,,4/21/2020,Female,Illinois,
+50-59,56,1,Aurora,,4/21/2020,Female,Illinois,
+40-49,41,1,Aurora,,4/21/2020,Male,Illinois,
+10-19,12,1,Aurora,,4/21/2020,Female,Illinois,
+50-59,54,1,Aurora,,4/21/2020,Female,Illinois,
+40-49,47,1,Aurora,,4/21/2020,Female,Illinois,
+50-59,57,1,Aurora,,4/21/2020,Female,Illinois,
+30-39,38,1,Aurora,,4/21/2020,Unknown,Illinois,
+50-59,53,1,Aurora,,4/21/2020,Female,Illinois,
+40-49,48,1,Aurora,,4/21/2020,Female,Illinois,
+40-49,49,1,Elgin,,4/21/2020,Male,Illinois,
+90+,94,1,Hampshire,,4/21/2020,Male,Illinois,
+30-39,32,1,St. Charles,,4/21/2020,Male,Illinois,
+20-29,23,1,Elburn,,4/21/2020,Male,Illinois,
+70-79,71,1,Geneva,,4/21/2020,Male,Illinois,4/18/2020
+50-59,51,1,Pingree Grove,,4/22/2020,Male,Illinois,
+50-59,58,1,Aurora,,4/22/2020,Female,Illinois,
+40-49,45,1,Aurora,,4/22/2020,Female,Illinois,4/13/2020
+20-29,28,1,Montgomery,,4/22/2020,Female,Illinois,4/12/2020
+40-49,46,1,Aurora,,4/22/2020,Female,Illinois,4/18/2020
+50-59,56,1,Aurora,,4/22/2020,Male,Illinois,4/6/2020
+50-59,55,1,Aurora,,4/22/2020,Male,Illinois,4/13/2020
+30-39,30,1,Aurora,,4/22/2020,Male,Illinois,4/20/2020
+40-49,41,1,Aurora,,4/22/2020,Male,Illinois,4/17/2020
+30-39,37,1,Montgomery,,4/22/2020,Female,Illinois,4/16/2020
+30-39,34,1,Aurora,,4/22/2020,Male,Illinois,4/10/2020
+70-79,77,1,Aurora,,4/22/2020,Male,Illinois,4/16/2020
+50-59,51,1,Aurora,,4/22/2020,Male,Illinois,4/10/2020
+70-79,77,1,Aurora,,4/22/2020,Female,Illinois,4/17/2020
+30-39,36,1,Aurora,,4/22/2020,Male,Illinois,4/17/2020
+30-39,33,1,Aurora,,4/22/2020,Female,Illinois,4/15/2020
+50-59,58,1,Aurora,,4/22/2020,Male,Illinois,4/10/2020
+40-49,48,1,Batavia,,4/22/2020,Male,Illinois,
+20-29,21,1,Elgin,,4/22/2020,Female,Illinois,
+50-59,57,1,Elgin,,4/22/2020,Female,Illinois,
+90+,90,1,Geneva,,4/22/2020,Male,Illinois,4/19/2020
+60-69,66,1,Geneva,,4/22/2020,Male,Illinois,4/12/2020
+20-29,23,1,Aurora,,4/22/2020,Female,Illinois,4/19/2020
+70-79,78,1,Elgin,,4/22/2020,Female,Illinois,
+20-29,29,1,North Aurora,,4/22/2020,Female,Illinois,4/16/2020
+20-29,24,1,Aurora,,4/22/2020,Male,Illinois,4/18/2020
+50-59,56,1,Carpentersville,,4/22/2020,Male,Illinois,
+40-49,44,1,Carpentersville,,4/22/2020,Male,Illinois,
+80-89,88,1,Aurora,,4/22/2020,Male,Illinois,
+60-69,64,1,Carpentersville,,4/22/2020,Male,Illinois,
+20-29,29,1,Elgin,,4/22/2020,Male,Illinois,
+10-19,18,1,South Elgin,,4/22/2020,Female,Illinois,
+50-59,57,1,South Elgin,,4/22/2020,Male,Illinois,
+60-69,66,1,Algonquin,,4/22/2020,Male,Illinois,
+70-79,79,1,West Dundee,,4/22/2020,Male,Illinois,
+40-49,40,1,Carpentersville,,4/22/2020,Female,Illinois,
+50-59,55,1,Sleepy Hollow,,4/22/2020,Male,Illinois,4/18/2020
+50-59,54,1,Aurora,,4/22/2020,Male,Illinois,
+20-29,22,1,Carpentersville,,4/22/2020,Male,Illinois,
+20-29,25,1,Elgin,,4/22/2020,Male,Illinois,
+50-59,52,1,Carpentersville,,4/22/2020,Female,Illinois,
+30-39,37,1,Batavia,,4/22/2020,Female,Illinois,
+40-49,45,1,Batavia,,4/22/2020,Male,Illinois,
+40-49,47,1,Carpentersville,,4/22/2020,Male,Illinois,
+30-39,35,1,Aurora,,4/22/2020,Male,Illinois,
+30-39,32,1,Carpentersville,,4/22/2020,Female,Illinois,4/19/2020
+50-59,51,1,Aurora,,4/22/2020,Male,Illinois,4/17/2020
+30-39,39,1,Aurora,,4/22/2020,Female,Illinois,4/16/2020
+20-29,22,1,Aurora,,4/22/2020,Male,Illinois,4/16/2020
+40-49,43,1,Aurora,,4/22/2020,Female,Illinois,4/13/2020
+30-39,34,1,Montgomery,,4/22/2020,Female,Illinois,4/14/2020
+60-69,60,1,Sugar Grove,,4/22/2020,Male,Illinois,
+20-29,23,1,Aurora,,4/22/2020,Female,Illinois,
+0-9,0,1,Elgin,,4/22/2020,Male,Illinois,
+90+,93,1,Geneva,1,4/22/2020,Male,Illinois,
+80-89,80,1,St. Charles,,4/22/2020,Male,Illinois,
+90+,90,1,Geneva,,4/22/2020,Male,Illinois,
+80-89,84,1,Geneva,,4/22/2020,Male,Illinois,
+30-39,30,1,Geneva,,4/22/2020,Female,Illinois,
+80-89,84,1,Geneva,,4/22/2020,Female,Illinois,
+70-79,73,1,Geneva,,4/22/2020,Female,Illinois,
+70-79,78,1,Geneva,,4/22/2020,Female,Illinois,
+20-29,27,1,Aurora,,4/22/2020,Male,Illinois,
+40-49,41,1,Batavia,,4/22/2020,Female,Illinois,4/8/2020
+20-29,29,1,Aurora,,4/22/2020,Male,Illinois,
+40-49,44,1,Aurora,,4/22/2020,Male,Illinois,
+40-49,45,1,Aurora,,4/22/2020,Female,Illinois,
+20-29,29,1,Aurora,,4/22/2020,Male,Illinois,
+40-49,40,1,Aurora,,4/22/2020,Male,Illinois,
+30-39,39,1,Aurora,,4/22/2020,Female,Illinois,
+20-29,25,1,Batavia,,4/22/2020,Female,Illinois,
+30-39,36,1,Aurora,,4/22/2020,Female,Illinois,
+70-79,71,1,Aurora,,4/22/2020,Female,Illinois,
+60-69,62,1,Aurora,,4/22/2020,Female,Illinois,
+30-39,36,1,Aurora,,4/22/2020,Female,Illinois,
+40-49,47,1,Aurora,,4/22/2020,Male,Illinois,
+50-59,52,1,Elgin,,4/22/2020,Female,Illinois,
+30-39,35,1,Elgin,,4/22/2020,Male,Illinois,
+40-49,49,1,Elgin,,4/22/2020,Female,Illinois,
+30-39,32,1,Aurora,,4/22/2020,Female,Illinois,4/18/2020
+60-69,68,1,Aurora,,4/22/2020,Female,Illinois,4/7/2020
+20-29,24,1,Aurora,,4/22/2020,Male,Illinois,4/16/2020
+50-59,55,1,Aurora,,4/23/2020,Male,Illinois,4/16/2020
+30-39,30,1,Aurora,,4/23/2020,Male,Illinois,4/14/2020
+30-39,34,1,Elgin,,4/23/2020,Male,Illinois,
+30-39,37,1,Elgin,,4/23/2020,Female,Illinois,
+20-29,29,1,Aurora,,4/23/2020,Male,Illinois,
+40-49,48,1,Aurora,,4/23/2020,Male,Illinois,
+40-49,42,1,Aurora,,4/23/2020,Male,Illinois,
+40-49,43,1,Aurora,,4/23/2020,Male,Illinois,
+30-39,32,1,Batavia,,4/23/2020,Female,Illinois,
+50-59,55,1,Aurora,,4/23/2020,Male,Illinois,
+40-49,40,1,Carpentersville,,4/23/2020,Female,Illinois,
+50-59,55,1,Carpentersville,,4/23/2020,Female,Illinois,
+50-59,50,1,Gilberts,,4/23/2020,Female,Illinois,
+30-39,31,1,Carpentersville,,4/23/2020,Female,Illinois,
+20-29,29,1,Batavia,,4/23/2020,Female,Illinois,
+40-49,45,1,North Aurora,,4/23/2020,Female,Illinois,
+20-29,21,1,Elgin,,4/23/2020,Female,Illinois,
+20-29,22,1,Elgin,,4/23/2020,Male,Illinois,
+20-29,20,1,Carpentersville,,4/23/2020,Male,Illinois,
+20-29,25,1,Aurora,,4/23/2020,Female,Illinois,
+30-39,38,1,Carpentersville,,4/23/2020,Female,Illinois,
+40-49,47,1,Carpentersville,,4/23/2020,Male,Illinois,
+30-39,39,1,Aurora,,4/23/2020,Male,Illinois,
+40-49,45,1,Elgin,,4/23/2020,Male,Illinois,
+40-49,43,1,Carpentersville,,4/23/2020,Female,Illinois,
+50-59,54,1,Elgin,,4/23/2020,Female,Illinois,
+40-49,40,1,Batavia,,4/23/2020,Female,Illinois,4/18/2020
+50-59,53,1,Aurora,,4/23/2020,Female,Illinois,4/13/2020
+20-29,22,1,Aurora,,4/23/2020,Female,Illinois,4/17/2020
+30-39,36,1,Aurora,,4/23/2020,Female,Illinois,
+40-49,48,1,Aurora,,4/23/2020,Female,Illinois,
+40-49,43,1,Carpentersville,,4/23/2020,Male,Illinois,
+20-29,29,1,Aurora,,4/23/2020,Male,Illinois,
+40-49,41,1,Aurora,,4/23/2020,Female,Illinois,
+40-49,49,1,Aurora,,4/23/2020,Male,Illinois,
+20-29,25,1,Aurora,,4/23/2020,Female,Illinois,
+10-19,16,1,Batavia,,4/23/2020,Male,Illinois,
+60-69,61,1,Batavia,,4/23/2020,Female,Illinois,
+60-69,62,1,Aurora,,4/23/2020,Female,Illinois,4/12/2020
+40-49,43,1,Montgomery,,4/23/2020,Male,Illinois,4/13/2020
+30-39,39,1,Elgin,,4/23/2020,Male,Illinois,4/19/2020
+80-89,88,1,St. Charles,,4/23/2020,Male,Illinois,
+20-29,27,1,North Aurora,,4/23/2020,Female,Illinois,
+50-59,58,1,Algonquin,,4/23/2020,Female,Illinois,4/17/2020
+30-39,30,1,Aurora,,4/23/2020,Female,Illinois,4/20/2020
+30-39,35,1,Montgomery,,4/23/2020,Female,Illinois,4/15/2020
+20-29,26,1,Elgin,,4/23/2020,Male,Illinois,4/12/2020
+40-49,40,1,Aurora,,4/23/2020,Female,Illinois,4/20/2020
+50-59,53,1,Aurora,,4/23/2020,Female,Illinois,4/7/2020
+60-69,63,1,Aurora,,4/23/2020,Male,Illinois,4/18/2020
+40-49,49,1,Aurora,,4/23/2020,Female,Illinois,4/9/2020
+40-49,48,1,Aurora,,4/23/2020,Male,Illinois,4/16/2020
+50-59,53,1,Aurora,,4/23/2020,Female,Illinois,4/14/2020
+60-69,63,1,Aurora,,4/23/2020,Female,Illinois,
+40-49,47,1,Aurora,,4/23/2020,Female,Illinois,4/18/2020
+30-39,39,1,Aurora,,4/23/2020,Female,Illinois,
+30-39,35,1,Aurora,,4/23/2020,Male,Illinois,
+50-59,58,1,Aurora,,4/23/2020,Female,Illinois,
+20-29,23,1,Aurora,,4/23/2020,Female,Illinois,
+60-69,64,1,Elgin,,4/23/2020,Male,Illinois,
+20-29,20,1,Carpentersville,,4/23/2020,Male,Illinois,
+40-49,41,1,Elgin,,4/23/2020,Male,Illinois,
+30-39,34,1,Aurora,,4/23/2020,Female,Illinois,
+50-59,54,1,Aurora,,4/23/2020,Male,Illinois,4/17/2020
+60-69,69,1,Aurora,,4/23/2020,Male,Illinois,4/6/2020
+40-49,42,1,Aurora,,4/23/2020,Male,Illinois,4/18/2020
+30-39,39,1,North Aurora,,4/23/2020,Female,Illinois,4/21/2020
+80-89,89,1,Aurora,,4/23/2020,Female,Illinois,
+80-89,85,1,Aurora,,4/23/2020,Female,Illinois,
+70-79,74,1,Pingree Grove,,4/23/2020,Female,Illinois,
+60-69,61,1,Algonquin,,4/23/2020,Female,Illinois,4/20/2020
+90+,91,1,Batavia,,4/23/2020,Female,Illinois,4/17/2020
+20-29,25,1,Aurora,,4/23/2020,Female,Illinois,4/19/2020
+40-49,41,1,Aurora,,4/23/2020,Male,Illinois,4/11/2020
+30-39,39,1,Aurora,,4/23/2020,Male,Illinois,
+30-39,30,1,Aurora,,4/23/2020,Female,Illinois,
+60-69,60,1,Aurora,,4/23/2020,Female,Illinois,
+20-29,29,1,Aurora,,4/23/2020,Unknown,Illinois,
+60-69,65,1,Aurora,,4/23/2020,Female,Illinois,4/18/2020
+30-39,34,1,Aurora,,4/23/2020,Male,Illinois,
+40-49,47,1,Carpentersville,,4/23/2020,Male,Illinois,
+30-39,33,1,Aurora,,4/23/2020,Male,Illinois,
+60-69,63,1,Aurora,,4/23/2020,Male,Illinois,
+20-29,25,1,North Aurora,,4/23/2020,Unknown,Illinois,
+50-59,54,1,Elgin,,4/23/2020,Female,Illinois,
+40-49,42,1,Carpentersville,,4/23/2020,Female,Illinois,
+20-29,29,1,Carpentersville,,4/23/2020,Female,Illinois,
+20-29,28,1,Carpentersville,,4/23/2020,Male,Illinois,
+50-59,55,1,Elgin,,4/23/2020,Female,Illinois,
+40-49,44,1,,,4/23/2020,Female,Illinois,
+30-39,35,1,Carpentersville,,4/23/2020,,Illinois,
+10-19,19,1,Aurora,,4/24/2020,Female,Illinois,4/21/2020
+20-29,27,1,Montgomery,,4/24/2020,Female,Illinois,4/12/2020
+20-29,27,1,Aurora,,4/24/2020,Female,Illinois,4/22/2020
+50-59,50,1,Aurora,,4/24/2020,Male,Illinois,
+10-19,16,1,Aurora,,4/24/2020,Male,Illinois,
+70-79,75,1,Aurora,,4/24/2020,Male,Illinois,4/24/2020
+30-39,37,1,Aurora,,4/24/2020,Female,Illinois,4/15/2020
+30-39,32,1,Aurora,,4/24/2020,Male,Illinois,4/16/2020
+10-19,17,1,Aurora,,4/24/2020,Female,Illinois,4/15/2020
+20-29,20,1,Aurora,,4/24/2020,Male,Illinois,4/11/2020
+30-39,31,1,Aurora,,4/24/2020,Male,Illinois,4/16/2020
+70-79,78,1,Aurora,,4/24/2020,Male,Illinois,4/18/2020
+70-79,75,1,Elgin,,4/24/2020,Female,Illinois,
+80-89,80,1,Elgin,,4/24/2020,Female,Illinois,
+30-39,34,1,Elburn,,4/24/2020,Female,Illinois,
+50-59,52,1,Aurora,,4/24/2020,Female,Illinois,
+50-59,53,1,Aurora,,4/24/2020,Female,Illinois,
+40-49,42,1,Aurora,,4/24/2020,Female,Illinois,
+50-59,50,1,Aurora,,4/24/2020,Female,Illinois,
+40-49,48,1,Aurora,,4/24/2020,Male,Illinois,
+70-79,73,1,Aurora,,4/24/2020,Male,Illinois,
+0-9,0,1,Aurora,,4/24/2020,Male,Illinois,
+40-49,48,1,Aurora,,4/24/2020,Male,Illinois,
+20-29,29,1,Aurora,,4/24/2020,Male,Illinois,
+40-49,43,1,Carpentersville,,4/24/2020,Male,Illinois,
+40-49,44,1,Elgin,,4/24/2020,Female,Illinois,
+50-59,55,1,Elgin,,4/24/2020,Female,Illinois,
+20-29,28,1,Elgin,,4/24/2020,Male,Illinois,
+50-59,50,1,Elgin,,4/24/2020,Female,Illinois,
+20-29,22,1,Aurora,,4/24/2020,Female,Illinois,
+60-69,65,1,Aurora,,4/24/2020,Female,Illinois,
+40-49,48,1,Aurora,,4/24/2020,Female,Illinois,
+50-59,53,1,Gilberts,,4/24/2020,Female,Illinois,
+50-59,57,1,Carpentersville,,4/24/2020,Female,Illinois,
+50-59,56,1,Carpentersville,,4/24/2020,Male,Illinois,
+10-19,10,1,Aurora,,4/24/2020,Female,Illinois,
+30-39,39,1,Aurora,,4/24/2020,Female,Illinois,
+10-19,19,1,Elgin,,4/24/2020,Male,Illinois,
+40-49,41,1,Carpentersville,,4/24/2020,Female,Illinois,
+20-29,24,1,Elgin,,4/24/2020,Female,Illinois,
+20-29,29,1,Aurora,,4/24/2020,Male,Illinois,
+20-29,20,1,South Elgin,,4/24/2020,Female,Illinois,
+40-49,47,1,Elgin,,4/24/2020,Female,Illinois,
+40-49,47,1,Aurora,,4/24/2020,Female,Illinois,
+30-39,37,1,Elgin,,4/24/2020,Female,Illinois,
+30-39,37,1,South Elgin,,4/24/2020,Male,Illinois,
+20-29,24,1,Elgin,,4/24/2020,Female,Illinois,
+50-59,56,1,Aurora,,4/24/2020,Female,Illinois,
+30-39,33,1,Aurora,,4/24/2020,Female,Illinois,
+50-59,51,1,Aurora,,4/24/2020,Male,Illinois,
+40-49,49,1,Aurora,,4/24/2020,Female,Illinois,
+20-29,25,1,Aurora,,4/24/2020,Female,Illinois,
+30-39,32,1,Aurora,,4/24/2020,Male,Illinois,
+20-29,21,1,Aurora,,4/24/2020,Male,Illinois,
+40-49,47,1,Aurora,,4/24/2020,Male,Illinois,
+30-39,31,1,Elburn,,4/24/2020,Male,Illinois,
+30-39,35,1,Aurora,,4/24/2020,Male,Illinois,
+60-69,61,1,North Aurora,,4/24/2020,Female,Illinois,
+70-79,70,1,Aurora,,4/24/2020,Female,Illinois,
+40-49,48,1,Carpentersville,,4/24/2020,Female,Illinois,
+20-29,22,1,Elgin,,4/24/2020,Male,Illinois,
+60-69,65,1,,,4/24/2020,Male,Illinois,
+60-69,63,1,Carpentersville,,4/24/2020,Male,Illinois,
+20-29,26,1,Aurora,,4/24/2020,Female,Illinois,
