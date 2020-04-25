@@ -1,0 +1,40 @@
+#!/bin/sh
+
+y=2020
+
+#f='"%d.%d", d, m'
+f='"%d/%d", m, d'
+
+for m in `jot 12`; do
+	cal -h $m 2020 |\
+	awk '{ getline; l = $0; while (getline) { print l; l = $0 } }' |\
+	sed 's/.. /&,/g' | tr -d ' ' |\
+	awk -F, 'NR == 1 {
+	for (i = 2; i < NF; i++) printf("%s ", $i)
+	printf("%s\n", $1)
+	next
+}
+{
+	for (i = 2; i < NF; i++) printf("0 ")
+	printf("%d\n", $1)
+
+	for (i = 2; i < NF; i++) printf("%d ", $i)
+	printf("0\n")
+}' | awk '#{ print }
+NR == 1 {
+	for (i = 1; i <= NF; i++) n[i] = $i
+	next
+}
+{
+	if ($1) {
+		d = $1
+		i = sprintf('"$f"')
+		printf("\t\"%s\" %04d-%02d-%02d,\\\n", i, y, m, $1)
+	}
+
+	for (i = 2; i <= NF; i++) {
+		if (!$i) continue
+		printf("\t\"%s\" %04d-%02d-%02d 1,\\\n", n[i], y, m, $i)
+	}
+}' m=$m y=$y
+done
