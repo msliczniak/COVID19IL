@@ -20,6 +20,7 @@ $ cd ../..
 
 $ cd data/us
 $ ./all
+$ ./biny result=hospitalized
 $ cd ../..
 
 $ cd data/idph

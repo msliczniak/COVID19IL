@@ -1,0 +1,105 @@
+#!/bin/sh
+
+# show what States changed from being reported or not day to day
+
+awk() {
+	/usr/bin/awk "$@"
+}
+
+awk 'BEGIN {
+	FS = ","
+
+	key = "state"
+	result = "positive"
+	select = ".*"
+}
+
+NR == 1 {
+	key = "^(" tolower(key) ")$"
+	result = "^(" tolower(result) ")$"
+
+	if (substr(select, 1, 1) == "!") {
+		select = substr(select, 2)
+		s = 1
+	}
+
+	gsub(/,/, "|", select)
+	select = "^(" tolower(select) ")$"
+}
+
+function which(k, i) {
+        for (i = 1; i <= NF; i++) if (tolower($i) ~ k) return i
+
+        exit 1
+}
+
+FNR == 1 {
+	i = which(key)
+	j = which(result)
+
+	# strip-off path
+	d = match(FILENAME, "[^/]*$")
+	d = substr(substr(FILENAME, d), 1)
+
+	# get date
+	if (d !~ /^[1-9][0-9][0-9][0-9]-/)
+		d = substr(d, index(d, "-") + 1, 10)
+	else
+		d = substr(d, 1, 10)
+
+	printf("\n%s\n", d)
+	next
+}
+
+!s && tolower($i) !~ select { next }
+
+s && tolower($i) ~ select { next }
+
+{ printf("%s\n%d\n", $i, $j) }' "$@" 20*-US.csv | awk -F\\n 'BEGIN {
+	split("", a, " ")
+}
+
+{
+	close f
+	f = sprintf("/usr/bin/sort >biny-%s", $1)
+	for (i = 2; i < NF; i++) {
+		j = $i; i++
+		k = $i
+
+		if (k > a[j]) {
+			print j | f
+			a[j] = k
+		}
+	}
+}' RS=
+
+/bin/rm -f biny- || exit
+touch biny-
+
+set -- biny-*
+j="$1"; shift
+
+for i in "$@"; do
+	/usr/bin/diff "$j" "$i" | awk '
+$1 == ">" {
+	i++
+
+	I=I "+" $2
+}
+
+$1 == "<" {
+	d++
+
+	D=D "-" $2
+}
+
+END {
+	if (i == 0 && d == 0) exit
+
+	print substr(f, 6) "+" i+0 "-" d+0 I D }' f="$i"
+
+	/bin/rm -f "$j" || exit
+	j="$i"
+done
+
+/bin/rm -f "$j"
