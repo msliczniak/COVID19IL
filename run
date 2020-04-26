@@ -48,7 +48,8 @@ awk '$(NF - 1) ~ /"testDate":$/ { print $NF }' RS=, \%chg | \
 	if (i >= n) { i = 0; printf(" %.1f", L) }
 	printf("\n") }' n="$co"
 co=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
-gnuplot -c ratioplot "$da $g0"' 5 sample test-positivity rate '"$co" || exit
+gnuplot l.gp -c ratioplot "$da $g0"' 5 sample test-positivity rate '"$co" ||\
+   exit
 
 # r = n[(A/P)^(1/nt) - 1]
 TVM='{

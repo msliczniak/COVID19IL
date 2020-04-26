@@ -260,5 +260,5 @@ awk '{
 }' n=`awk 'NR == 1 { i = $3 } END { print int(($3 - i)/32) + 1 }' tott`\
   tott >ratio
 ti=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
-gnuplot -c ../../ratioplot\
+gnuplot l.gp -c ../../ratioplot\
   "$da $co"' liczba/badań '"$ti"'% 5 prób' || exit

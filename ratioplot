@@ -1,9 +1,9 @@
 set xdata time
 set timefmt '"%m/%d/%Y"'
-set grid
 set autoscale fix
-set xtics rangelimited rotate by -55 format '%1m/%1d'
 set title ARG1
+
+unset y2label
 
 set terminal dumb
 set output '/dev/null'
@@ -17,7 +17,12 @@ set output "ratio.png"
 
 # 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
 interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
-set xtics interval * 86400
-set mxtics interval
+set x2tics interval * 86400 format ''
+set mx2tics interval
+
+# only label Mondays
+set xtics '"01/06/2020"', 604800
+
+set grid x2 y
 
 refresh
