@@ -55,13 +55,14 @@ FNR == 1 {
 
 s && tolower($i) ~ select { next }
 
-{ printf("%s\n%d\n", $i, $j) }' "$@" 20*-US.csv | awk -F\\n 'BEGIN {
+{ printf("%s\n%d\n", $i, $j) }' "$@" | awk -F\\n 'BEGIN {
 	split("", a, " ")
 }
 
 {
 	close f
 	f = sprintf("/usr/bin/sort >biny-%s", $1)
+	printf("") | f
 	for (i = 2; i < NF; i++) {
 		j = $i; i++
 		k = $i
@@ -93,10 +94,7 @@ $1 == "<" {
 	D=D "-" $2
 }
 
-END {
-	if (i == 0 && d == 0) exit
-
-	print substr(f, 6) "+" i+0 "-" d+0 I D }' f="$i"
+END { print substr(f, 6) "+" i+0 "-" d+0 I D }' f="$i"
 
 	/bin/rm -f "$j" || exit
 	j="$i"

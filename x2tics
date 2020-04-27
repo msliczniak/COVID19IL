@@ -1,0 +1,2 @@
+#!/bin/sh
+echo set x2tics interval format "''"

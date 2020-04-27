@@ -145,6 +145,12 @@ for co in "$st"; do
 	case "$co" in
 	  ..)
 		co=US
+		biny() { ./biny "$@" >x2tics.txt; }
+		;;
+	  *)
+		/bin/rm -f x2tics.txt || exit
+		touch x2tics.txt || exit
+		biny() { :; }
 		;;
 	esac
 
@@ -154,6 +160,7 @@ for co in "$st"; do
 		echo  "$rs $la" >&2
 
 		./totals select="$st" result="$rs" "$@" >"$tc"
+		biny select="$st" result="$rs" "$@"
 
 		of="$co"-
 		case "$rs" in
@@ -253,14 +260,19 @@ for co in "$st"; do
 			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
 		di=+`awk '{ ll = l; l = $2 } END { print l - ll }' tot`
 
-		/bin/rm -f a.png "$of".png || exit
+		of="$of".png
+		/bin/rm -f a.png "$of" || exit
 		gnuplot ../../l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca" "$ab" "$be" &&\
-		{ /bin/mv a.png "$of".png || exit; }
+		{ /bin/mv a.png "$of" || exit; }
+		awk -F+ '$2 != "0-0" { print } END { print t }'\
+		  t="$da $la $pa $di" x2tics.txt >"$of".txt || exit
 
 		#exit
 	done
 done
+
+/bin/rm -f x2tics.txt || exit
 
 /bin/rm -f tot ratio.png "$co"-5r.png || exit
 awk '{
@@ -281,4 +293,5 @@ END { print int(n/32) + 1 }'` tot >ratio
 ti=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
 gnuplot ../../l.gp -c ../../ratioplot\
   "$da $co"' 5 sample test-positivity rate '"$ti" || exit
-/bin/mv ratio.png "$co"-5r.png
+/bin/mv ratio.png "$co"-5r.png || exit
+printf '%s' "$da $co"' 5 sample test-positivity rate '"$ti" >"$co"-5r.png.txt

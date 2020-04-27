@@ -49,7 +49,13 @@ do
 	foo "$i" "$bg" >>html
 
 	printf '<a name="%s" id="%s" href="#C%s">' $i $i $i >>index
-	printf '<img'"$bg $wh" "$@" >>index
+
+	for j in "$@"; do
+		printf '<img title="%s"'"$bg $wh" "`/bin/cat "$j".txt`" "$j"\
+		  >>index
+		/bin/rm -f "$j".txt
+	done
+
 	printf '</a>' >>index
 
 done

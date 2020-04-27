@@ -1,0 +1,39 @@
+#!/usr/bin/awk -f
+BEGIN {
+	FS = "[-+]"
+	split("", a, " ")
+}
+
+#{ print NR, $1, $2, $3, $4, $5 }
+
+{ a[NR] = t = t + $4 - $5 }
+
+#{ print a[NR] }
+
+END {
+	if (NR == 0) {
+		print "set x2tics interval format ''"
+		exit
+	}
+
+	printf("set x2tics (")
+
+	i = NR
+	while (i >= n) {
+		j--
+		min = max = a[i--]
+
+		for (k = 1; k < n; k++) {
+			m = a[i--]
+
+			if (m < min) min = m
+			else if (m > max) max = m
+
+			printf("'%d' %d 1,", m, j--)
+	 	}
+
+		printf("'%d-%d' %d,", min, max, j + n)
+	}
+
+	print ")"
+}

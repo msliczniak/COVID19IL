@@ -10,6 +10,8 @@ set format y '10^{%T}'
 set ylabel ARG2
 set title ARG1
 
+set x2tics rangelimited rotate by 55 format '88-88'
+
 good = ARG4
 bad = ARG5
 
@@ -57,7 +59,8 @@ set terminal pngcairo size 820,440 transparent
 
 # 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
 interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
-set x2tics interval * 86400 format ''
+#set x2tics interval * 86400 format ''
+set x2tics interval
 set mx2tics interval
 
 # only label Mondays
@@ -73,7 +76,8 @@ set obj 1 \
 
 # Draw a y axis at current date
 # 345600 = 86400 * 4
-set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600):345600]
+#set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600):345600]
+set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600)/86400:4]
 set y2zeroaxis ls -1
 
 #print GPVAL_Y_MIN
@@ -126,6 +130,10 @@ set y2tics (\
      '200y' 73048  1,\
      '300y' 109572 1,\
      '400y' 146097)
+
+interval_s = sprintf("%d", interval)
+#print interval_s
+`./x2tics n=@interval_s x2tics.txt`
 
 set grid x2 y2
 
