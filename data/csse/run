@@ -141,7 +141,8 @@ for co in "$st"; do
 		co=US
 		;;
 	esac
-	for rs in confirmed deaths; do
+
+	for rs in confirmed deaths recovered active; do
 		la=`foo $co`
 		echo  "$rs $la" >&2
 
