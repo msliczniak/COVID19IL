@@ -20,7 +20,6 @@ $ cd ../..
 
 $ cd data/us
 $ ./all
-$ ./biny result=hospitalized
 $ cd ../..
 
 $ cd data/idph
@@ -33,4 +32,4 @@ $ ./run Sweden *.csv
 $ ls -- *-*.png
 $ cd ../..
 
-$ convert i.png -background white -flatten o.png
+$ ./flatten foo.png bar.png baz.png
