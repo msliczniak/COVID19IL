@@ -18,10 +18,10 @@ bad = ARG5
 set terminal dumb
 set output '/dev/null'
 plot \
-'ftot' using 1:2:3 notitle with filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'ftot' using 1:2:3 notitle with filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor bad, \
+'ftot' u 1:2:3 w filledcurves above \
+  fs trans solid 0.25 border fc rgbcolor good notitle, \
+'' u 1:2:3 w filledcurves below \
+  fs trans solid 0.25 border fc rgbcolor bad notitle, \
 'fdday' using 1:2:3 axis x1y2 notitle with filledcurves below \
   fs trans solid 0.25 border fc rgbcolor good, \
 'fdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
@@ -34,24 +34,27 @@ plot \
   fs trans solid 0.25 border fc rgbcolor good, \
 'xdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
   fs trans solid 0.25 border fc rgbcolor bad, \
-'tot' using 1:2 with linespoints lt 0 pt 10 notitle, \
+'tot' u 1:2 w step lt 0 notitle, \
+'' u 1:2 w points lt -1 pt 1 ps .5 notitle, \
 'x5t' using 1:2 with lines lt -1 lc 1 dt 4 notitle, \
 'xtot' using 1:2 with lines lt 0 notitle, \
-'x15' using 1:2 with lines lt -1 lc 3 dt 2 notitle, \
-'x10' using 1:2 with lines lt -1 lc 2 dt 2 notitle, \
 'x5' using 1:2 with lines lt -1 lc 1 dt 2 notitle, \
-'dday' using 1:2 axis x1y2 with linespoints lt -1 pt 23 title 'lifetime =', \
+'dday' using 1:2 axis x1y2 with lines lt -1 title lifetime_t, \
 'xdday' using 1:2 axis x1y2 with lines lt -1 notitle, \
-'5' using 1:2 axis x1y2 with points pt 1 lc 1 title '5 sample =', \
-'10' using 1:2 axis x1y2 with points pt 2 lc 2 title '10 sample =', \
-'15' using 1:2 axis x1y2 with points pt 3 lc 3 title '15 sample =', \
+'5' using 1:2 axis x1y2 with linespoints lt 0 pt 1 lc 1 ps .5 title trend_t, \
 'xtotl' using 1:2:3 w labels left offset 0,-.5 font ',8' point pt 11 notitle,\
 'xl' using 1:2:3 axis x1y2 w labels left offset 0,-.5 font ',8' \
   point pt 24 notitle, \
 'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
   point pt 11 notitle, \
-'labels' using 1:2:3 with labels right offset -.5,2 font ',8' point pt 11 \
-  notitle #offset -.5,.25
+'labels' u 1:2:3 w labels right offset -.5,2 font ',8' notitle, \
+'' u 1:2 w points lt -1 pt 1 notitle
+
+#\
+'10' using 1:2 axis x1y2 with points pt 2 lc 2 title '10 sample =', \
+'15' using 1:2 axis x1y2 with points pt 3 lc 3 title '15 sample =', \
+'x15' using 1:2 with lines lt -1 lc 3 dt 2 notitle, \
+'x10' using 1:2 with lines lt -1 lc 2 dt 2 notitle, \
 
 set terminal pngcairo size 820,440 transparent
 #set output 'test.png'

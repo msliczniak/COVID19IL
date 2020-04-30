@@ -130,6 +130,14 @@ labels() {
 	}'
 }
 
+# step plot
+step() {
+	awk 'NR != 1 { print $1 l } {
+	l = ""; print l # discontinuity
+	for (i = 2; i <= NF; i++) l = l " " $i
+	print $1 l }' "$@"
+}
+
 FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
 for co in "$st"; do
@@ -162,10 +170,8 @@ for co in "$st"; do
 		esac
 
 		awk '{ print $3 "-" $1 $2 }' tot >total
-		trend 5 total >5t
+		trend 7 total >5t
 		dday 5t >5
-		trend 10 total | dday >10
-		trend 15 total | dday >15
 		awk "$TVM" RS= total >tvm
 		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
 		dday tvm >dday
@@ -175,7 +181,7 @@ for co in "$st"; do
 		predict tot tvm >pred
 		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
 		  paste tot - | # skip early point(s)
-		  awk 'NF == 2 { print $0, $2; next } { print }' >ftot
+		  awk 'NF == 2 { print $0, $2; next } { print }' | step >ftot
 		labels tot tvm >labels
 
 		# %chg for the last day
@@ -195,7 +201,7 @@ for co in "$st"; do
 			t *= r; ti *= p
 			print $1 i, ti, t } }' r="$r" p="$p" ftot >xtot
 
-		for i in 5 10 15; do
+		for i in 5; do
 			r=`tail -$i tvm | awk '{ print $2; exit }'`
 			>x$i awk 'END { t = $2
 				for (i = -24; i >= -96; i -= 24) {
