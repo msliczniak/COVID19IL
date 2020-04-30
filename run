@@ -71,6 +71,9 @@ TVM='{
 }'
 
 trend() {
+	#./trend k="$1" "$2" | awk "$1"' - 1 <= NR { print $1, $2 }'
+	#return
+
 	# k=samples
 	awk '{
 	j = 1; i = k

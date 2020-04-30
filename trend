@@ -1,0 +1,41 @@
+#!/usr/bin/awk -f
+
+# k=samples
+BEGIN { RS = ""; k = 0 }
+
+{
+	if (NF <= 1) exit
+	if (k == 0) k = NF
+	else if (k > NF) k = NF
+
+	j = 1
+	jj = index($j, "-") - 1
+	nj = substr($j, 1, jj)
+	P = substr($j, jj + 12) + 0
+
+	i = 2
+	while (i <= k) {
+		ii = index($i, "-") - 1
+		ni = substr($i, 1, ii)
+		A = substr($i, ii + 12) + 0
+		n = ni - nj
+
+		print substr($i, ii + 2, 10), exp(1/n * log(A/P)), ni
+		i += 1
+	}
+
+	while (i < NF) {
+		ii = index($i, "-") - 1
+		jj = index($j, "-") - 1
+		ni = substr($i, 1, ii)
+		nj = substr($j, 1, jj)
+		A = substr($i, ii + 12) + 0
+		P = substr($j, jj + 12) + 0
+		n = ni - nj
+
+		print substr($i, ii + 2, 10), exp(1/n * log(A/P)), ni
+		j += 1; i += 1
+	}
+
+	exit
+}
