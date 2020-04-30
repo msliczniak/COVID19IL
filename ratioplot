@@ -5,12 +5,16 @@ set title ARG1
 
 unset y2label
 
+set xtics nomirror
+set x2tics scale 0
+set border 11
+
 set terminal dumb
 set output '/dev/null'
 
 plot [:][:] 'ratio' using 1:2 with lines notitle\
-, '' using 1:2:3 with labels right offset -.5,.25 font ',7' point pt 6 notitle\
-, '' using 1:2:4 with labels center offset 0,-.75 font ',7' point pt 6 notitle
+, '' using 1:2:3 with labels right offset -.5,.25 font ',7' point pt 0 notitle\
+, '' using 1:2:4 with labels center offset 0,-.75 font ',7' point pt 0 notitle
 
 set terminal pngcairo size 820,440 transparent
 set output "ratio.png"
