@@ -1,3 +1,4 @@
+set border 11 front lc rgbcolor 'gray'
 set xdata time
 set timefmt '"%m/%d/%Y"'
 set autoscale fix

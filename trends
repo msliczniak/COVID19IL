@@ -1,5 +1,8 @@
 set xlabel ARG3.xlabel_t
 
+set border 11 front lc rgbcolor 'gray'
+set rmargin 6
+
 set xdata time
 set timefmt '%Y-%m-%d-%H'
 set autoscale fix
@@ -39,8 +42,8 @@ plot \
 'x5t' using 1:2 with lines lt -1 lc 1 dt 4 notitle, \
 'xtot' using 1:2 with lines lt 0 notitle, \
 'x5' using 1:2 with lines lt -1 lc 1 dt 2 notitle, \
-'dday' using 1:2 axis x1y2 with lines lt -1 title lifetime_t, \
-'xdday' using 1:2 axis x1y2 with lines lt -1 notitle, \
+'dday' using 1:2 axis x1y2 with lines lt 4 title lifetime_t, \
+'xdday' using 1:2 axis x1y2 with lines lt 4 notitle, \
 '5' using 1:2 axis x1y2 with linespoints lt 0 pt 1 lc 1 ps .5 title trend_t, \
 'xtotl' using 1:2:3 w labels left offset 0,-.5 font ',8' point pt 11 notitle,\
 'xl' using 1:2:3 axis x1y2 w labels left offset 0,-.5 font ',8' \
@@ -49,12 +52,6 @@ plot \
   point pt 11 notitle, \
 'labels' u 1:2:3 w labels right offset -.5,2 font ',8' notitle, \
 '' u 1:2 w points lt -1 pt 1 notitle
-
-#\
-'10' using 1:2 axis x1y2 with points pt 2 lc 2 title '10 sample =', \
-'15' using 1:2 axis x1y2 with points pt 3 lc 3 title '15 sample =', \
-'x15' using 1:2 with lines lt -1 lc 3 dt 2 notitle, \
-'x10' using 1:2 with lines lt -1 lc 2 dt 2 notitle, \
 
 set terminal pngcairo size 820,440 transparent
 #set output 'test.png'
@@ -101,10 +98,8 @@ set y2zeroaxis ls -1
 #print GPVAL_Y_MIN
 #print GPVAL_Y_MAX
 
-set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX + 100]
-
 set logscale y
-set logscale y2
+set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN]
 
 # with leap days taken into account
 set y2tics (\
@@ -136,18 +131,23 @@ set y2tics (\
       '365'  365   ,\
       '730'  730  1,\
      '1095' 1095  1,\
-       '4y' 1461   ,\
-       '8y' 2922  1,\
-      '12y' 4383   ,\
-      '16y' 5844  1,\
-      '20y' 7306   ,\
-      '40y' 14610 1,\
-      '60y' 21915 1,\
-      '80y' 29220 1,\
-     '100y' 36524  ,\
-     '200y' 73048  1,\
-     '300y' 109572 1,\
-     '400y' 146097)
+   '4'.yr_t 1461   ,\
+   '8'.yr_t 2922  1,\
+  '12'.yr_t 4383   ,\
+  '16'.yr_t 5844  1,\
+  '20'.yr_t 7306   ,\
+  '40'.yr_t 14610 1,\
+  '60'.yr_t 21915 1,\
+  '80'.yr_t 29220 1,\
+ '100'.yr_t 36524  ,\
+ '200'.yr_t 73048  1,\
+ '300'.yr_t 109572 1,\
+ '400'.yr_t 146097 )
+set y2tics add (sprintf("\n_{%.1f}", GPVAL_Y2_MAX) GPVAL_Y2_MAX)
+
+# make g() log10 from 10-100
+f = 90.0/(GPVAL_Y2_MAX - GPVAL_Y2_MIN); o = 10 - f*GPVAL_Y2_MIN
+set nonlinear y2 via log10(f*y+o) inverse (10**y-o)/f
 
 interval_s = sprintf("%d", interval)
 #print interval_s
