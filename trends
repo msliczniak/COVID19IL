@@ -25,31 +25,30 @@ plot \
   fs trans solid 0.25 border fc rgbcolor good notitle, \
 '' u 1:2:3 w filledcurves below \
   fs trans solid 0.25 border fc rgbcolor bad notitle, \
-'fdday' using 1:2:3 axis x1y2 notitle with filledcurves below \
+'fdday' u 1:2:3 axis x1y2 notitle w filledcurves below \
   fs trans solid 0.25 border fc rgbcolor good, \
-'fdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
+'' u 1:2:3 axis x1y2 notitle w filledcurves above \
   fs trans solid 0.25 border fc rgbcolor bad, \
-'xtot' using 1:2:3 notitle with filledcurves above \
+'xtot' u 1:2:3 notitle w filledcurves above \
   fs trans solid 0.25 border fc rgbcolor good, \
-'xtot' using 1:2:3 notitle with filledcurves below \
+'' u 1:2:3 notitle w filledcurves below \
   fs trans solid 0.25 border fc rgbcolor bad, \
-'xdday' using 1:2:3 axis x1y2 notitle with filledcurves below \
+'xdday' u 1:2:3 axis x1y2 notitle w filledcurves below \
   fs trans solid 0.25 border fc rgbcolor good, \
-'xdday' using 1:2:3 axis x1y2 notitle with filledcurves above \
+'' u 1:2:3 axis x1y2 notitle w filledcurves above \
   fs trans solid 0.25 border fc rgbcolor bad, \
 'tot' u 1:2 w step lt 0 notitle, \
 '' u 1:2 w points lt -1 pt 1 ps .5 notitle, \
-'x5t' using 1:2 with lines lt -1 lc 1 dt 4 notitle, \
-'xtot' using 1:2 with lines lt 0 notitle, \
-'x5' using 1:2 with lines lt -1 lc 1 dt 2 notitle, \
-'dday' using 1:2 axis x1y2 with lines lt 4 title lifetime_t, \
+'x7t' using 1:2 with lines lt -1 lc 6 dt 4 notitle, \
+'xtot' u 1:2 with l lt 0 notitle, \
+'xtvm' u 1:2 with l lt -1 lc 1 dt 2 notitle, \
 'xdday' using 1:2 axis x1y2 with lines lt 4 notitle, \
-'5' using 1:2 axis x1y2 with linespoints lt 0 pt 1 lc 1 ps .5 title trend_t, \
-'xtotl' using 1:2:3 w labels left offset 0,-.5 font ',8' point pt 11 notitle,\
+'dday' u 1:2 axis x1y2 w linespoints lt 4 pt 1 ps .5 title trend_t, \
+'xtotl' using 1:2:3 w labels left offset 0,-.5 font ',8' point pt 1 notitle,\
 'xl' using 1:2:3 axis x1y2 w labels left offset 0,-.5 font ',8' \
-  point pt 24 notitle, \
+  point pt 1 notitle, \
 'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
-  point pt 11 notitle, \
+  point pt 1 notitle, \
 'labels' u 1:2:3 w labels right offset -.5,2 font ',8' notitle, \
 '' u 1:2 w points lt -1 pt 1 notitle
 

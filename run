@@ -51,44 +51,6 @@ co=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
 gnuplot l.gp -c ratioplot "$da $g0"' 5 sample test-positivity rate '"$co" ||\
    exit
 
-# r = n[(A/P)^(1/nt) - 1]
-TVM='{
-	i = 1
-	ii = index($i, "-") - 1
-
-	j = substr($i, 1, ii) + 0
-	P = substr($i, ii + 12) + 0
-
-	while (i < NF) {
-		i += 1
-		ii = index($i, "-") - 1
-
-		n = substr($i, 1, ii) - j
-		A = substr($i, ii + 12) + 0
-
-		print substr($i, ii + 2, 10), exp(1/n * log(A/P)), n
-	}
-}'
-
-trend() {
-	#./trend k="$1" "$2" | awk "$1"' - 1 <= NR { print $1, $2 }'
-	#return
-
-	# k=samples
-	awk '{
-	j = 1; i = k
-	while (i <= NF) {
-		ii = index($i, "-") - 1
-		jj = index($j, "-") - 1
-		n = substr($i, 1, ii) - substr($j, 1, jj)
-		A = substr($i, ii + 12) + 0
-		P = substr($j, jj + 12) + 0
-
-		print substr($i, ii + 2, 10), exp(1/n * log(A/P))
-		j += 1; i += 1
-	} }' RS= k="$1" $2
-}
-
 # doubling-time in hours
 dday() {
 	awk 'NR == 1 {
@@ -101,14 +63,14 @@ dday() {
 	} { print $1, d/log($2) }' "$@"
 }
 
+# A = P*r^t
 predict() {
-	paste "$@" | awk 'NR == 1 { P = $2; r = $4; next }
-	NF < 5 { exit }
-	{ print $3, P * exp($5 * log(r)); r = $4 }'
+	paste "$@" | awk 'NF < 6 { exit }
+	{ print $4, $2 * exp(($6 - $3) * log($5)), $6 }'
 }
 
 labels() {
-	awk 'BEGIN { print 0 } { print $3 }' $2 | paste $1 - | awk '
+	awk 'BEGIN { print 0 } { print $2 }' $2 | paste $1 - | awk '
 	{ d[NR] = $1; v[NR] = $2; n[NR] = $3 }
 	END {
 
@@ -136,7 +98,7 @@ labels() {
 			printf("%.1f^%%\\n", c * 100 - 100)
 
 			c = A - P
-			printf("%s\n", c)
+			printf("%.1f\n", c / (n[i] - n[j]))
 
 			i = j
 		}
@@ -150,8 +112,6 @@ step() {
 	for (i = 2; i <= NF; i++) l = l " " $i
 	print $1 l }' "$@"
 }
-
-FOO='{ printf("%s-%s-%s %s\n", $2, $3, substr($4, 1, 2), substr($4, 3)) }'
 
 g1='Chicago,Cook'
 g2='McHenry,Lake,Kane,DuPage,Kendall,Will,Grundy,Kankakee'
@@ -188,24 +148,22 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		of="$of"-"$rs".png
 
 		awk '{ print $3 "-" $1 $2 }' tot >total
-		trend 7 total >5t
-		dday 5t >5
-		awk "$TVM" RS= total >tvm
+		./trend k=7 total >tvm
 		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
 		dday tvm >dday
-		awk -F- "$FOO" total >tot
 		ta=`awk 'END { print $2 }' tot`
 		ca=`awk 'END { printf("%.1f", $2) }' dday`
 		predict tot tvm >pred
-		awk 'BEGIN { print; print } { print $2 }' pred | # filled-curve
+		awk 'BEGIN { print } { print $2 }' pred | # filled-curve
 		  paste tot - | # skip early point(s)
-		  awk 'NF == 2 { print $0, $2; next } { print }' | step >ftot
+		  awk 'NF == 3 { print $1, $2, $2; next } {
+		  print $1, $2, $4 }' | step >ftot
 		labels tot tvm >labels
 
 		# %chg for the last day
-		p=`tail -2 total | trend 2 | awk '{ print $2 }'` || exit
+		p=`tail -2 total | ./trend | awk '{ print $2 }'` || exit
 
-		# amortized daily %chg 
+		# daily %chg over seven samples 
 		r=`awk 'END { print $2 }' tvm` || exit
 
 		awk 'END {
@@ -219,17 +177,14 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 			t *= r; ti *= p
 			print $1 i, ti, t } }' r="$r" p="$p" ftot >xtot
 
-		for i in 5; do
-			r=`tail -$i tvm | awk '{ print $2; exit }'`
-			>x$i awk 'END { t = $2
-				for (i = -24; i >= -96; i -= 24) {
-					t *= r
-					print $1 i, t } }' r="$r" ftot
-		done
+		r=`tail -7 tvm | awk '{ print $2; exit }'`
+		awk 'END { t = $2
+			for (i = -24; i >= -96; i -= 24) {
+				t *= r
+				print $1 i, t } }' r="$r" ftot >xtvm
 
 		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dday >fdday
-		p=`tail -2 fdday | trend 2 | awk '{ print $2 }'` || exit
-		awk -F- "$FOO" fdday >dday
+		p=`tail -2 fdday | ./trend | awk '{ print $2 }'` || exit
 		awk 'NR == 1 { d = $2 } { print $0, d; d = $2 }' dday >fdday
 		awk 'END { t = $2
 		for (i = -24; i >= -96; i -= 24) {
@@ -242,9 +197,9 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		}' p=$p xdday >xl
 		awk '{ print $0, $2; exit }' tot >ol
 		i=`tail -3 tot | awk '{ print $2; exit }'`
-		tail -3 5t | awk '{ print $1, t
+		tail -3 tvm | awk '{ print $1, t
 			for (i = -24; i >= -96; i -= 24) {
-			t *= $2; print $1 i, t }; exit }' t="$i" >x5t
+			t *= $2; print $1 i, t }; exit }' t="$i" >x7t
 		di=+`awk '{ ll = l; l = $2 } END { print l - ll }' tot`
 
 		/bin/rm -f a.png "$of" || exit
