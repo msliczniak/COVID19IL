@@ -1,6 +1,6 @@
-set xlabel ARG3.xlabel_t
+trend_t = ARG3 . xlabel_t . ', ' . trend_t
 
-set border 11 front lc rgbcolor 'gray'
+set border 11 back lc rgbcolor 'gray'
 set rmargin 6
 
 set xdata time
@@ -25,31 +25,24 @@ plot \
   fs trans solid 0.25 border fc rgbcolor good notitle, \
 '' u 1:2:3 w filledcurves below \
   fs trans solid 0.25 border fc rgbcolor bad notitle, \
-'fdday' u 1:2:3 axis x1y2 notitle w filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'' u 1:2:3 axis x1y2 notitle w filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor bad, \
 'xtot' u 1:2:3 notitle w filledcurves above \
   fs trans solid 0.25 border fc rgbcolor good, \
 '' u 1:2:3 notitle w filledcurves below \
   fs trans solid 0.25 border fc rgbcolor bad, \
-'xdday' u 1:2:3 axis x1y2 notitle w filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'' u 1:2:3 axis x1y2 notitle w filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor bad, \
 'tot' u 1:2 w step lt 0 notitle, \
 '' u 1:2 w points lt -1 pt 1 ps .5 notitle, \
-'x7t' using 1:2 with lines lt -1 lc 6 dt 4 notitle, \
 'xtot' u 1:2 with l lt 0 notitle, \
 'xtvm' u 1:2 with l lt -1 lc 1 dt 2 notitle, \
-'xdday' using 1:2 axis x1y2 with lines lt 4 notitle, \
-'dday' u 1:2 axis x1y2 w linespoints lt 4 pt 1 ps .5 title trend_t, \
-'xtotl' using 1:2:3 w labels left offset 0,-.5 font ',8' point pt 1 notitle,\
-'xl' using 1:2:3 axis x1y2 w labels left offset 0,-.5 font ',8' \
-  point pt 1 notitle, \
+'xdday' using 1:2 axis x1y2 with lines lt 0 lc 1 notitle, \
+'dday' u 1:2 axis x1y2 w points lt 0 lc 1 pt 1 ps .5 notitle, \
+'' u 1:2 axis x1y2 w lines smooth csplines lt 0 lc 1 notitle, \
+'xtotl' u 1:2:3 w labels left offset 0,-.25 font ',8' notitle,\
+'' u 1:2 w points lt -1 pt 1 ps .5 notitle,\
+'xl' u 1:2:3 axis x1y2 w labels left offset 0,-.25 font ',8' notitle, \
+'' u 1:2 axis x1y2 w linespoints lt 0 lc 1 pt 1 ps .5 title trend_t, \
 'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
   point pt 1 notitle, \
-'labels' u 1:2:3 w labels right offset -.5,2 font ',8' notitle, \
+'labels' u 1:2:3 w labels right offset -.5,1.5 font ',8' notitle, \
 '' u 1:2 w points lt -1 pt 1 notitle
 
 set terminal pngcairo size 820,440 transparent
@@ -92,7 +85,7 @@ set for [i=GPVAL_X_MAX-dowo:GPVAL_X_MIN:-1209600] obj i \
 # 345600 = 86400 * 4
 #set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600):345600]
 set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600)/86400:4]
-set y2zeroaxis ls -1
+set y2zeroaxis ls -1 lc rgbcolor 'gray'
 
 #print GPVAL_Y_MIN
 #print GPVAL_Y_MAX

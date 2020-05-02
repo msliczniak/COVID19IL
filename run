@@ -95,10 +95,7 @@ labels() {
 
 			P = v[j]
 			c = exp(1/(n[i] - n[j]) * log(A/P))
-			printf("%.1f^%%\\n", c * 100 - 100)
-
-			c = A - P
-			printf("%.1f\n", c / (n[i] - n[j]))
+			printf("_{%.1f%%}\n", c * 100 - 100)
 
 			i = j
 		}
@@ -169,7 +166,7 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		awk 'END {
 			t = int($2 * p + .5)
 			p = p * 100 - 100
-			printf("%s-24 %s %s\\n%.1f%%*\\n+%s\n",
+			printf("%s-24 %s _{%s}\\n_{%.1f%%*}\\n_{+%s}\n",
 			  $1, t, t, p, t - $2)
 		}' p=$p tot >xtotl
 		awk 'END { ti = t = $2
@@ -191,7 +188,7 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 			t *= p
 			print $1 i, t, $2 } }' p="$p" fdday >xdday
 		awk '{
-			printf("%s %s %.1f\\n%.1f_%%*\n",
+			printf("%s %s _{%.1f}\\n_{%.1f%%*}\n",
 			  $1, $2, $2, p * 100 - 100)
 			exit
 		}' p=$p xdday >xl
@@ -207,6 +204,8 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$of" || exit; }
+
+		#exit
 
 		# no tested totals per county
 		case "$la"-"$rs" in
