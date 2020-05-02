@@ -194,9 +194,6 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		}' p=$p xdday >xl
 		awk '{ print $0, $2; exit }' tot >ol
 		i=`tail -3 tot | awk '{ print $2; exit }'`
-		tail -3 tvm | awk '{ print $1, t
-			for (i = -24; i >= -96; i -= 24) {
-			t *= $2; print $1 i, t }; exit }' t="$i" >x7t
 		di=+`awk '{ ll = l; l = $2 } END { print l - ll }' tot`
 
 		/bin/rm -f a.png "$of" || exit
@@ -204,8 +201,6 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$of" || exit; }
-
-		#exit
 
 		# no tested totals per county
 		case "$la"-"$rs" in
