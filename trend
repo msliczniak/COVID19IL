@@ -1,8 +1,10 @@
 #!/usr/bin/awk -f
 
 # k=samples
+
 BEGIN { RS = ""; k = 0 }
 
+# r = n[(A/P)^(1/nt) - 1]
 {
 	if (NF <= 1) exit
 	if (k == 0) k = NF
