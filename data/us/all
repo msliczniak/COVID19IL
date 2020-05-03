@@ -70,7 +70,7 @@ case $r in
 esac
 
 echo '<p>
-<em>%*</em> indicates from previous sample, all others amortized over time
+<em>%*</em> indicates from previous sample, all others amortized over up to seven previous samples
 </body>
 </html>' | /bin/cat html index - >../../plots/us/index.html || exit
 
