@@ -20,30 +20,22 @@ bad = ARG5
 
 set terminal dumb
 set output '/dev/null'
+
+#  noautoscale with csplines was ignored
+set clip two
 plot \
-'ftot' u 1:2:3 w filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor good notitle, \
-'' u 1:2:3 w filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor bad notitle, \
-'xtot' u 1:2:3 notitle w filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'' u 1:2:3 notitle w filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor bad, \
-'tot' u 1:2 w step lt 0 notitle, \
-'' u 1:2 w points lt -1 pt 1 ps .5 notitle, \
-'xtot' u 1:2 with l lt 0 notitle, \
-'xtvm' u 1:2 with l lt -1 lc 1 dt 2 notitle, \
-'xdday' using 1:2 axis x1y2 with lines lt 0 lc 1 notitle, \
-'dday' u 1:2 axis x1y2 w points lt 0 lc 1 pt 1 ps .5 notitle, \
-'' u 1:2 axis x1y2 w lines smooth csplines lt 0 lc 1 notitle, \
-'xtotl' u 1:2:3 w labels left offset 0,-.25 font ',8' notitle,\
-'' u 1:2 w points lt -1 pt 1 ps .5 notitle,\
-'xl' u 1:2:3 axis x1y2 w labels left offset 0,-.25 font ',8' notitle, \
-'' u 1:2 axis x1y2 w linespoints lt 0 lc 1 pt 1 ps .5 title trend_t, \
-'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
-  point pt 1 notitle, \
-'labels' u 1:2:3 w labels right offset -.5,1.5 font ',8' notitle, \
-'' u 1:2 w points lt -1 pt 1 notitle
+'ftot' u 1:2 notitle w points, \
+'' u 1:3 notitle w points, \
+'xtot' u 1:2 notitle w points, \
+'' u 1:3 notitle w points, \
+'xtvm' u 1:2 notitle w points, \
+'xdday' u 1:2 notitle axis x1y2 w points, \
+'dday' u 1:2 notitle axis x1y2 w points
+
+set xrange   [GPVAL_X_MIN:GPVAL_X_MAX]
+set x2range [GPVAL_X2_MIN:GPVAL_X2_MAX]
+set yrange   [GPVAL_Y_MIN:GPVAL_Y_MAX]
+set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX]
 
 set terminal pngcairo size 820,440 transparent
 #set output 'test.png'
@@ -148,4 +140,28 @@ interval_s = sprintf("%d", interval)
 set grid x2 y2
 
 set output 'a.png'
-refresh
+
+plot \
+'ftot' u 1:2:3 w filledcurves above \
+  fs trans solid 0.25 border fc rgbcolor good notitle, \
+'' u 1:2:3 w filledcurves below \
+  fs trans solid 0.25 border fc rgbcolor bad notitle, \
+'xtot' u 1:2:3 notitle w filledcurves above \
+  fs trans solid 0.25 border fc rgbcolor good, \
+'' u 1:2:3 notitle w filledcurves below \
+  fs trans solid 0.25 border fc rgbcolor bad, \
+'tot' u 1:2 w step lt 0 notitle, \
+'' u 1:2 w points lt -1 pt 1 ps .5 notitle, \
+'xtot' u 1:2 with l lt 0 notitle, \
+'xtvm' u 1:2 with l lt -1 lc 1 dt 2 notitle, \
+'xdday' using 1:2 axis x1y2 with lines lt 0 lc 1 notitle, \
+'dday' u 1:2 axis x1y2 w lines smooth csplines lt 0 lc 1 notitle, \
+'' u 1:2 axis x1y2 w points lt 0 lc 1 pt 1 ps .5 notitle, \
+'xtotl' u 1:2:3 w labels left offset 0,-.25 font ',8' notitle,\
+'' u 1:2 w points lt -1 pt 1 ps .5 notitle,\
+'xl' u 1:2:3 axis x1y2 w labels left offset 0,-.25 font ',8' notitle, \
+'' u 1:2 axis x1y2 w linespoints lt 0 lc 1 pt 1 ps .5 title trend_t, \
+'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
+  point pt 1 notitle, \
+'labels' u 1:2:3 w labels right offset -.5,1.5 font ',8' notitle, \
+'' u 1:2 w points lt -1 pt 1 notitle

@@ -13,10 +13,14 @@ set border 11
 set terminal dumb
 set output '/dev/null'
 
-plot [:][:] 'ratio' u 1:2 w lines smooth csplines lt 0 lc 6 notitle\
-, '' u 1:2 w points lt -1 lc 6 pt 1 ps .5 notitle\
-, '' u 1:2:3 w labels right offset -.5,.25 font ',7' notitle\
-, '' u 1:($3 != NaN ? $2 : NaN) w points lt -1 lc 6 pt 1 notitle
+# csplines with noautoscale led to no lines connecting points
+set clip two
+plot 'ratio' u 1:2 w points notitle
+
+set xrange   [GPVAL_X_MIN:GPVAL_X_MAX]
+set x2range [GPVAL_X2_MIN:GPVAL_X2_MAX]
+set yrange   [GPVAL_Y_MIN:GPVAL_Y_MAX]
+set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX]
 
 set terminal pngcairo size 820,440 transparent
 set output "ratio.png"
@@ -31,4 +35,7 @@ set xtics '"01/06/2020"', 604800
 
 set grid x2 y
 
-refresh
+plot 'ratio' u 1:2 w lines smooth csplines lt 0 lc 6 notitle\
+, '' u 1:2 w points lt -1 lc 6 pt 1 ps .5 notitle\
+, '' u 1:2:3 w labels right offset -.5,.25 font ',7' notitle\
+, '' u 1:($3 != NaN ? $2 : NaN) w points lt -1 lc 6 pt 1 notitle
