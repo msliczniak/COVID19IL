@@ -134,6 +134,7 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		tc=toti
 
 		awk '{ print $3 "-" $1 $2 }' tot >total
+		awk '{ print $1, $2 - t, $3; t = $2 }' tot >daily
 		../../trend k=7 total >tvm
 		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
 		dday tvm >dday
