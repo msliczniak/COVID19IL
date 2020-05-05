@@ -1,0 +1,3 @@
+#!/bin/sh
+curl -sfLO https://covidtracking.com/api/v1/states/daily.csv || exit
+./gen || exit

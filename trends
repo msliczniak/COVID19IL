@@ -1,12 +1,50 @@
-trend_t = ARG3 . xlabel_t . ', ' . trend_t
+set autoscale fix
+set timefmt '%Y-%m-%d-%H:%M:%S'
+set xdata time
+
+set terminal dumb
+set output '/dev/null'
+
+# noautoscale with csplines was ignored
+#set clip two
+plot \
+'dday' u 1:2 axis x1y2 notitle w points, \
+'xdday' u 1:2 axis x1y2 notitle w points, \
+'ftot' u 1:2 notitle w points, \
+'' u 1:3 notitle w points, \
+'xtot' u 1:2 notitle w points, \
+'' u 1:3 notitle w points, \
+'xtvm' u 1:2 notitle w points, \
+'daily' u 1:2 notitle w points
+
+#print GPVAL_Y2_MIN
+#print GPVAL_Y2_MAX
+
+set xrange   [GPVAL_X_MIN:GPVAL_X_MAX]
+set x2range [GPVAL_X2_MIN:GPVAL_X2_MAX]
+set yrange   [GPVAL_Y_MIN:GPVAL_Y_MAX]
+
+set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN]
+o = GPVAL_Y2_MAX - GPVAL_Y2_MIN
+f = 10**ceil(log10(o) + 1)
+f = (f - 10.0)/o
+o = 10 - f*GPVAL_Y2_MIN
+set nonlinear y2 via log10(f*y+o) inverse (10**y-o)/f
+set logscale y
+
+set terminal pngcairo size 820,440 transparent
+#set terminal png size 820,440 transparent
+#set output 'test.png'
+#test
+
+set output 'a.png'
+
+trend_t = ARG3 . xlabel_t . ' ' . trend_t
 
 set border 11 back lc rgbcolor 'gray'
 set rmargin 6
 
-set xdata time
-set timefmt '%Y-%m-%d-%H'
-set autoscale fix
-set key outside horizontal bottom center
+set key outside horizontal bottom center font ',8'
 set xtics nomirror
 set ytics nomirror
 set format y '10^{%T}'
@@ -17,29 +55,6 @@ set x2tics rangelimited rotate by 55 format '88-88'
 
 good = ARG4
 bad = ARG5
-
-set terminal dumb
-set output '/dev/null'
-
-#  noautoscale with csplines was ignored
-set clip two
-plot \
-'ftot' u 1:2 notitle w points, \
-'' u 1:3 notitle w points, \
-'xtot' u 1:2 notitle w points, \
-'' u 1:3 notitle w points, \
-'xtvm' u 1:2 notitle w points, \
-'xdday' u 1:2 notitle axis x1y2 w points, \
-'dday' u 1:2 notitle axis x1y2 w points
-
-set xrange   [GPVAL_X_MIN:GPVAL_X_MAX]
-set x2range [GPVAL_X2_MIN:GPVAL_X2_MAX]
-set yrange   [GPVAL_Y_MIN:GPVAL_Y_MAX]
-set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX]
-
-set terminal pngcairo size 820,440 transparent
-#set output 'test.png'
-#test
 
 #print GPVAL_X_MIN
 #print GPVAL_X_MAX
@@ -75,15 +90,11 @@ set for [i=GPVAL_X_MAX-dowo:GPVAL_X_MIN:-1209600] obj i \
 
 # Draw a y axis at current date
 # 345600 = 86400 * 4
-#set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600):345600]
 set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600)/86400:4]
 set y2zeroaxis ls -1 lc rgbcolor 'gray'
 
 #print GPVAL_Y_MIN
 #print GPVAL_Y_MAX
-
-set logscale y
-set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN]
 
 # with leap days taken into account
 set y2tics (\
@@ -127,21 +138,17 @@ set y2tics (\
  '200'.yr_t 73048  1,\
  '300'.yr_t 109572 1,\
  '400'.yr_t 146097 )
+#set y2tics add (sprintf("~{1^{%.1f}}", GPVAL_Y2_MIN) GPVAL_Y2_MIN)
 set y2tics add (sprintf("\n_{%.1f}", GPVAL_Y2_MAX) GPVAL_Y2_MAX)
 
-# make g() log10 from 10-100
-f = 90.0/(GPVAL_Y2_MAX - GPVAL_Y2_MIN); o = 10 - f*GPVAL_Y2_MIN
-set nonlinear y2 via log10(f*y+o) inverse (10**y-o)/f
-
 interval_s = sprintf("%d", interval)
-#print interval_s
 `./x2tics n=@interval_s x2tics.txt`
 
 set grid x2 y2
 
-set output 'a.png'
-
 plot \
+'dday' u 1:2 axis x1y2 w lines smooth csplines lt 0 lc 1 notitle, \
+'' u 1:2 axis x1y2 w points lt 0 lc 1 pt 1 ps .5 notitle, \
 'ftot' u 1:2:3 w filledcurves above \
   fs trans solid 0.25 border fc rgbcolor good notitle, \
 '' u 1:2:3 w filledcurves below \
@@ -153,11 +160,10 @@ plot \
 'tot' u 1:2 w step lt 0 notitle, \
 '' u 1:2 w points lt -1 pt 1 ps .5 notitle, \
 'xtot' u 1:2 with l lt 0 notitle, \
-'xtvm' u 1:2 with l lt -1 lc 1 dt 2 notitle, \
+'xtvm' u 1:2 with l lt -1 lc 1 dt 2 title wkago_t, \
 'xdday' using 1:2 axis x1y2 with lines lt 0 lc 1 notitle, \
-'daily' u 1:2 w step lt 4 notitle, \
-'dday' u 1:2 axis x1y2 w lines smooth csplines lt 0 lc 1 notitle, \
-'' u 1:2 axis x1y2 w points lt 0 lc 1 pt 1 ps .5 notitle, \
+'daily' u 1:2 w step lt 4 title daily_t, \
+'' u 1:2 w points lt 4 pt 1 ps .5 notitle, \
 'xtotl' u 1:2:3 w labels left offset 0,-.25 font ',8' notitle,\
 '' u 1:2 w points lt -1 pt 1 ps .5 notitle,\
 'xl' u 1:2:3 axis x1y2 w labels left offset 0,-.25 font ',8' notitle, \

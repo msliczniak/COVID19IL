@@ -1,8 +1,7 @@
 #!/bin/sh
 
 mkdir -p ../../plots/us
-curl -sfLO https://covidtracking.com/api/v1/states/daily.csv || exit
-./gen || exit
+./get || exit
 
 wh='width="820" height="440" border="0" hspace="0" vspace="0" src="%s">'
 bg=''

@@ -20,8 +20,17 @@ curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o".html || exit
 # https://docs.google.com/spreadsheets/d/
 # 1ierEhD6gcq51HAm433knjnVwey4ZE5DCnu1bW7PRG3E/htmlview?usp=sharing#
 
-u='Poland%20medical%20cases&intestactions=edit&intestactionsdetail=full'
-u='&titles=Template%3A2019%E2%80%9320%20coronavirus%20pandemic%20data%2F'"$u"
+# Tariqabjotu broke it, but all three templates at once still worked:
+# https://en.wikipedia.org/w/index.php?title=User_talk:Tariqabjotu&action=edit&section=34
+# curprev 16:40, 4 May 2020 Tariqabjotu talk contribs m 76,746 bytes -13
+# top: updating to "COVID-19" following moves undo Tag: AWB
+# curprev 12:33, 4 May 2020 Tariqabjotu talk contribs m  76,690 bytes 0
+# Tariqabjotu moved page Template:2019–20 coronavirus pandemic data/Poland medical cases to Template:COVID-19 pandemic data/Poland medical cases: consistency with move at COVID-19 pandemic undo
+
+u='&intestactions=edit&intestactionsdetail=full'
+u='&titles=Template%3ACOVID-19%20pandemic%20data%2FPoland%20medical%20cases'"$u"
+#u='Poland%20medical%20cases&intestactions=edit&intestactionsdetail=full'
+#u='&titles=Template%3A2019%E2%80%9320%20coronavirus%20pandemic%20data%2F'"$u"
 u=\
 '&format=json&formatversion=2&prop=revisions%7Cinfo&rvprop=content%7Ctimestamp'\
 "$u"

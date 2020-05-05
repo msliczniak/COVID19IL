@@ -42,7 +42,7 @@ dday() {
 	}
 
 	d = log(2)
-	} { print $1, d/log($2) }' "$@"
+	} { print $1, d/log($2), $3 }' "$@"
 }
 
 # A = P*r^t
@@ -112,7 +112,14 @@ for co in '!Aurora,North Aurora,Elgin,South Elgin,Batavia,Geneva,St. Charles'\
 		esac
 
 		awk '{ print $3 "-" $1 $2 }' tot >total
-		awk '{ print $1, $2 - t, $3; t = $2 }' tot >daily
+		awk '{
+		if ($2 <= t) {
+			print ""
+			next
+		}
+
+		print $1, $2 - t, $3
+		t = $2 }' tot >daily
 		../../trend k=7 total >tvm
 		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
 		dday tvm >dday
@@ -148,10 +155,10 @@ for co in '!Aurora,North Aurora,Elgin,South Elgin,Batavia,Geneva,St. Charles'\
 				t *= r
 				print $1 i, t } }' r="$r" ftot >xtvm
 
-		awk '$2 != t { print NR "-" $1 $2; t = $2 }' dday >fdday
-		p=`tail -2 fdday | ../../trend | awk '{ print $2 }'` || exit
+		awk '$2 != t { print $3 "-" $1 $2; t = $2 }' dday >fdday
+		p=`tail -2 fdday | ../../trend | awk '{ print $2 - 1 }'` || exit
 		awk 'NR == 1 { d = $2 } { print $0, d; d = $2 }' dday >fdday
-		awk 'END { t = $2
+		awk 'END { p += 1; t = $2
 		for (i = -24; i >= -96; i -= 24) {
 			t *= p
 			print $1 i, t, $2 } }' p="$p" fdday >xdday
