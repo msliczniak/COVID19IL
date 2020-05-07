@@ -1,0 +1,116 @@
+#!/bin/sh
+
+# This is a best guess at matching cases cause there is no ID and later files
+# have correwctions like the age of the patient. It appears to double count less
+# than 10%
+
+# $ ./deathreport | wc -l
+#       69
+# $ ./totals result=death kane-*.csv | tail
+# 2020-05-05 65 31
+# > 69.0 / 65
+# 1.0615384615384615
+
+awk() {
+	/usr/bin/awk "$@"
+}
+
+diff() {
+	/usr/bin/diff "$@"
+}
+
+sed () {
+	/usr/bin/sed "$@"
+}
+
+sort() {
+	/usr/bin/sort "$@"
+}
+
+./deaths kane-*.csv
+
+#p=deaths-2020-04-04.txt
+#for i in deaths-2020-04-06.txt; do
+p=/dev/null
+for i in deaths-*.txt; do
+	diff "$p" "$i" >deaths.txt
+	case $? in
+	  0 | 1)
+		;;
+	  *)
+		exit
+		;;
+	esac
+
+	sed -n 's/^> /\
+/p' <deaths.txt >b || exit
+	sed -n 's/^< /\
+/p' <deaths.txt >a || exit
+
+	./ndiff a b >deaths.txt || exit
+	awk '{
+	for (;;) {
+		if ($0 == "+ " || $0 !~ /^\+ /) {
+			if (!getline) break
+			continue
+		}
+
+		l = substr($0, 3)
+		if (!getline) {
+			print l
+			break
+		}
+
+		if ($0 ~ /^\? /) continue
+
+		print l
+	} }' deaths.txt >u"$i"
+
+	p="$i"
+done
+
+awk 'BEGIN { date = "1970-01"; daten = -1 }
+
+# days since epoch
+function dse(d, f, c) {
+	c = substr(d, 1, 7)
+	if (c != date) {
+		date = c
+
+		f = "/bin/date -juf '\''%Y-%m-%d-%T'\''"
+		f = sprintf("%s %s-01-00:00:00 '+%%s'", f, c)
+		f | getline c
+		close(f)
+
+		daten = int(c / 86400) - 1
+	}
+
+	c = substr(d, 9, 2)
+	return (c + daten)
+}
+
+FNR == 1 {
+	# strip-off path
+	d = match(FILENAME, "[^/]*$")
+	d = substr(substr(FILENAME, d), 1)
+
+	# get date
+	if (d !~ /^[1-9][0-9][0-9][0-9]-/)
+		d = substr(d, index(d, "-") + 1, 10)
+	else
+		d = substr(d, 1, 10)
+
+	d = dse(d)
+}
+
+{
+	printf("%4d ", d - $1)
+
+	i = index($0, ",") + 1
+	s = substr($0, i)
+	if (s)
+		printf("%2d", $1 - s)
+	else
+		printf(" -")
+
+	printf(" %4s %s\n", $2, substr($0, 27, i - 28)) }' udeaths-*.txt | sort
