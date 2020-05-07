@@ -1,2 +1,3 @@
 #!/bin/sh
-echo set x2tics interval format "''"
+echo 'set x2tics interval format "";'
+#printf '%s\n' 'set title "\n"'

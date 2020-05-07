@@ -1,5 +1,9 @@
 #!/bin/sh
 
+awk() {
+	/usr/bin/awk "$@"
+}
+
 ic() {
 	/usr/bin/iconv -c -t utf-8 -f "$1"
 }
@@ -29,4 +33,22 @@ utf8() {
 	esac
 }
 
-utf8 "$1" | tr -s \\r \\n | sed 's/﻿//g'
+utf8 "$1" | tr -s \\r \\n | sed 's/﻿//g' | awk '{
+	# escape quoted names with commas
+	e = 0
+	
+	for (i = 1; i <= NF; i++) {
+		c = $i
+
+		if (c == "\"") {
+			e = !e
+			continue
+		}
+
+		if (e && c == ",") c = ":"
+
+		printf("%s", c)
+	}
+
+	print ""
+}' FS=

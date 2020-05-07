@@ -52,7 +52,7 @@ Qinghai,Mainland China,2020-02-21T04:43:02,18,0,18
 ,Norway,2020-02-29T23:13:06,15,0,0
 ,Iraq,2020-02-29T18:03:05,13,0,0
 ,Sweden,2020-02-29T14:43:03,12,0,0
-"Toronto, ON",Canada,2020-02-29T23:23:13,10,0,2
+Toronto: ON,Canada,2020-02-29T23:23:13,10,0,2
 Macau,Macau,2020-02-27T12:43:02,10,0,8
 Queensland,Australia,2020-02-29T02:03:10,9,0,1
 ,Austria,2020-02-29T14:43:03,9,0,0
@@ -62,7 +62,7 @@ Victoria,Australia,2020-02-29T02:03:10,7,0,4
 ,Croatia,2020-02-29T18:03:05,6,0,0
 ,Netherlands,2020-02-29T18:03:05,6,0,0
 ,Oman,2020-02-29T12:33:03,6,0,1
-"Seattle, WA",US,2020-02-29T22:33:03,6,1,1
+Seattle: WA,US,2020-02-29T22:33:03,6,1,1
 New South Wales,Australia,2020-02-13T17:53:03,4,0,4
 ,Greece,2020-02-28T15:33:03,4,0,0
 ,Lebanon,2020-02-29T01:53:03,4,0,0
@@ -74,21 +74,21 @@ South Australia,Australia,2020-02-29T02:03:10,3,0,2
 ,India,2020-02-16T07:43:02,3,0,3
 ,Philippines,2020-02-12T07:43:02,3,1,1
 ,Romania,2020-02-28T15:33:03,3,0,0
-"Santa Clara, CA",US,2020-02-29T01:33:03,3,0,1
+Santa Clara: CA,US,2020-02-29T01:33:03,3,0,1
 Western Australia,Australia,2020-02-29T23:13:06,2,0,0
 ,Brazil,2020-02-29T21:03:05,2,0,0
 ,Russia,2020-02-12T14:43:03,2,0,2
-"Chicago, IL",US,2020-02-09T19:03:03,2,0,2
-"Sacramento County, CA",US,2020-02-27T20:33:02,2,0,0
-"San Benito, CA",US,2020-02-03T03:53:02,2,0,0
-"San Diego County, CA",US,2020-02-21T05:43:02,2,0,1
+Chicago: IL,US,2020-02-09T19:03:03,2,0,2
+Sacramento County: CA,US,2020-02-27T20:33:02,2,0,0
+San Benito: CA,US,2020-02-03T03:53:02,2,0,0
+San Diego County: CA,US,2020-02-21T05:43:02,2,0,1
 ,Afghanistan,2020-02-24T23:33:02,1,0,0
 ,Algeria,2020-02-25T23:43:03,1,0,0
 ,Belarus,2020-02-28T16:23:03,1,0,0
 ,Belgium,2020-02-17T04:23:06,1,0,1
 ,Cambodia,2020-02-12T07:43:02,1,0,1
-" Montreal, QC",Canada,2020-02-28T05:23:07,1,0,0
-"London, ON",Canada,2020-02-12T18:53:03,1,0,1
+ Montreal: QC,Canada,2020-02-28T05:23:07,1,0,0
+London: ON,Canada,2020-02-12T18:53:03,1,0,1
 ,Egypt,2020-02-28T04:13:09,1,0,1
 ,Estonia,2020-02-27T16:23:03,1,0,0
 ,Georgia,2020-02-27T16:23:03,1,0,0
@@ -105,16 +105,16 @@ Tibet,Mainland China,2020-02-12T06:43:02,1,0,1
 ,Qatar,2020-02-29T14:33:03,1,0,0
 ,San Marino,2020-02-27T21:13:10,1,0,0
 ,Sri Lanka,2020-02-08T03:43:03,1,0,1
-"Boston, MA",US,2020-02-28T21:13:12,1,0,1
-"Humboldt County, CA",US,2020-02-21T05:13:09,1,0,0
-"Los Angeles, CA",US,2020-02-01T19:53:03,1,0,0
-"Madison, WI",US,2020-02-05T21:53:02,1,0,0
-"Orange, CA",US,2020-02-01T19:53:03,1,0,0
-"Portland, OR",US,2020-02-29T02:23:11,1,0,0
-"San Antonio, TX",US,2020-02-13T18:53:02,1,0,0
-"Snohomish County, WA",US,2020-02-29T15:03:04,1,0,0
-"Tempe, AZ",US,2020-02-25T21:23:03,1,0,1
+Boston: MA,US,2020-02-28T21:13:12,1,0,1
+Humboldt County: CA,US,2020-02-21T05:13:09,1,0,0
+Los Angeles: CA,US,2020-02-01T19:53:03,1,0,0
+Madison: WI,US,2020-02-05T21:53:02,1,0,0
+Orange: CA,US,2020-02-01T19:53:03,1,0,0
+Portland: OR,US,2020-02-29T02:23:11,1,0,0
+San Antonio: TX,US,2020-02-13T18:53:02,1,0,0
+Snohomish County: WA,US,2020-02-29T15:03:04,1,0,0
+Tempe: AZ,US,2020-02-25T21:23:03,1,0,1
 From Diamond Princess,Australia,2020-02-29T02:03:10,0,0,0
-"Lackland, TX (From Diamond Princess)",US,2020-02-24T23:33:02,0,0,0
-"Omaha, NE (From Diamond Princess)",US,2020-02-24T23:33:02,0,0,0
-"Travis, CA (From Diamond Princess)",US,2020-02-24T23:33:02,0,0,0
+Lackland: TX (From Diamond Princess),US,2020-02-24T23:33:02,0,0,0
+Omaha: NE (From Diamond Princess),US,2020-02-24T23:33:02,0,0,0
+Travis: CA (From Diamond Princess),US,2020-02-24T23:33:02,0,0,0
