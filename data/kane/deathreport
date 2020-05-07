@@ -27,7 +27,7 @@ sort() {
 	/usr/bin/sort "$@"
 }
 
-./deaths kane-*.csv
+./deaths "$@"
 
 #p=deaths-2020-04-04.txt
 #for i in deaths-2020-04-06.txt; do
