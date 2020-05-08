@@ -12,7 +12,6 @@ BEGIN {
 
 END {
 	if (NR == 0) {
-		p
 		print "set x2tics interval format '';"
 		#print "set title '\\n'"
 		exit
