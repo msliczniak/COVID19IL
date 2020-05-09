@@ -1,0 +1,21 @@
+#!/bin/sh
+
+n=`printf '%s\n' kane-*.csv | wc -l`
+
+rm -f deaths-*.txt udeaths-*.txt || exit
+
+for i in `jot $n`; do
+	j=`printf '%s\n' kane-*.csv | head -$i | xargs ./deathreport | wc -l`
+	k=`printf '%s\n' kane-*.csv | head -$i | xargs ./totals result=death \
+	| awk 'END { print $2 }'`
+	echo $i $j $k
+	continue
+	case "$j" in
+	  "$k")
+		echo $i $j $k
+		exit
+		;;
+	esac
+done
+
+exit
