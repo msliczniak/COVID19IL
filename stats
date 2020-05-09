@@ -1,0 +1,25 @@
+#!/usr/bin/awk -f
+function o(i, j, k) {
+	printf(f, i, j, k, j, j)
+}
+
+END {
+	f = "set xrange [%d:%d]; stats '%s' u 3:(log($2)) noout\n" \
+	  "r = exp(STATS_slope); P = exp(STATS_intercept)\n" \
+	  "print %d, STATS_slope, d/STATS_slope, P*r**%d, r\n"
+
+	if ($3 > 7) k = 7
+	else k = $3
+
+	j = 3
+	if (j > k) exit
+
+	printf("d = log(2); set print '-'\n")
+
+	i = 1
+	o(i, j++, "totc")
+
+	while (j < k)
+
+	while (j < $3) o(i++, j++)
+}
