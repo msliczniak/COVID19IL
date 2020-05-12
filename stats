@@ -6,7 +6,8 @@ function o(i, j, k) {
 END {
 	f = "set xrange [%d:%d]; stats '%s' u 3:(log($2)) noout\n" \
 	  "r = exp(STATS_slope); P = exp(STATS_intercept)\n" \
-	  "print %d, STATS_slope, d/STATS_slope, P*r**%d, r\n"
+	  "fit f(x) 'totc' u 3:2 via r, P\n" \
+	  "print %d, r, d/log(r), P*r**%d, P\n"
 
 	if ($3 > 7) k = 7
 	else k = $3
@@ -14,7 +15,8 @@ END {
 	j = 3
 	if (j > k) exit
 
-	printf("d = log(2); set print '-'\n")
+	print "d = log(2); set print 'dday'; f(x) = P*r**x"
+	print "set fit quiet; set fit logfile '/dev/null'"
 
 	i = 1
 	o(i, j++, "totc")
