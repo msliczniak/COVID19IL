@@ -102,6 +102,9 @@ set y2tics border out
 #print GPVAL_Y_MIN
 #print GPVAL_Y_MAX
 
+#o=.1; print sprintf("10^{%s} %s", gprintf("%T", o), gprintf("%h%%", o/100))
+#o = o1 = o2 = 0; plot 'totc' u 3:2 w step, '' u 3:(o=o1,o1=$2,$2-o) w step, 'dday' u 1:4 w step, '' u 1:(o=o2,o2=$4,$4-o) w step, '' u 1:($3*100) sm bezier, 'table' ax x1y2 w lines
+
 # with leap days taken into account
 set y2tics (\
       '.25'  .25  1,\
@@ -153,7 +156,7 @@ interval_s = sprintf("%d", interval)
 set grid x2 y
 
 plot \
-'dday' u 1:2 axis x1y2 w lines smooth csplines lt 0 lc 1 notitle, \
+'dday' u 1:2 axis x1y2 w lines sm mcsplines lt 0 lc 1 notitle, \
 '' u 1:2 axis x1y2 w points lt 0 lc 1 pt 1 ps .5 notitle, \
 'ftot' u 1:2:3 w filledcurves above \
   fs trans solid 0.25 border fc rgbcolor good notitle, \

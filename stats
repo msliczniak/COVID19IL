@@ -7,21 +7,29 @@ END {
 	f = "set xrange [%d:%d]; stats '%s' u 3:(log($2)) noout\n" \
 	  "r = exp(STATS_slope); P = exp(STATS_intercept)\n" \
 	  "fit f(x) 'totc' u 3:2 via r, P\n" \
-	  "print %d, r, d/log(r), P*r**%d, P\n"
+	  "print %d, r, r * 100 - 100, P*r**%d, P\n"
+
+	# make empty output files
+	print "set print 'dday'; set table 'table'"
 
 	if ($3 > 7) k = 7
 	else k = $3
 
 	j = 3
-	if (j > k) exit
+	if (j <= k) {
+		print "f(x) = P*r**x; d = log(2)"
+		print "set fit quiet; set fit logfile '/dev/null'"
 
-	print "d = log(2); set print 'dday'; f(x) = P*r**x"
-	print "set fit quiet; set fit logfile '/dev/null'"
+		i = 1
+		o(i, j++, "totc")
 
-	i = 1
-	o(i, j++, "totc")
+		while (j < k) o(i, j++)
 
-	while (j < k)
+		while (j <= $3) o(i++, j++)
 
-	while (j < $3) o(i++, j++)
+		print "set print '-'; set samples", $3 - 2
+		print "plot 'dday' u 1:(d/log($2)) sm bezier"
+	}
+
+	print "unset table"
 }
