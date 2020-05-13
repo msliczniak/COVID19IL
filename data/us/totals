@@ -27,22 +27,26 @@ function which(k, i) {
         exit 1
 }
 
+# XXX: sweep corrections under the rug for now:
 # kane $ ./totals select=carpentersville,montgomery result=death kane-*.csv #
 # | grep ^2020-04-1
 # 2020-04-10 1 7
 # 2020-04-11 2 8
-# 2020-04-12 1 9
+# 2020-04-12 2 9
 # 2020-04-13 2 10
 # 2020-04-14 2 11
-# 2020-04-15 1 12
-# 2020-04-16 1 13
-# 2020-04-17 1 14
-# 2020-04-18 1 15
-# 2020-04-19 1 16
+# 2020-04-15 2 12
+# 2020-04-16 2 13
+# 2020-04-17 2 14
+# 2020-04-18 2 15
+# 2020-04-19 2 16
 FNR == 1 {
 	if (t > 0) {
+		if (t < l) t = l
+
 		print d, t, k
-		t = 0;
+		l = t
+		t = 0
 	}
 
 	k++
