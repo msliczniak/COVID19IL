@@ -1,7 +1,5 @@
 #!/usr/bin/awk -f
 
-# reqs: only print cur if bigger than prev and zero but print biggest last
-
 BEGIN {
 	FS = ","
 
@@ -29,13 +27,25 @@ function which(k, i) {
         exit 1
 }
 
+# kane $ ./totals select=carpentersville,montgomery result=death kane-*.csv #
+# | grep ^2020-04-1
+# 2020-04-10 1 7
+# 2020-04-11 2 8
+# 2020-04-12 1 9
+# 2020-04-13 2 10
+# 2020-04-14 2 11
+# 2020-04-15 1 12
+# 2020-04-16 1 13
+# 2020-04-17 1 14
+# 2020-04-18 1 15
+# 2020-04-19 1 16
 FNR == 1 {
-	if (t > l) {
+	if (t > 0) {
 		print d, t, k
-		l = t
+		t = 0;
 	}
-	k++
 
+	k++
 	i = which(key)
 	j = which(result)
 
@@ -48,8 +58,6 @@ FNR == 1 {
 		d = substr(d, index(d, "-") + 1, 10)
 	else
 		d = substr(d, 1, 10)
-
-	t = 0
 }
 
 !s && tolower($i) !~ select { next }
@@ -58,4 +66,4 @@ s && tolower($i) ~ select { next }
 
 { t += $j }
 
-END { if (l > t) t = l; print d, t, k }
+END { if (t > 0) print d, t, k }
