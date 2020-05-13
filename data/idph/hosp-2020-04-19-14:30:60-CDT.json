@@ -1,0 +1,135 @@
+
+{
+  "LastUpdateDate": {
+    "year": 2020,
+    "month": 4,
+    "day": 19
+  },
+  "regionValues": [
+    {
+      "region": "Region01",
+      "region_description": "1 - Rockford Region Hospitals",
+      "ICUAvail": 74,
+      "ICUCapacity": 155,
+      "VentsAvailable": 136,
+      "VentsCapacity": 163
+    },
+    {
+      "region": "Region02",
+      "region_description": "2 - Peoria Region Hospitals",
+      "ICUAvail": 100,
+      "ICUCapacity": 230,
+      "VentsAvailable": 199,
+      "VentsCapacity": 267
+    },
+    {
+      "region": "Region03",
+      "region_description": "3 - Springfield Region Hospitals",
+      "ICUAvail": 66,
+      "ICUCapacity": 115,
+      "VentsAvailable": 93,
+      "VentsCapacity": 144
+    },
+    {
+      "region": "Region04",
+      "region_description": "4 - Edwardsville Region Hospitals",
+      "ICUAvail": 46,
+      "ICUCapacity": 91,
+      "VentsAvailable": 86,
+      "VentsCapacity": 132
+    },
+    {
+      "region": "Region05",
+      "region_description": "5 - Marion Region Hospitals",
+      "ICUAvail": 48,
+      "ICUCapacity": 83,
+      "VentsAvailable": 92,
+      "VentsCapacity": 101
+    },
+    {
+      "region": "Region06",
+      "region_description": "6 - Champaign Region Hospitals",
+      "ICUAvail": 70,
+      "ICUCapacity": 138,
+      "VentsAvailable": 121,
+      "VentsCapacity": 206
+    },
+    {
+      "region": "Region07",
+      "region_description": "7 - Sowthwest Suburbs Region Hospitals",
+      "ICUAvail": 100,
+      "ICUCapacity": 492,
+      "VentsAvailable": 179,
+      "VentsCapacity": 297
+    },
+    {
+      "region": "Region08",
+      "region_description": "8 - West Suburbs Region Hospitals",
+      "ICUAvail": 91,
+      "ICUCapacity": 377,
+      "VentsAvailable": 128,
+      "VentsCapacity": 322
+    },
+    {
+      "region": "Region09",
+      "region_description": "9 - Northwest Suburbs Region Hospitals",
+      "ICUAvail": 133,
+      "ICUCapacity": 363,
+      "VentsAvailable": 188,
+      "VentsCapacity": 338
+    },
+    {
+      "region": "Region10",
+      "region_description": "10 - Northeast Suburbs Region Hospitals",
+      "ICUAvail": 31,
+      "ICUCapacity": 172,
+      "VentsAvailable": 65,
+      "VentsCapacity": 132
+    },
+    {
+      "region": "Region11",
+      "region_description": "11 - City of Chicago Region Hospitals",
+      "ICUAvail": 190,
+      "ICUCapacity": 918,
+      "VentsAvailable": 624,
+      "VentsCapacity": 1154
+    }
+  ],
+  "statewideValues": {
+    "ICUCapacity": 3134,
+    "ICUCovidPatients": 1239,
+    "VentCapacity": 3256,
+    "VentCovidPatients": 757,
+    "ICUAvailable": 949,
+    "VentsAvailable": 1911,
+    "TotalBeds": 30830,
+    "TotalBedsAvailable": 11521,
+    "TotalBedsUsed": 19309,
+    "PctHospitalBedsAvailable": "37%",
+    "AdultICUCapacity": 3134,
+    "ICUOpenBeds": 949,
+    "ICUBedsUsed": 2185,
+    "ICUOpenBedsPct": "30%",
+    "COVIDPUIPatients": 1239,
+    "COVIDPUIPatientsPct": "40%",
+    "COVIDPUIPatientsBedsInUsePct": "57%",
+    "VentilatorCapacity": 3256,
+    "VentilatorsOpen": 1911,
+    "VentilatorsOpenPct": "59%",
+    "VentilatorsInUse": 1345,
+    "VentilatorsInUseCOVID": 757,
+    "VentilatorsCOVIDPatientsPct": "23%",
+    "VentilatorsCOVIDPatientsInUsePct": "56%",
+    "CovidPatientsNonICU": 3360,
+    "TotalCOVIDPUIInICU": 1239,
+    "TotalCOVIDPUIInHospital": 4599,
+    "PctBedsCOVIDPUI": "24%",
+    "MedSurgBeds": 15642,
+    "MedSurgBedsOpen": 5258,
+    "MedSurgBedsOpenPct": "34%",
+    "MedSurgBedsInUse": 10384
+  }
+
+}
+
+
