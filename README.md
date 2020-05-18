@@ -10,13 +10,9 @@
 [US States and Territories](https://msliczniak.github.io/COVID19IL/plots/us/index.html)
 
 IL | PL
-:-------------------------:|:-------------------------:
 ![IL cases](plots/illinois-cases.png)|![PL cases](plots/pl/Ca%C5%82a%20Polska-liczba.png)
-:-------------------------:|:-------------------------:
-![IL deaths](plots/illinois-deaths.pnga)|![PL deaths](plots/pl/Ca%C5%82a%20Polska-liczba%20zgon%C3%B3w.png)
-:-------------------------:|:-------------------------:
+![IL deaths](plots/illinois-deaths.png)|![PL deaths](plots/pl/Ca%C5%82a%20Polska-liczba%20zgon%C3%B3w.png)
 ![IL tested](plots/illinois-tested.png)|![PL tested](plots/pl/tested.png)
-:-------------------------:|:-------------------------:
 ![IL test-positivity](plots/ratio.png)|![PL test-positivity](plots/pl/ratio.png)
 
 unique point filter of
