@@ -1,0 +1,11 @@
+#!/usr/bin/awk -f
+
+BEGIN { t = -1 }
+
+# start at one
+NR == 1 { i = $3 - 1 }
+
+# unique values
+t == $2 { next }
+
+{ print $1, $2, $3 - i; t = $2 }

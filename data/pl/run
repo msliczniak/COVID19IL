@@ -7,12 +7,17 @@ awk() {
 	/usr/bin/awk "$@"
 }
 
-paste() {
-	/usr/bin/paste "$@"
+sed() {
+	/usr/bin/sed "$@"
 }
 
 tail() {
 	/usr/bin/tail "$@"
+}
+
+gp() {
+	2>&1 gnuplot "$@" | tail -2 | #
+	awk '!NF { next } /[Ww][Aa][Rr][Nn]/ { next }' | tail -1 >&2
 }
 
 foo() {
@@ -39,65 +44,6 @@ foo() {
 }
 IFS='|'
 
-# doubling-time in hours
-dday() {
-	awk 'NR == 1 {
-	if ($2 <= 1) {
-		print $1, $2
-		exit
-	}
-
-	d = log(2)
-	} { print $1, d/log($2), $3 }' "$@"
-}
-
-# A = P*r^t
-predict() {
-	paste "$@" | awk 'NF < 6 { exit }
-	{ print $4, $2 * exp(($6 - $3) * log($5)), $6 }'
-}
-
-labels() {
-	awk 'BEGIN { print 0 } { print $2 }' $2 | paste $1 - | awk '
-	{ d[NR] = $1; v[NR] = $2; n[NR] = $3 }
-	END {
-
-		f = int((n[NR] - n[2])/15)
-		g = 0
-		i = NR
-		for (j = NR - 1; j > 0; j--) {
-			if (g < f) {
-				c = n[j] - n[j - 1]
-				g += c
-				continue
-			}
-
-			g = 0
-
-			A = v[i]
-			printf("%s %s ", d[i], A)
-
-			s = sprintf("%.2e", A)
-			split(s, a, "e")
-			printf("%s_{10^{%d}}\\n", a[1], a[2]);
-
-			P = v[j]
-			c = exp(1/(n[i] - n[j]) * log(A/P))
-			printf("_{%.1f%%}\n", c * 100 - 100)
-
-			i = j
-		}
-	}'
-}
-
-# step plot
-step() {
-	awk 'NR != 1 { print $1 l } {
-	l = ""; print l # discontinuity
-	for (i = 2; i <= NF; i++) l = l " " $i
-	print $1 l }' "$@"
-}
-
 ab=red
 be=green
 
@@ -123,85 +69,49 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		case "$rs" in
 		  bad*)
 			./totalw wiki.csv >"$tc"
+			../../filter "$tc" >tot
 			;;
 		  *)
 			./totals select="$co" result="$rs" "$@" >"$tc"
+			../../filter "$tc" >tot
 			;;
 		esac
-
-		/bin/rm -f tot || exit
-		/bin/ln "$tc" tot || exit
 		tc=toti
 
-		awk '{ print $3 "-" $1 $2 }' tot >total
-		awk '{
-		if ($2 <= t) {
-			print ""
-			next
-		}
+		# gen dday & table
+		../../stats tot | gp
 
-		print $1, $2 - t, $3
-		t = $2 }' tot >daily
-		../../trend k=7 total >tvm
-		pa=`awk 'END { printf("%.1f%%", $2 * 100 - 100) }' tvm`
-		dday tvm >dday
+		# gen ftot
+		../../match f=dday tot | ../../step >ftot
+
+		# percentage
+		pa=`awk 'END { printf("%.1f%%", $3) }' dday`
+
+		# daily increase
+		di=`awk 'END { printf("+%d\n", $3) }' RS= ftot`
+
+		# total
 		ta=`awk 'END { print $2 }' tot`
-		ca=`awk 'END { printf("%.1f", $2) }' dday`
-		predict tot tvm >pred
-		awk 'BEGIN { print } { print $2 }' pred | # filled-curve
-		  paste tot - | # skip early point(s)
-		  awk 'NF == 3 { print $1, $2, $2; next } {
-		  print $1, $2, $4 }' | step >ftot
-		labels tot tvm >labels
 
-		# %chg for the last day
-		p=`tail -2 total | ../../trend | awk '{ print $2 }'` || exit
+		# doubling-time from a week ago
+		ca=`sed 's/#.*//' table | #
+		awk '$3 == "i" { print $2 }' | tail -7 | awk '
+		NR == 1 { printf("%.1f - ", $1) }
+		END { printf("%.1f", $1) }'`
 
-		# daily %chg over seven samples 
-		r=`awk 'END { print $2 }' tvm` || exit
-
-		awk 'END {
-			t = int($2 * p + .5)
-			p = p * 100 - 100
-			printf("%s-24 %s _{%s}\\n_{%.1f%%*}\\n_{+%s}\n",
-			  $1, t, t, p, t - $2)
-		}' p=$p tot >xtotl
-		awk 'END { ti = t = $2
-		for (i = -24; i >= -96; i -= 24) {
-			t *= r; ti *= p
-			print $1 i, ti, t } }' r="$r" p="$p" ftot >xtot
-
-		r=`tail -7 tvm | awk '{ print $2; exit }'`
-		awk 'END { t = $2
-			for (i = -24; i >= -96; i -= 24) {
-				t *= r
-				print $1 i, t } }' r="$r" ftot >xtvm
-
-		awk '$2 != t { print $3 "-" $1 $2; t = $2 }' dday >fdday
-		p=`tail -2 fdday | ../../trend | awk '{ print $2 - 1 }'` || exit
-		awk 'NR == 1 { d = $2 } { print $0, d; d = $2 }' dday >fdday
-		awk 'END { p += 1; t = $2
-		for (i = -24; i >= -96; i -= 24) {
-			t *= p
-			print $1 i, t, $2 } }' p="$p" fdday >xdday
-		awk '{
-			printf("%s %s _{%.1f}\\n_{%.1f%%*}\n",
-			  $1, $2, $2, p * 100 - 100)
-			exit
-		}' p=$p xdday >xl
-		awk '{ print $0, $2; exit }' tot >ol
-		i=`tail -3 tot | awk '{ print $2; exit }'`
-		di=+`awk '{ ll = l; l = $2 } END { print l - ll }' tot`
+		#../../label dday >labels
 
 		ta="$ta ="
 		/bin/rm -f a.png "$co"-"$rs".png || exit
-		gnuplot l.gp -c ../../trends\
+		2>/dev/null gnuplot l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$co"-"$rs".png || exit; }
 
 		#exit
 	done
+
+	#exit
 done
 
 /bin/mv 'Cała Polska-badań.png' tested.png || exit

@@ -28,9 +28,12 @@ NR == 1 {
 }
 
 FNR == 1 {
-	if (t > l) {
+	if (t > 0) {
+		if (t < l) t = l
+
 		print d, t, k
 		l = t
+		t = 0
 	}
 	k++
 
@@ -53,4 +56,4 @@ s && tolower($1) ~ key && tolower($2) !~ select { found = 1; next }
 
 found && tolower($1) ~ result { t += $2; found = 0 }
 
-END { if (l > t) t = l; print d, t, k }
+END { if (t > 0) print d, t, k }

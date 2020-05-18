@@ -1,116 +1,118 @@
-set autoscale fix
-set timefmt '%Y-%m-%d-%H:%M:%S'
-set xdata time
-
-set terminal dumb
+#set terminal dumb
+set terminal unknown
 set output '/dev/null'
 
-# noautoscale with csplines was ignored
-#set clip two
-plot \
-'dday' u 1:2 axis x1y2 notitle w points, \
-'xdday' u 1:2 axis x1y2 notitle w points, \
-'ftot' u 1:2 notitle w points, \
-'' u 1:3 notitle w points, \
-'xtot' u 1:2 notitle w points, \
-'' u 1:3 notitle w points, \
-'xtvm' u 1:2 notitle w points, \
-'daily' u 1:2 notitle w points
+set xdata time
+set timefmt '%Y-%m-%d-%H:%M:%S'
+set autoscale fix
 
-#print GPVAL_Y2_MIN
-#print GPVAL_Y2_MAX
+# figure ranges
+plot 'dday' u 1:3 ax x2y2 w points\
+, 'ftot' every 2 u 1:2 w points\
+, '' every 2 u 1:4 w points\
 
-set xrange   [GPVAL_X_MIN:GPVAL_X_MAX]
-set x2range [GPVAL_X2_MIN:GPVAL_X2_MAX]
+# x does not change; 86400 = 24 * 60 * 60
+set xrange       [GPVAL_X_MIN:GPVAL_X_MAX + 86400]
+#set x2range [GPVAL_X2_MIN - 2:GPVAL_X2_MAX + 1]
+set x2range [(GPVAL_X_MIN - GPVAL_X_MAX)/86400:1]
 
-f = log10(GPVAL_Y_MAX)-log10(GPVAL_Y_MIN)
-f = f < 1 ? 1 : f
-set yrange   [GPVAL_Y_MIN:f*GPVAL_Y_MAX]
+# factor to line-up percentages with totals
+f = int(log10(GPVAL_Y_MAX)) - int(log10(GPVAL_Y2_MAX))
+p = 10**f
 
-set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN]
-o = GPVAL_Y2_MAX - GPVAL_Y2_MIN
-f = 10**ceil(log10(o) + 1)
-f = (f - 10.0)/o
-o = 10 - f*GPVAL_Y2_MIN
-set nonlinear y2 via log10(f*y+o) inverse (10**y-o)/f
-set logscale y
+#plot 'dday' u 1:($3*p) ax x2y1 sm bezier\
+# figure-out if percentages or totals go higher, figure doubling-time range
+plot 'dday' u 1:($3*p) ax x2y1 w points\
+, 'ftot' every 2 u 1:2 ax x1y1 w points\
+, '' every 2 u 1:3 ax x1y1 w points\
+, '' every 2 u 1:4 ax x1y1 w points\
+, '' every 2 u 1:5 ax x1y1 w points\
+, 'table' ax x2y2 w points
 
 set terminal pngcairo size 820,440 transparent
-#set terminal png size 820,440 transparent
-#set output 'test.png'
-#test
-
 set output 'a.png'
 
-#trend_t = ARG3 . xlabel_t . ' ' . trend_t
+# Draw a y axis at current date
+set y2zeroaxis ls -1 lc rgbcolor 'gray'
+set y2tics border out
 
-set border 11 back lc rgbcolor 'gray'
-set rmargin 6
-
-set key outside horizontal bottom center font ',8'
-set xtics nomirror
-set ytics mirror
-set format y '10^{%T}'
-set ylabel ARG2
-set y2label ARG3 . ' ' . trend_t . ' ' . y2label_t offset -4
-#set xlabel ARG1 . "\n"
-set title ARG1
-
-set x2tics rangelimited rotate by 55 format '88-88'
-
-good = ARG4
-bad = ARG5
-
-#print GPVAL_X_MIN
-#print GPVAL_X_MAX
-
-# 86400 = 24 * 60 * 60; 2678400 = 31 * 86400
+# 2678400 = 31 * 86400
+set x2tics rotate by 55 format '88-88'
 interval = int((GPVAL_X_MAX - GPVAL_X_MIN)/2678400) + 1
-#set x2tics interval * 86400 format ''
-set x2tics interval
+set x2tics GPVAL_X2_MIN - int(GPVAL_X2_MIN) % interval, interval
 set mx2tics interval
 
 # only label Mondays
 set xtics '2020-01-06', 604800
 
-# break x and x2 axis
-# 280800 = 86400 * 3.25; 324000 + 86400 * 3.75
-set obj 1 \
-  rect from GPVAL_X_MAX - 324000,graph 0 to GPVAL_X_MAX - 280800,graph 1 \
-  fc 'gray' fs transparent pattern 6 noborder bgnd back
-
 # shade alternating weeks
-
 #     January 1970
 # Su Mo Tu We Th Fr Sa
 #              1  2  3
 # 604800 = 60 * 60 * 24 * 7; 1209600 = 604800 * 2
-
 # day of week offset
 dowo = 86400 * (int(GPVAL_X_MAX / 86400 + 2.5) % 7 + 4)
-
-set for [i=GPVAL_X_MAX-dowo:GPVAL_X_MIN:-1209600] obj i \
-  rect from i-604800,graph 0 to i,graph 1 \
+set for [i=GPVAL_X_MAX-dowo+604800:GPVAL_X_MIN:-1209600] obj i\
+  rect from i-604800,graph 0 to i,graph 1\
   fc 'gray' fs transparent noborder bgnd back
 
-# Draw a y axis at current date
-# 345600 = 86400 * 4
-set x2range[-(GPVAL_X_MAX - GPVAL_X_MIN - 345600)/86400:4]
-set y2zeroaxis ls -1 lc rgbcolor 'gray'
-set y2tics border out
+# never go under 10^0
+o = GPVAL_Y_MIN < 1 ? 1 : GPVAL_Y_MIN
+set yrange [o:GPVAL_Y_MAX]
+set logscale y
 
-#print GPVAL_Y_MIN
-#print GPVAL_Y_MAX
+# line-up percentages and totals
+set for [i=-1:int(log10(GPVAL_Y_MAX))] ytics \
+( sprintf("10^{%d}\n_{%s%%%%}", i, gprintf("%h", 10**(i - f))) 10**i\
+, '' 10*10**i + 10*10**i 1\
+, '' 10*10**i + 20*10**i 1\
+, '' 10*10**i + 30*10**i 1\
+, '' 10*10**i + 40*10**i 1\
+, '' 10*10**i + 50*10**i 1\
+, '' 10*10**i + 60*10**i 1\
+, '' 10*10**i + 70*10**i 1\
+, '' 10*10**i + 80*10**i 1\
+)
 
-#o=.1; print sprintf("10^{%s} %s", gprintf("%T", o), gprintf("%h%%", o/100))
-#o = o1 = o2 = 0; plot 'totc' u 3:2 w step, '' u 3:(o=o1,o1=$2,$2-o) w step, 'dday' u 1:4 w step, '' u 1:(o=o2,o2=$4,$4-o) w step, '' u 1:($3*100) sm bezier, 'table' ax x1y2 w lines
+o = 2.5
+while (o <= GPVAL_Y_MAX) {
+	set arrow from graph 0,first o rto graph 1 nohead\
+	  back lt -1 lc rgb 'grey' dt '  -'
+	o = o * 10
+}
+
+o = 5
+while (o <= GPVAL_Y_MAX) {
+	set arrow from graph 0,first o rto graph 1 nohead\
+	  back lt -1 lc rgb 'grey' dt ' -'
+	o = o * 10
+}
+
+#set for [i=-1:int(log10(GPVAL_Y_MAX))] arrow\
+  from graph 0,first 10**i+50*10**i rto graph 1 nohead\
+  back lt -1 lc rgb 'grey' dt '  -  '
+
+#set for [i=-1:int(log10(GPVAL_Y_MAX))] arrow\
+  from graph 0,first 10**i+25*10**i rto graph 1 nohead\
+  back lt -1 lc rgb 'grey' dt ' - '
+
+# clamp to 400y
+f = GPVAL_Y2_MAX > 146097 ? 146097 : GPVAL_Y2_MAX
+
+# spread-out tics
+set y2range [f:GPVAL_Y2_MIN]
+o = GPVAL_Y2_MAX - GPVAL_Y2_MIN
+f = 10**ceil(log10(o) + 1)
+f = (f - 10.0)/o
+o = 10 - f*GPVAL_Y2_MIN
+set nonlinear y2 via log10(f*y+o) inverse (10**y-o)/f
 
 # with leap days taken into account
 set y2tics (\
       '.25'  .25  1,\
        '.5'   .5  1,\
       '.75'  .75  1,\
-        '1'    1   ,\
+         1     1   ,\
 '1.~3{.8-}' 4.0/3 1,\
 '1.~6{.8-}' 5.0/3 1,\
         '2'    2   ,\
@@ -147,37 +149,43 @@ set y2tics (\
  '200'.yr_t 73048  1,\
  '300'.yr_t 109572 1,\
  '400'.yr_t 146097 )
-#set y2tics add (sprintf("~{1^{%.1f}}", GPVAL_Y2_MIN) GPVAL_Y2_MIN)
+set y2tics add (sprintf("^{%.1f}\n", GPVAL_Y2_MIN) GPVAL_Y2_MIN)
 set y2tics add (sprintf("\n_{%.1f}", GPVAL_Y2_MAX) GPVAL_Y2_MAX)
+set y2tics border out
 
 interval_s = sprintf("%d", interval)
 `./x2tics n=@interval_s x2tics.txt`
 
 set grid x2 y
+set xtics nomirror
+set ytics mirror
+set border 2 + 8 back lc rgbcolor 'gray'
+set rmargin 6
+set key outside horizontal bottom center font ',8'
+set ylabel ARG2
+set y2label ARG3 . ' ' . trend_t . ' ' . y2label_t offset -4
+set title ARG1
+good = ARG4
+bad = ARG5
+set clip two
 
-plot \
-'dday' u 1:2 axis x1y2 w lines sm mcsplines lt 0 lc 1 notitle, \
-'' u 1:2 axis x1y2 w points lt 0 lc 1 pt 1 ps .5 notitle, \
-'ftot' u 1:2:3 w filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor good notitle, \
-'' u 1:2:3 w filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor bad notitle, \
-'xtot' u 1:2:3 notitle w filledcurves above \
-  fs trans solid 0.25 border fc rgbcolor good, \
-'' u 1:2:3 notitle w filledcurves below \
-  fs trans solid 0.25 border fc rgbcolor bad, \
-'tot' u 1:2 w step lt 0 notitle, \
-'' u 1:2 w points lt -1 pt 1 ps .5 notitle, \
-'xtot' u 1:2 with l lt 0 notitle, \
-'xtvm' u 1:2 with l lt -1 lc 1 dt 2 title wkago_t, \
-'xdday' using 1:2 axis x1y2 with lines lt 0 lc 1 notitle, \
-'daily' u 1:2 w step lt 4 title daily_t, \
-'' u 1:2 w points lt 4 pt 1 ps .5 notitle, \
-'xtotl' u 1:2:3 w labels left offset 0,-.25 font ',8' notitle,\
-'' u 1:2 w points lt -1 pt 1 ps .5 notitle,\
-'xl' u 1:2:3 axis x1y2 w labels left offset 0,-.25 font ',8' notitle, \
-'' u 1:2 axis x1y2 w linespoints lt 0 lc 1 pt 1 ps .5 title trend_t, \
-'ol' using 1:2:3 w labels left offset .5,.5 font ',8' \
-  point pt 1 notitle, \
-'labels' u 1:2:3 w labels right offset -.5,1.5 font ',8' notitle, \
-'' u 1:2 w points lt -1 pt 1 notitle
+plot '' ax x2y2 w lines title trend_t\
+, 'dday' u 1:($3 <= 0 ? .1 : $3*p) ax x2y1 lt 4 sm mcspline title '%'\
+, 'ftot' u 1:2:4 w filledcurves above\
+ fs trans solid 0.25 border fc rgbcolor good notitle\
+, '' u 1:2:4 w filledcurves below\
+ fs trans solid 0.25 border fc rgbcolor bad notitle\
+, '' u 1:3:5 w filledcurves above\
+ fs trans solid 0.25 border fc rgbcolor good notitle\
+, '' u 1:3:5 w filledcurves below\
+ fs trans solid 0.25 border fc rgbcolor bad notitle\
+, '' u 1:3 w step lt -1 title daily_t\
+, '' every 2 u 1:3 w points lt -1 pt 1 ps .5 notitle\
+, '' every 2 u 1:2 w points lt -1 pt 1 ps .5 notitle\
+, '' u 1:($4 > $2) ? $4 : NaN w lines lc rgbcolor bad notitle\
+, '' u 1:($4 <= $2) ? $4 : NaN w lines lc rgbcolor good notitle\
+, '' u 1:2 w lines lt 0 notitle\
+#don't label for now, 'labels' u 1:($2*p):3 ax x2y1 w labels tc lt 4\
+   right offset 0,-.5 font ',8' notitle\
+, '' u 1:($2*p):4 ax x2y1 w labels tc lt 4 point lt 4 pt 1\
+   right offset 0,.5 font ',8' notitle

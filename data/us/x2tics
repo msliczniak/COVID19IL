@@ -11,9 +11,9 @@ BEGIN {
 #{ print a[NR] }
 
 END {
+	# XXX: forget about the bins on top for now
 	if (NR == 0) {
-		print "set x2tics interval format '';"
-		#print "set title '\\n'"
+		print "set x2tics format '';"
 		exit
 	}
 

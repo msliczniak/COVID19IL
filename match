@@ -1,0 +1,25 @@
+#!/usr/bin/awk -f
+
+NR == 1 {
+	t = $2
+
+	print $1, t
+
+	if (!getline <f) exit
+	i = $1; v = $4
+
+	if (!getline) exit
+	delta = $3 - i
+}
+
+{
+	date = $1; d = $2 - t; t = $2; j = $3
+
+	for (;;) {
+		if (i + delta >= j) break
+		if (!getline <f) exit
+		i = $1; v = $4
+	}
+
+	print date, t, v
+}

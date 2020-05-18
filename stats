@@ -1,35 +1,50 @@
 #!/usr/bin/awk -f
+
+# today is zero
+function p(i) {
+	print  "if (STATS_records > 1) {"
+	print  "  x =", j - 1
+	print  "  r = exp(STATS_slope); P = exp(STATS_intercept)"
+	print  "  if (STATS_slope_err != 0) { fit f(x) '' u 3:2 via r, P }"
+	printf("  print %d, r, r * 100 - 100, P*r**%d, P\n", i - $3, i)
+	printf("} ")
+}
+
 function o(i, j, k) {
-	printf(f, i, j, k, j, j)
+	#printf("printerr x, %s, %s\n", i, j)
+	printf("set xrange [%d:%d]; stats '%s' u 3:(log($2)) noout\n", i, j, k)
+	p(j)
+	print "else { if (STATS_records == 1) {"
+	  printf("set xrange [x:%d]; stats '' u 3:(log($2)) noout\n", j)
+	  p(j)
+	print "} }"
 }
 
 END {
-	f = "set xrange [%d:%d]; stats '%s' u 3:(log($2)) noout\n" \
-	  "r = exp(STATS_slope); P = exp(STATS_intercept)\n" \
-	  "fit f(x) 'totc' u 3:2 via r, P\n" \
-	  "print %d, r, r * 100 - 100, P*r**%d, P\n"
-
-	# make empty output files
-	print "set print 'dday'; set table 'table'"
-
 	if ($3 > 7) k = 7
 	else k = $3
 
-	j = 3
-	if (j <= k) {
-		print "f(x) = P*r**x; d = log(2)"
-		print "set fit quiet; set fit logfile '/dev/null'"
-
-		i = 1
-		o(i, j++, "totc")
-
-		while (j < k) o(i, j++)
-
-		while (j <= $3) o(i++, j++)
-
-		print "set print '-'; set samples", $3 - 2
-		print "plot 'dday' u 1:(d/log($2)) sm bezier"
+	j = 2
+	if (j > k) {
+		# make empty output files
+		print "set table 'table'; unset table"
+		print "set print 'dday'; set print '-'"
+		exit (1)
 	}
 
+	print "x = 1; set print 'dday'"
+	print "f(x) = P*r**x; d = log(2)"
+	print "set fit quiet; set fit logfile '/dev/null'"
+
+	i = 1
+	o(i, j++, FILENAME)
+
+	while (j < k) o(i, j++)
+
+	while (j <= $3) o(i++, j++)
+
+	print "set print '-'; set samples", $3 - 2
+	print "set xrange [*:*]; set table 'table'"
+	print "plot 'dday' u 1:(d/log($2)) sm bezier"
 	print "unset table"
 }

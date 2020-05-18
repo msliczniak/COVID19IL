@@ -1,0 +1,18 @@
+#!/usr/bin/awk -f
+
+NR == 1 {
+	print
+	print $1 "-24", $2
+	t[2] = t[3] = $2
+	next
+}
+
+{
+	s = ""
+	for (i = 2; i <= NF; i++) {
+		s = sprintf("%s %s %f", s, $i, $i - t[i])
+		t[i] = $i
+	}
+
+	printf("\n%s%s\n%s-24%s\n", $1, s, $1, s)
+}
