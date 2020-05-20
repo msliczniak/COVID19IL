@@ -66,6 +66,8 @@ for co in "$st"; do
 		# remove interpolated points
 		awk 'NF == 3 { print $3, $2, $1 }' tot >totc
 
+		awk '{ print $3 - n, $2 - t, $1; t = $2 }' n="$di" totc >daily
+
 		# gen dday & table
 		gnuplot -d -c ../../stats tot "$di" `awk 'NR == 1 {
 		print $1; exit }' tot`
@@ -96,7 +98,7 @@ for co in "$st"; do
 
 		END { printf("%.1f", i) }' table`
 
-		#../../label dday >labels
+		../../label dday >labels
 
 		/bin/rm -f a.png "$co"-"$rs".png || exit
 		gnuplot -d ../../l.gp -c ../../trends\

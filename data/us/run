@@ -109,6 +109,8 @@ for co in "$st"; do
 
 		# remove interpolated points
 		awk 'NF == 3 { print $3, $2, $1 }' tot >"$tc"
+
+		awk '{ print $3 - n, $2 - t, $1; t = $2 }' n="$di" "$tc" >daily
 		tc=toti
 
 		# gen dday & table
@@ -141,7 +143,7 @@ for co in "$st"; do
 
 		END { printf("%.1f", i) }' table`
 
-		#../../label dday >labels
+		../../label dday >labels
 
 		of="$of".png
 		/bin/rm -f a.png "$of" || exit

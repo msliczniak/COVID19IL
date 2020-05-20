@@ -73,6 +73,8 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 
 		# remove interpolated points
 		awk 'NF == 3 { print $3, $2, $1 }' tot >"$tc"
+
+		awk '{ print $3 - n, $2 - t, $1; t = $2 }' n="$di" "$tc" >daily
 		tc=toti
 
 		# gen dday & table
@@ -105,7 +107,7 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 
 		END { printf("%.1f", i) }' table`
 
-		#../../label dday >labels
+		../../label dday >labels
 
 		ta="$ta ="
 		/bin/rm -f a.png "$co"-"$rs".png || exit
