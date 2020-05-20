@@ -83,29 +83,48 @@ set yrange [ymin:ymax]
 set logscale y
 
 # line-up percentages and totals
-set for [i=-1:int(log10(ymax))] ytics \
+set for [i = ceil(log10(ymin)) : floor(log10(ymax))] ytics \
 ( sprintf("10^{%d}\n_{%s%%%%}", i, gprintf("%h", 10**(i - f))) 10**i\
-, '' 10*10**i + 10*10**i 1\
-, '' 10*10**i + 20*10**i 1\
-, '' 10*10**i + 30*10**i 1\
-, '' 10*10**i + 40*10**i 1\
-, '' 10*10**i + 50*10**i 1\
-, '' 10*10**i + 60*10**i 1\
-, '' 10*10**i + 70*10**i 1\
-, '' 10*10**i + 80*10**i 1\
+, '' 10**i + 10*10**(i - 1) 1\
+, '' 10**i + 20*10**(i - 1) 1\
+, '' 10**i + 30*10**(i - 1) 1\
+, '' 10**i + 40*10**(i - 1) 1\
+, '' 10**i + 50*10**(i - 1) 1\
+, '' 10**i + 60*10**(i - 1) 1\
+, '' 10**i + 70*10**(i - 1) 1\
+, '' 10**i + 80*10**(i - 1) 1\
 )
 
-o = 2.5
+# set apart the logscale tics
+set ytics scale 2, 1
+
+# draw arrows to show which label corresponds with each tic
+o = 1
 while (o <= ymax) {
-	set arrow from graph 0,first o rto graph 1 nohead\
-	  back lt -1 lc rgb 'grey' dt '  -'
+	if (o >= ymin) {
+		set arrow from graph 0,first o rto character -4 backhead\
+		  back lt -1 lc rgb 'grey'
+	}
 	o = o * 10
 }
 
+# 2.5 25 250...
+o = 2.5
+while (o <= ymax) {
+	if (o >= ymin) {
+		set arrow from graph 0,first o rto graph 1 nohead\
+	  	  back lt -1 lc rgb 'grey' dt '    -    '
+	}
+	o = o * 10
+}
+
+# 5 50 500...
 o = 5
 while (o <= ymax) {
-	set arrow from graph 0,first o rto graph 1 nohead\
-	  back lt -1 lc rgb 'grey' dt ' -'
+	if (o >= ymin) {
+		set arrow from graph 0,first o rto graph 1 nohead\
+	  	  back lt -1 lc rgb 'grey' dt ' -  '
+	}
 	o = o * 10
 }
 
