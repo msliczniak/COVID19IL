@@ -22,7 +22,7 @@ set x2range [GPVAL_X2_MIN:GPVAL_X2_MAX]
 set yrange   [GPVAL_Y_MIN:GPVAL_Y_MAX]
 set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX]
 
-set terminal pngcairo size 820,440 transparent
+set terminal pngcairo size 1640,440 transparent
 set output "ratio.png"
 
 # 86400 = 24 * 60 * 60; 2678400 = 31 * 86400

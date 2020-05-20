@@ -2,34 +2,36 @@
 set terminal unknown
 set output '/dev/null'
 
+#set print '-'
+
 set xdata time
 set timefmt '%Y-%m-%d-%H:%M:%S'
 set autoscale fix
 
 # figure ranges
-plot 'dday' u 1:3 ax x2y2 w points\
+plot 'table' index 1 ax x2y2 w points\
 , 'ftot' every 2 u 1:2 w points\
-, '' every 2 u 1:4 w points\
+, '' every 2 u 1:4 w points
 
 # x does not change; 86400 = 24 * 60 * 60
-set xrange       [GPVAL_X_MIN:GPVAL_X_MAX + 86400]
-#set x2range [GPVAL_X2_MIN - 2:GPVAL_X2_MAX + 1]
+set xrange [GPVAL_X_MIN:GPVAL_X_MAX + 86400]
 set x2range [(GPVAL_X_MIN - GPVAL_X_MAX)/86400:1]
 
 # factor to line-up percentages with totals
-f = int(log10(GPVAL_Y_MAX)) - int(log10(GPVAL_Y2_MAX))
+max = GPVAL_Y2_MAX
+min = GPVAL_Y2_MIN
+f = int(log10(GPVAL_Y_MAX)) - int(log10(max))
 p = 10**f
 
-#plot 'dday' u 1:($3*p) ax x2y1 sm bezier\
 # figure-out if percentages or totals go higher, figure doubling-time range
-plot 'dday' u 1:($3*p) ax x2y1 w points\
-, 'ftot' every 2 u 1:2 ax x1y1 w points\
+plot '' every 2 u 1:2 ax x1y1 w points\
 , '' every 2 u 1:3 ax x1y1 w points\
 , '' every 2 u 1:4 ax x1y1 w points\
 , '' every 2 u 1:5 ax x1y1 w points\
-, 'table' ax x2y2 w points
+, 'dday' u 1:($3*p) ax x2y1 w points\
+, 'table' index 0 ax x2y2 w points
 
-set terminal pngcairo size 820,440 transparent
+set terminal pngcairo size 1640,440 transparent
 set output 'a.png'
 
 # Draw a y axis at current date
@@ -57,7 +59,8 @@ set for [i=GPVAL_X_MAX-dowo+604800:GPVAL_X_MIN:-1209600] obj i\
   fc 'gray' fs transparent noborder bgnd back
 
 # never go under 10^0
-o = GPVAL_Y_MIN < 1 ? 1 : GPVAL_Y_MIN
+#o = GPVAL_Y_MIN < 1 ? 1 : GPVAL_Y_MIN
+o = GPVAL_Y_MIN
 set yrange [o:GPVAL_Y_MAX]
 set logscale y
 
@@ -87,14 +90,6 @@ while (o <= GPVAL_Y_MAX) {
 	  back lt -1 lc rgb 'grey' dt ' -'
 	o = o * 10
 }
-
-#set for [i=-1:int(log10(GPVAL_Y_MAX))] arrow\
-  from graph 0,first 10**i+50*10**i rto graph 1 nohead\
-  back lt -1 lc rgb 'grey' dt '  -  '
-
-#set for [i=-1:int(log10(GPVAL_Y_MAX))] arrow\
-  from graph 0,first 10**i+25*10**i rto graph 1 nohead\
-  back lt -1 lc rgb 'grey' dt ' - '
 
 # clamp to 400y
 f = GPVAL_Y2_MAX > 146097 ? 146097 : GPVAL_Y2_MAX
@@ -160,16 +155,18 @@ set grid x2 y
 set xtics nomirror
 set ytics mirror
 set border 2 + 8 back lc rgbcolor 'gray'
-set rmargin 6
+#set rmargin 6
 set key outside horizontal bottom center font ',8'
 set ylabel ARG2
-set y2label ARG3 . ' ' . trend_t . ' ' . y2label_t offset -4
+set y2label ARG3 . ' ' . trend_t . ' ' . y2label_t #offset -4
 set title ARG1
 good = ARG4
 bad = ARG5
 set clip two
 
-plot '' ax x2y2 w lines title trend_t\
+plot '' index 0 u 1:($1 <= -7 ? $2 : NaN) ax x2y2 sm mcspline notitle\
+, '' index 0 u 1:($1 >= -7 ? $2 : NaN) ax x2y2 sm mcspline lt 1 dt '-'\
+  title trend_t\
 , 'dday' u 1:($3 <= 0 ? .1 : $3*p) ax x2y1 lt 4 sm mcspline title '%'\
 , 'ftot' u 1:2:4 w filledcurves above\
  fs trans solid 0.25 border fc rgbcolor good notitle\

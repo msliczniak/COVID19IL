@@ -1,50 +1,61 @@
-#!/usr/bin/awk -f
+last = ARG2 + 0
+first = ARG3 + 0
+n = last - first
+#printerr first, last, n
 
-# today is zero
-function p(i) {
-	print  "if (STATS_records > 1) {"
-	print  "  x =", j - 1
-	print  "  r = exp(STATS_slope); P = exp(STATS_intercept)"
-	print  "  if (STATS_slope_err != 0) { fit f(x) '' u 3:2 via r, P }"
-	printf("  print %d, r, r * 100 - 100, P*r**%d, P\n", i - $3, i)
-	printf("} ")
+if (n <= 0) {
+	# make empty output files
+	set table 'table'; unset table
+	set print 'dday'; set print '-'
+	unset output
+
+	exit status 1
 }
 
-function o(i, j, k) {
-	#printf("printerr x, %s, %s\n", i, j)
-	printf("set xrange [%d:%d]; stats '%s' u 3:(log($2)) noout\n", i, j, k)
-	p(j)
-	print "else { if (STATS_records == 1) {"
-	  printf("set xrange [x:%d]; stats '' u 3:(log($2)) noout\n", j)
-	  p(j)
-	print "} }"
-}
+i = first
+j = i + 1
+k = n > 7 ? 7 : n
+#printerr i, j, k
 
-END {
-	if ($3 > 7) k = 7
-	else k = $3
+set table '/dev/null'
+P = 0; r = 0
+plot ARG1 index 0 every 1:1:0:0:1:0 u (r = P, P = $2):1 w table
 
-	j = 2
-	if (j > k) {
-		# make empty output files
-		print "set table 'table'; unset table"
-		print "set print 'dday'; set print '-'"
-		exit (1)
+set print 'dday'
+r = P/r
+print j - last, r, r*100 - 100, P
+
+i = first
+j = j + 1
+#printerr i, j, k
+
+f(x) = P*r**x; set fit quiet; set fit logfile '/dev/null'
+g(x) = x
+
+do for [n = first + k - 2 : last : last - first - k + 2] {
+	#printerr n
+	while (j <= n) {
+		#printerr i, j
+		set xrange [i:j]
+		stats '' u 1:(log($2)) noout
+		r = exp(STATS_slope); P = exp(STATS_intercept)
+		if (STATS_slope_err != 0) { fit f(x) '' via r, P }
+		print j - last, r, r * 100 - 100, P*r**j
+		i = g(i)
+		j = j + 1
 	}
 
-	print "x = 1; set print 'dday'"
-	print "f(x) = P*r**x; d = log(2)"
-	print "set fit quiet; set fit logfile '/dev/null'"
-
-	i = 1
-	o(i, j++, FILENAME)
-
-	while (j < k) o(i, j++)
-
-	while (j <= $3) o(i++, j++)
-
-	print "set print '-'; set samples", $3 - 2
-	print "set xrange [*:*]; set table 'table'"
-	print "plot 'dday' u 1:(d/log($2)) sm bezier"
-	print "unset table"
+	g(x) = x + 1
 }
+
+#printerr n
+set print '-'; unset output
+d = log(2)
+set format y "%.15f"
+set table 'table'
+set samples n > 1 ? n : 2
+j = j - last
+plot [j - k:j][0:1]\
+'dday' u 1:(d/log($2)) sm bezier w point title 'time'\
+, '' u 1:3 sm bezier w point title 'rate'
+unset table; unset output

@@ -3,7 +3,7 @@
 mkdir -p ../../plots/us
 ./get || exit
 
-wh='width="820" height="440" border="0" hspace="0" vspace="0" src="%s">'
+wh='width="1640" height="440" border="0" hspace="0" vspace="0" src="%s">'
 bg=''
 r=1
 

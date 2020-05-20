@@ -1,25 +1,17 @@
-#!/usr/bin/awk -f
+#!/bin/sh
 
-NR == 1 {
-	t = $2
-
-	print $1, t
-
-	if (!getline <f) exit
-	i = $1; v = $4
-
-	if (!getline) exit
-	delta = $3 - i
+awk() {
+	/usr/bin/awk "$@"
 }
 
-{
-	date = $1; d = $2 - t; t = $2; j = $3
-
-	for (;;) {
-		if (i + delta >= j) break
-		if (!getline <f) exit
-		i = $1; v = $4
-	}
-
-	print date, t, v
+paste() {
+	/usr/bin/paste "$@"
 }
+
+awk 'BEGIN { print } { print $1, $4 }' "$1" | paste - "$2" | awk 'NR == 1 {
+	print $3, $2
+}
+
+NF == 5 {
+	print $5, $4, $2
+}'

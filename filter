@@ -1,11 +1,36 @@
 #!/usr/bin/awk -f
 
-BEGIN { t = -1 }
+# gen intermediate TVM values
 
-# start at one
-NR == 1 { i = $3 - 1 }
+BEGIN { f = "/dev/stdout" }
 
-# unique values
+NR == 1 {
+	l = $3
+	t = -1
+}
+
 t == $2 { next }
 
-{ print $1, $2, $3 - i; t = $2 }
+{ n = $3 - l }
+
+n > 1 {
+	r = exp(log($2/t)/n); i = 1
+	do {
+		t *= r
+		printf("%d %f\n", i + l, t) >f
+	} while (++i < n)
+}
+
+{
+	l = $3
+	t = $2
+
+	print $3, $2, $1 >f
+}
+
+END {
+	if (l == "") exit (10)
+
+	fflush(f)
+	print l
+}
