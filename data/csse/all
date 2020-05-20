@@ -1,0 +1,82 @@
+#!/bin/sh
+
+mkdir -p ../../plots/csse
+#./get || exit
+
+wh='width="1640" height="440" border="0" hspace="0" vspace="0" src="%s">'
+bg=''
+r=1
+
+echo '<p>' >index || exit
+echo '<html>
+<head><title>COVID19CSSE</title><head>
+<body style="background-color:white;">' >html || exit
+
+foo() {
+	printf '<a'"$2"' name="C%s" name="C%s" href="#%s">%s</a>\n' $1 $1 $1 $1
+}
+
+rok='South Korea,Republic of Korea,Korea: South'
+#Spain China Iran
+for i in Brazil Germany Italy Japan Norway "$rok" Russia Singapore Sweden
+do
+	case "$i" in
+	  "$rok")
+		j=ROK
+		;;
+	  *)
+		j="$i"
+		;;
+	esac
+
+	/bin/rm -f -- "$i"-*.png "$j"-*.png || exit
+	./run "$i" *-???.csv
+	case "$i" in
+	  "$rok")
+		for i in cases deaths active recovered; do
+			2>/dev/null /bin/mv "$rok"-"$i".png ROK-"$i".png
+		done
+		;;
+	esac
+	i="$j"
+
+	set -- "$i"-*.png
+	/bin/mv -- "$@" ../../plots/csse/ || continue
+	r=0
+
+	case "$bg" in
+	  '')
+		bg=' style="background-color:#faf0e6;"'
+		;;
+	  *)
+		bg=''
+		;;
+	esac
+
+	foo "$i" "$bg" >>html
+
+	printf '<a name="%s" id="%s" href="#C%s">' $i $i $i >>index
+
+	for j in "$@"; do
+		printf '<img title="%s"'"$bg $wh" "$j" "$j" >>index
+	done
+
+	printf '</a>' >>index
+
+done
+
+case $r in
+  0)
+	;;
+  *)
+	echo 'no images' >&2
+	exit $r
+	;;
+esac
+
+echo '<p>
+<em>%*</em> indicates from previous sample, all others amortized over up to seven previous samples
+</body>
+</html>' | /bin/cat html index - >../../plots/csse/index.html || exit
+
+echo 'add ../../plots/csse/*-*.png'

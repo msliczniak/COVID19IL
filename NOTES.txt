@@ -28,6 +28,7 @@ $ cd ../..
 
 $ cd data/csse
 $ ./get
-$ ./run Sweden *.csv
-$ ../../flatten Sweden-*.png
+$ ./all
+$ ./run Spain *.csv
+$ ../../flatten Spain-*.png
 $ cd ../..
