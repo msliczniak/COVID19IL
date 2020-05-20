@@ -8,7 +8,7 @@
 
 [US States and Territories](https://msliczniak.github.io/COVID19IL/plots/us/index.html)
 
-[selcted countries](https://msliczniak.github.io/COVID19IL/plots/csse/index.html)
+[selected countries](https://msliczniak.github.io/COVID19IL/plots/csse/index.html)
 
 ![IL cases](plots/illinois-cases.png)
 ![PL cases](plots/pl/Ca%C5%82a%20Polska-liczba.png)
