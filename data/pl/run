@@ -109,7 +109,7 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 
 		ta="$ta ="
 		/bin/rm -f a.png "$co"-"$rs".png || exit
-		2>/dev/null gnuplot -d l.gp -c ../../trends\
+		gnuplot -d l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$co"-"$rs".png || exit; }

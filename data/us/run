@@ -145,7 +145,7 @@ for co in "$st"; do
 
 		of="$of".png
 		/bin/rm -f a.png "$of" || exit
-		2>/dev/null gnuplot -d ../../l.gp -c ../../trends\
+		gnuplot -d ../../l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca" "$ab" "$be" &&\
 		{ /bin/mv a.png "$of" || exit; }
 		awk -F+ '$2 != "0-0" { print } END { print t }'\

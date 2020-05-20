@@ -135,7 +135,7 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		#../../label dday >labels
 
 		/bin/rm -f a.png "$of" || exit
-		2>/dev/null gnuplot -d l.gp -c trends\
+		gnuplot -d l.gp -c trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$of" || exit; }
