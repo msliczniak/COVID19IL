@@ -59,6 +59,7 @@ for co in "$st"; do
 		;;
 	esac
 
+	#for rs in positive; do
 	for rs in positive death hospitalized inIcuCumulative\
 	  onVentilatorCumulative recovered totalTestResults; do
 		la=`foo $co`

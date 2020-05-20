@@ -8,10 +8,6 @@ paste() {
 	/usr/bin/paste "$@"
 }
 
-sed() {
-	/usr/bin/sed "$@"
-}
-
 tail() {
 	/usr/bin/tail "$@"
 }
@@ -19,11 +15,6 @@ tail() {
 tr() {
 
 	/usr/bin/tr "$@"
-}
-
-gp() {
-	2>&1 gnuplot "$@" | tail -2 | #
-	awk '!NF { next } /[Ww][Aa][Rr][Nn]/ { next }' | tail -1 >&2
 }
 
 foo() {
@@ -79,9 +70,20 @@ be=green
 for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 	eval la="\$$ev"; ev=co
 	for rs in 'confirmed cases' deaths 'total tested'; do
-		echo  "$rs $la" >&2
+		# no tested totals per county
+		case "$la"-"$rs" in
+		  Illinois-total*)
+		        # change sense
+			ab=green
+		        be=red
+			;;
+		  *-total*)
+			break
+			;;
+		esac
 
-		./totals select="$co" result="$rs" "$@" | ./filter >tot
+		echo  "$rs $la" >&2
+		./totals select="$co" result="$rs" "$@" >totc
 
 		of="`printf '%s' "$la" | tr 'A-Z' 'a-z' | tr -Cs 'a-z0-9' _`"
 		case "$rs" in
@@ -94,11 +96,18 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		esac
 		of="$of"-"$rs".png
 
+		# last
+		di=`./filter f=tot totc` || continue
+
+		# remove interpolated points
+		awk 'NF == 3 { print $3, $2, $1 }' tot >totc
+
 		# gen dday & table
-		./stats tot | gp
+		gnuplot -d -c ./stats tot "$di" `awk 'NR == 1 {
+		print $1; exit }' tot`
 
 		# gen ftot
-		./match f=dday tot | ./step >ftot
+		./match dday tot | ./step >ftot
 
 		# percentage
 		pa=`awk 'END { printf("%.1f%%", $3) }' dday`
@@ -109,32 +118,28 @@ for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 		# total
 		ta=`awk 'END { print $2 }' tot`
 
-		# doubling-time from a week ago
-		ca=`sed 's/#.*//' table | #
-		awk '$3 == "i" { print $2 }' | tail -7 | awk '
-		NR == 1 { printf("%.1f - ", $1) }
-		END { printf("%.1f", $1) }'`
+		# doubling-time from a week ago (damped) and now (undamped)
+		ca=`awk '/^#/ { next }
+		$3 == "i" {
+			i = $2
+			printf("%.1f - ", i)
+			while (getline) {
+				if ($3 != "i") exit
+
+				i = $2
+			}
+		}
+
+		END { printf("%.1f", i) }' table`
 
 		#../../label dday >labels
 
 		/bin/rm -f a.png "$of" || exit
-		2>/dev/null gnuplot l.gp -c trends\
+		2>/dev/null gnuplot -d l.gp -c trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$of" || exit; }
 
 		#exit
-
-		# no tested totals per county
-		case "$la"-"$rs" in
-		  Illinois-deaths)
-		        # change sense
-			ab=green
-		        be=red
-			;;
-		  *-deaths)
-			break
-			;;
-		esac
 	done
 done

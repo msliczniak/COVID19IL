@@ -7,17 +7,8 @@ awk() {
 	/usr/bin/awk "$@"
 }
 
-sed() {
-	/usr/bin/sed "$@"
-}
-
 tail() {
 	/usr/bin/tail "$@"
-}
-
-gp() {
-	2>&1 gnuplot "$@" | tail -2 | #
-	awk '!NF { next } /[Ww][Aa][Rr][Nn]/ { next }' | tail -1 >&2
 }
 
 foo() {
@@ -76,13 +67,20 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 			../../filter "$tc" >tot
 			;;
 		esac
+
+		# last
+		di=`../../filter f=tot "$tc"` || continue
+
+		# remove interpolated points
+		awk 'NF == 3 { print $3, $2, $1 }' tot >"$tc"
 		tc=toti
 
 		# gen dday & table
-		../../stats tot | gp
+		gnuplot -d -c ../../stats tot "$di" `awk 'NR == 1 {
+		print $1; exit }' tot`
 
 		# gen ftot
-		../../match f=dday tot | ../../step >ftot
+		../../match dday tot | ../../step >ftot
 
 		# percentage
 		pa=`awk 'END { printf("%.1f%%", $3) }' dday`
@@ -93,17 +91,25 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		# total
 		ta=`awk 'END { print $2 }' tot`
 
-		# doubling-time from a week ago
-		ca=`sed 's/#.*//' table | #
-		awk '$3 == "i" { print $2 }' | tail -7 | awk '
-		NR == 1 { printf("%.1f - ", $1) }
-		END { printf("%.1f", $1) }'`
+		# doubling-time from a week ago (damped) and now (undamped)
+		ca=`awk '/^#/ { next }
+		$3 == "i" {
+			i = $2
+			printf("%.1f - ", i)
+			while (getline) {
+				if ($3 != "i") exit
+
+				i = $2
+			}
+		}
+
+		END { printf("%.1f", i) }' table`
 
 		#../../label dday >labels
 
 		ta="$ta ="
 		/bin/rm -f a.png "$co"-"$rs".png || exit
-		2>/dev/null gnuplot l.gp -c ../../trends\
+		2>/dev/null gnuplot -d l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$co"-"$rs".png || exit; }
