@@ -58,46 +58,43 @@ set for [i=GPVAL_X_MAX-dowo+604800:GPVAL_X_MIN:-1209600] obj i\
 ymin = GPVAL_Y_MIN
 ymax = GPVAL_Y_MAX
 
-# start with the percentages one band under the totals
-f = ceil(log10(ymax)) - ceil(log10(max)) - 1
-p = 10**f
+#printerr max, min, ymax, ymin
 
 # never let totals under 10^0
 if (ymin < 1) { ymin = 1 }
 
-# slide-up bottom of percentages if necessary
-o = min*p
-if (o < ymin) {
-	o = floor(log10(ymin)) - floor(log10(o))
-	f = f + o
-	p = 10**f
-}
+# smallest percentages in the lowest band of totals
+f = floor(log10(ymin)) - floor(log10(min))
+p = 10**f
 
 # extend yrange if needed
+o = p*min
+if (o < ymin) { ymin = o }
 o = max*p
 if (o > ymax) { ymax = o }
 
 set yrange [ymin:ymax]
 set logscale y
 
+# set apart the logscale tics
+set ytics scale 2, 1
+
 # line-up percentages and totals
-set for [i = ceil(log10(ymin)) : floor(log10(ymax))] ytics \
-( sprintf("10^{%d}\n_{%s%%%%}", i, gprintf("%h", 10**(i - f))) 10**i\
-, '' 10**i + 10*10**(i - 1) 1\
+set for [i = floor(log10(ymin)) : floor(log10(ymax))] ytics \
+( '' 10**i + 10*10**(i - 1) 1\
 , '' 10**i + 20*10**(i - 1) 1\
 , '' 10**i + 30*10**(i - 1) 1\
 , '' 10**i + 40*10**(i - 1) 1\
 , '' 10**i + 50*10**(i - 1) 1\
 , '' 10**i + 60*10**(i - 1) 1\
 , '' 10**i + 70*10**(i - 1) 1\
-, '' 10**i + 80*10**(i - 1) 1\
-)
+, '' 10**i + 80*10**(i - 1) 1)
 
-# set apart the logscale tics
-set ytics scale 2, 1
+set for [i = ceil(log10(ymin)) : floor(log10(ymax))] ytics add\
+  (sprintf("10^{%d}\n_{%s%%%%}", i, gprintf("%h", 10**(i - f))) 10**i)
 
 # draw arrows to show which label corresponds with each tic
-o = 1
+o = 10**ceil(log10(ymin))
 while (o <= ymax) {
 	if (o >= ymin) {
 		set arrow from graph 0,first o rto character -4 backhead\
