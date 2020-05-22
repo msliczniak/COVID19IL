@@ -12,7 +12,7 @@ paste() {
 
 awk 'NR == 1 { next } { print }' tot | paste "$1" - | awk 'NR == 1 {
 	step = int($1/-31) + 1
-	last = $1 - 1
+	last = $1 - step
 }
 
 NF == 7 && (($1 - last) >= (int(log($3)/log(1000)) + step)) {
