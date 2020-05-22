@@ -17,8 +17,9 @@ foo() {
 }
 
 rok='South Korea,Republic of Korea,Korea: South'
-#Spain China Iran
-for i in Brazil Germany Italy Japan Norway "$rok" Russia Singapore Sweden
+#Spain China
+for i in Brazil Canada France Germany Iran Ireland Italy Japan Norway\
+ "$rok" Russia Singapore Sweden 'United Kingdom'
 do
 	case "$i" in
 	  "$rok")
@@ -74,8 +75,7 @@ case $r in
 	;;
 esac
 
-echo '<p>
-<em>%*</em> indicates from previous sample, all others amortized over up to seven previous samples
+echo '
 </body>
 </html>' | /bin/cat html index - >../../plots/csse/index.html || exit
 

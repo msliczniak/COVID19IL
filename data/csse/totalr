@@ -1,0 +1,2 @@
+#!/bin/sh
+exec ../us/totalr key=Country.Region result=Confirmed "$@"

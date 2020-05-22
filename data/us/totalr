@@ -1,0 +1,59 @@
+#!/usr/bin/awk -f
+
+# raw totals, not guaranteed to me monotonic increasing
+
+BEGIN {
+	FS = ","
+
+	key = "state"
+	result = "positive"
+	select = ".*"
+}
+
+NR == 1 {
+	key = "^(" tolower(key) ")$"
+	result = "^(" tolower(result) ")$"
+
+	if (substr(select, 1, 1) == "!") {
+		select = substr(select, 2)
+		s = 1
+	}
+
+	gsub(/,/, "|", select)
+	select = "^(" tolower(select) ")$"
+}
+
+function which(k, i) {
+        for (i = 1; i <= NF; i++) if (tolower($i) ~ k) return i
+
+        exit 1
+}
+
+FNR == 1 {
+	if (t > 0) {
+		print d, t, k
+		t = 0
+	}
+
+	k++
+	i = which(key)
+	j = which(result)
+
+	# strip-off path
+	d = match(FILENAME, "[^/]*$")
+	d = substr(substr(FILENAME, d), 1)
+
+	# get date
+	if (d !~ /^[1-9][0-9][0-9][0-9]-/)
+		d = substr(d, index(d, "-") + 1, 10)
+	else
+		d = substr(d, 1, 10)
+}
+
+!s && tolower($i) !~ select { next }
+
+s && tolower($i) ~ select { next }
+
+{ t += $j }
+
+END { if (t > 0) print d, t, k }
