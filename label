@@ -22,7 +22,7 @@ NF == 7 && (($1 - last) >= (int(log($3)/log(1000)) + step)) {
 
 	if ($3 >= 10) printf("\"%.1f^{_%%}\"\n", $3)
 	else if ($3 >= 1) printf("\"%.2f^{_%%}\"\n", $3)
-	else printf("\".%d^{_%%}\"\n", int($3*1000 + .5 ))
+	else printf("\".%03d^{_%%}\"\n", int($3*1000 + .5 ))
 
 	last = $1
 }

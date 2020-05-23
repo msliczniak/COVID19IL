@@ -13,14 +13,11 @@ set border 11
 set terminal dumb
 set output '/dev/null'
 
-# csplines with noautoscale led to no lines connecting points
 set clip two
 plot 'ratio' u 1:2 w points notitle
 
 set xrange   [GPVAL_X_MIN:GPVAL_X_MAX]
-set x2range [GPVAL_X2_MIN:GPVAL_X2_MAX]
 set yrange   [GPVAL_Y_MIN:GPVAL_Y_MAX]
-set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX]
 
 set terminal pngcairo size 1640,440 transparent
 set output "ratio.png"
@@ -33,6 +30,18 @@ set mx2tics interval
 # only label Mondays
 set xtics '"01/06/2020"', 604800
 
+# shade alternating weeks
+#     January 1970
+# Su Mo Tu We Th Fr Sa
+#              1  2  3
+# 604800 = 60 * 60 * 24 * 7; 1209600 = 604800 * 2
+# day of week offset
+dowo = 86400 * (int(GPVAL_X_MAX / 86400 + 2.5) % 7 + 4)
+set for [i=GPVAL_X_MAX-dowo+604800:GPVAL_X_MIN:-1209600] obj i\
+  rect from i-604800,graph 0 to i,graph 1\
+  fc 'gray' fs transparent noborder bgnd back
+
+set logscale y
 set grid x2 y
 
 plot 'ratio' u 1:2 w lines smooth csplines lt 0 lc 6 notitle\
