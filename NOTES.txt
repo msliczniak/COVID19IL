@@ -9,9 +9,6 @@ $ ./run 20*.csv
 $ mv *-*.png ratio.png tested.png ../../plots/pl/
 $ cd ../..
 
-$ ./plil
-$ mv plil.png plots/
-
 $ cd data/kane
 $ ./get
 $ ./run kane-20*.csv
