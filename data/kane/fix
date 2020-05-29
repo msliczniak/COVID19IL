@@ -19,38 +19,119 @@ sort() {
 	/usr/bin/sort "$@"
 }
 
-./ndeaths "$@"
+tail() {
+	/usr/bin/tail "$@"
+}
 
 # reverse order
-set -- `printf '%s\n' ndeaths-*.txt | #
-awk '{ a[++i] = $0 } END { while (i) print a[i--] }'`
+set -- `./report "$@"`
 
-# previous
+# most recent
 p="$1"; shift
 
-for i in "$@" /dev/null; do
-	diff "$i" "$p" >deaths.txt
-	case $? in
-	  0 | 1)
-		;;
-	  *)
-		exit
-		;;
-	esac
+for i in "$@"; do
+	printf '%s\n' "$i" >&2
 
-	# extra newline gives ndiff a place to sync
-	sed -n 's/^> /\
-/p' <deaths.txt >b || exit
+	diff -U0 "$i" "$p" | sed 's/^@@/\
+/' | awk 'NR == 1 { cmd = "./ndiff -q a b"; next }
+{
+	# print uninversal diff command for this hunk
+	print $1
 
-	# ed command for easy syncing later
-	awk '/^</ { printf("\n%s\n", substr($0, 3)); print c >"a.ed"; next }
-	/^[->]/ { next }
-	{ c = $0 }' deaths.txt >a
+	# create "from" file
+	printf("") > "a"
+	for (i = 2; i <= NF; i++) if ($i ~ /^-/) print substr($i, 2) > "a"
+	fflush("a")
+	close("a")
 
-	time ./ndiff a b >deaths.txt || exit
+	# create "to" file
+	printf("") > "b"
+	for (i = 2; i <= NF; i++) if ($i ~ /^\+/) print substr($i, 2) > "b"
+	fflush("b")
+	close("b")
+
+	# printndiff of this hunk
+	while (cmd | getline) print
+	close(cmd)
+}' FS='\n' RS= | awk 'BEGIN { line = 1 }
+
+/^ / {
+	n = split($1, c, ",")
+	lines = substr(c[1], 2) + 0
+	while (line++ < lines) {
+		if (getline < f) {
+			print
+		}
+	}
+
+	if (n == 1) lines += 1
+	else lines += c[2]
+	while (line++ < lines) getline < f
+
+	next
+}
+
+$1 == "+" {
+	to = substr($0, 3)
+
+	if (!getline) lines = -1
+	else if ($1 == "?") q = 1
+
+	if (q) print to
+	else print from
+
+	if (lines == -1) exit
+}
+
+$1 == "-" {
+	q = 0
+	from = substr($0, 3)
+}
+
+$1 == "?" { q = 1 }
+
+END { while (getline < f) print }' f="$i" | sort
+	exit
+	
+	
+	
+	
+	awk 'NR < 3 { next }
+{
+	print "" > "a"
+	for (i = 2; i <= NF; i++)
+		if ($i ~ /^-/)
+			print substr($i, 2) > "a"
+	fflush("a")
+	close("a")
+
+	print "" > "b"
+	for (i = 2; i <= NF; i++)
+		if ($i ~ /^+/)
+			print substr($i, 2) > "b"
+
+	fflush("b")
+	close("b")
+
+	while ("./ndiff -q a b" | getline)
+		print $0
+}'
 	exit
 
-	awk '{
+	# give ndiff a place to sync
+	<report.txt sed -n \
+'s/^+/SYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNC\
+/p' >b || exit
+
+	# unified diff commands in file c for easy syncing later
+	awk '/^-/ { printf("%s\n%s\n", s, substr($0, 2)); print c >"c"; next }
+	/^@/ { c = $2 }' \
+	s=SYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNCSYNC \
+	report.txt >a
+
+	exit
+
+	./ndiff -q a b | awk '{
 	for (;;) {
 		if ($0 == "+ " || $0 !~ /^\+ /) {
 			if (!getline) break
@@ -66,53 +147,7 @@ for i in "$@" /dev/null; do
 		if ($0 ~ /^\? /) continue
 
 		print l
-	} }' deaths.txt >u"$i"
+	} }' f="$i" | sort
 
 	p="$i"
 done
-
-awk 'BEGIN { date = "1970-01"; daten = -1 }
-
-# days since epoch
-function dse(d, f, c) {
-	c = substr(d, 1, 7)
-	if (c != date) {
-		date = c
-
-		f = "/bin/date -juf '\''%Y-%m-%d-%T'\''"
-		f = sprintf("%s %s-01-00:00:00 '+%%s'", f, c)
-		f | getline c
-		close(f)
-
-		daten = int(c / 86400) - 1
-	}
-
-	c = substr(d, 9, 2)
-	return (c + daten)
-}
-
-FNR == 1 {
-	# strip-off path
-	d = match(FILENAME, "[^/]*$")
-	d = substr(substr(FILENAME, d), 1)
-
-	# get date
-	if (d !~ /^[1-9][0-9][0-9][0-9]-/)
-		d = substr(d, index(d, "-") + 1, 10)
-	else
-		d = substr(d, 1, 10)
-
-	d = dse(d)
-}
-
-{
-	printf("%4d ", d - $1)
-
-	i = index($0, ",") + 1
-	s = substr($0, i)
-	if (s)
-		printf("%2d", $1 - s)
-	else
-		printf(" -")
-
-	printf(" %4s %s\n", $2, substr($0, 27, i - 28)) }' udeaths-*.txt | sort

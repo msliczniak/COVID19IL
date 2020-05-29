@@ -25,14 +25,18 @@ function dse(d, f, c) {
 }
 
 FNR == 1 {
-	close(cmd)
-
 	age = which("age$")
 	death = which("death")
 	date = which("date$")
 	sex = which("sex")
 	city = which("city")
 	onset = which("onset")
+
+	next
+}
+
+FNR == 2 {
+	close(cmd)
 
 	# strip-off path
 	d = match(FILENAME, "[^/]*$")
@@ -44,11 +48,9 @@ FNR == 1 {
 	else
 		d = substr(d, 1, 10)
 
-	# ndiff too slow to compare entire files with sparse differences
-	# cmd = sprintf("/usr/bin/sort | /usr/bin/sed G >ndeaths-%s.txt", d)
-	cmd = sprintf("/usr/bin/sort >ndeaths-%s.txt", d)
-
-	next
+	d = sprintf("report-%s.txt", d)
+	cmd = sprintf("/usr/bin/sort >%s", d)
+	rfiles = d "\n" rfiles
 }
 
 {
@@ -57,4 +59,8 @@ FNR == 1 {
 
 	printf("%d %20d %3d%s %s,%s\n", d, dse($date), $age,
 	  tolower(substr($sex, 1, 1)), $city, dse($onset)) | cmd
+}
+
+END {
+	printf("%s", rfiles)
 }
