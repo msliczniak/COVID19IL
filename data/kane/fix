@@ -50,14 +50,17 @@ for i in "$@"; do
 	fflush("b")
 	close("b")
 
-	# printndiff of this hunk
-	while (cmd | getline) print
+	# print ndiff of this hunk
+	while (cmd | getline != 0) print
 	close(cmd)
-}' FS='\n' RS= | awk 'BEGIN { line = 1 }
+}' FS='\n' RS= #|
+exit
+ awk 'BEGIN { line = 1 }
 
 /^ / {
 	n = split($1, c, ",")
 	lines = substr(c[1], 2) + 0
+	print line, lines
 	while (line++ < lines) {
 		if (getline < f) {
 			print
@@ -67,6 +70,7 @@ for i in "$@"; do
 	if (n == 1) lines += 1
 	else lines += c[2]
 	while (line++ < lines) getline < f
+	print lines
 
 	next
 }
@@ -90,7 +94,7 @@ $1 == "-" {
 
 $1 == "?" { q = 1 }
 
-END { while (getline < f) print }' f="$i" | sort
+END { while (getline < f) print }' f="$i" #| sort
 	exit
 	
 	
@@ -151,3 +155,49 @@ END { while (getline < f) print }' f="$i" | sort
 
 	p="$i"
 done
+
+exit
+
+BEGIN { line = 1 }
+
+/^ / {
+	n = split($1, c, ",")
+	for (lines = substr(c[1], 2) + 0; line < lines; line++) {
+		if (getline < f == 1) {
+			print
+		}
+	}
+
+	if (n == 1) lines += 1
+	else if (c[2] == 0) next
+	else lines += c[2]
+
+	for (; line < lines; line++) getline < f
+
+	next
+}
+
+$1 == "+" {
+	to = substr($0, 3)
+
+	if (getline != 1) lines = -1
+	else if ($1 == "?") q = 1
+
+	if (q) print to
+	else if (from != "") print from
+
+	q = 0
+	from = ""
+
+	if (lines == -1) exit
+}
+
+$1 == "-" {
+	q = 0
+	to = ""
+	from = substr($0, 3)
+}
+
+$1 == "?" { q = 1 }
+
+END { while (getline < f == 1) print }
