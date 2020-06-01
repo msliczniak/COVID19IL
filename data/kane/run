@@ -25,11 +25,13 @@ IFS=-
 da=`foo $la` || exit
 IFS="$co"
 
+tricities='Batavia,Geneva,St. Charles,Saint Charles'
+
 ab=red
 be=green
 #for co in 'St. Charles'; do
-for co in '!Aurora,North Aurora,Elgin,South Elgin,Batavia,Geneva,St. Charles'\
-  'Aurora,North Aurora' 'Elgin,South Elgin' 'Batavia,Geneva,St. Charles'; do
+for co in '!Aurora,North Aurora,Elgin,South Elgin,'"$tricities"\
+  'Aurora,North Aurora' 'Elgin,South Elgin' "$tricities"; do
 	for rs in 'Case Count' Death; do
 		la="$co"
 		echo  "$rs $la" >&2
