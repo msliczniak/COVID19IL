@@ -57,8 +57,11 @@ FNR == 2 {
 	if ($death) d = 1
 	else d = 0
 
+	s = tolower(substr($sex, 1, 1))
+	if (s == "") s = "u"
+
 	printf("%d %20d %3d%s %s,%s\n", d, dse($date), $age,
-	  tolower(substr($sex, 1, 1)), $city, dse($onset)) | cmd
+	  s, $city, dse($onset)) | cmd
 }
 
 END {
