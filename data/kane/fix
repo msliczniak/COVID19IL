@@ -155,3 +155,107 @@ END { while (getline < f) print }' f="$i" #| sort
 
 	p="$i"
 done
+
+exit
+
+#!/usr/bin/awk -f
+
+BEGIN { line = 1 }
+
+function rec(quick) {
+	if (to == "") {
+		if (from == "") return
+
+		print from > "a"
+		an++
+	}
+
+	if (quick) return
+
+	if (from == "") {
+		if (to == "") return
+
+		print to > "b"
+		bn++
+	}
+
+	if (!q) {
+		to = from = ""
+		return
+	}
+
+	if (from ~ /^0/) to = "0" substr(to, 2)
+	print to
+
+	to = from = ""
+	q = 0
+}
+
+function question() { q = 1 }
+
+function plus() {
+	rec(1)
+
+	to = substr($0, 3)
+}
+
+function minus() {
+	rec()
+
+	from = substr($0, 3)
+}
+
+function one() {
+	if      ($1 == "-") minus()
+	else if ($1 == "+") plus()
+	else if ($1 == "?") question()
+}
+
+/^ / {
+	rec()
+
+	next
+
+	n = split($1, c, ",")
+	for (lines = substr(c[1], 2) + 0; line < lines; line++) {
+		if (getline < f == 1) {
+			print
+		}
+	}
+
+	if (n == 1) lines += 1
+	else if (c[2] == 0) next
+	else lines += c[2]
+
+	for (; line < lines; line++) getline < f
+
+	next
+}
+
+{ one() }
+
+END {
+	rec()
+
+	#while (getline < f == 1) print
+	exit
+	close(f)
+
+	n = 0
+	while (an && an != n) {
+		n = an
+
+		fflush("a")
+		close("a")
+
+		fflush("b")
+		close("b")
+
+		an = bn = 0
+		to = from = ""
+		q = 0
+		while ("./ndiff -q a b" | getline == 1) one()
+		close("./ndiff -q a b")
+		rec()
+	}
+}
