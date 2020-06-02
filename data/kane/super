@@ -1,43 +1,71 @@
 #!/usr/bin/awk -f
 
-BEGIN { line = 1 }
+BEGIN {
+	lineno = 1
 
-function rec() {
-	if (to == "") {
-		if (from != "") a[an++] = from
+	a = 0
+	b = 1
+
+	num[a] = 0
+	num[b] = 0
+
+	lastl[a] = ""
+	lastl[b] = ""
+
+	file[a] = "a"
+	file[b] = "b"
+}
+
+function rec(i) {
+	if (lastl[i] == "") {
+		if (lastl[!i] != "") {
+			print lastl[!i] > file[!i]
+			last[!i] = ""
+			num[!i] += 1
+		}
+
 		return
 	}
 
-	if (from == "") {
-		if (to != "") b[bn++] = to
+	if (lastl[!i] == "") {
+		# XXX
+		if (i) {
+			print lastl[i] > file[i]
+			last[i] = ""
+			num[i] += 1
+		}
+
 		return
 	}
 
 	if (!q) {
-		to = from = ""
+		print lastl[a] > file[a]
+		print lastl[b] > file[b]
+		lastl[a] = lastl[b] = ""
+		num[a] += 1
+		num[b] += 1
+
 		return
 	}
 
-	if (from ~ /^0/) to = "0" substr(to, 2)
-	print to
-
-	to = from = ""
 	q = 0
+
+	if (lastl[a] ~ /^0/) lastl[b] = "0" substr(lastl[b], 2)
+
+	print lastl[b]
+}
+
+# look for +, -+, -?+/-+?/-?+?
+function plus() {
+	rec(1)
+}
+
+# look for -, +, -+, -?+/-+?/-?+?
+function minus() {
+	rec()
 }
 
 function question() { q = 1 }
-
-function plus() {
-	rec()
-
-	to = substr($0, 3)
-}
-
-function minus() {
-	#rec()
-
-	from = substr($0, 3)
-}
 
 function one() {
 	if      ($1 == "-") minus()
@@ -48,8 +76,10 @@ function one() {
 /^ / {
 	rec()
 
+	next
+
 	n = split($1, c, ",")
-	for (lines = substr(c[1], 2) + 0; line < lines; line++) {
+	for (lines = substr(c[1], 2) + 0; lineno < lines; lineno++) {
 		if (getline < f == 1) {
 			print
 		}
@@ -59,7 +89,7 @@ function one() {
 	else if (c[2] == 0) next
 	else lines += c[2]
 
-	for (; line < lines; line++) getline < f
+	for (; lineno < lines; lineno++) getline < f
 
 	next
 }
@@ -69,22 +99,22 @@ function one() {
 END {
 	rec()
 
-	while (getline < f == 1) print
+	#while (getline < f == 1) print
+	exit
+	close(f)
 
 	n = 0
-	while (an && an != n) {
-		n = an
+	while (num[a] && num[a] != n) {
+		n = num[a]
 
-		for (i = 0; i < an; i++) print a[i] > "a"
 		fflush("a")
 		close("a")
 
-		for (i = 0; i < bn; i++) print b[i] > "b"
 		fflush("b")
 		close("b")
 
-		an = bn = 0
-		to = from = ""
+		num[a] = num[b] = 0
+		lastl[a] = lastl[b] = ""
 		q = 0
 		while ("./ndiff -q a b" | getline == 1) one()
 		close("./ndiff -q a b")
