@@ -11,72 +11,60 @@ BEGIN {
 
 	lastl[a] = ""
 	lastl[b] = ""
-
-	file[a] = "a"
-	file[b] = "b"
 }
 
-function rec(i) {
-	if (lastl[i] == "") {
-		if (lastl[!i] != "") {
-			print lastl[!i] > file[!i]
-			last[!i] = ""
-			num[!i] += 1
-		}
+function rec(i, f) {
+	if (lastl[i] == "") return
 
-		return
-	}
-
-	if (lastl[!i] == "") {
-		# XXX
-		if (i) {
-			print lastl[i] > file[i]
-			last[i] = ""
-			num[i] += 1
-		}
-
-		return
-	}
-
+	# -+
 	if (!q) {
-		print lastl[a] > file[a]
-		print lastl[b] > file[b]
-		lastl[a] = lastl[b] = ""
-		num[a] += 1
+		print lastl[i] > f
+		lastl[i] = ""
+		num[i] += 1
+
+		return
+	}
+
+	# +?-
+	if (last == a) {
+		print lastl[b] > "b"
+		lastl[b] = ""
 		num[b] += 1
 
 		return
 	}
 
-	q = 0
-
 	if (lastl[a] ~ /^0/) lastl[b] = "0" substr(lastl[b], 2)
-
 	print lastl[b]
+	lastl[a] = lastl[b] = ""
+	q = 0
 }
 
-# look for +, -+, -?+/-+?/-?+?
-function plus() {
-	rec(1)
-}
-
-# look for -, +, -+, -?+/-+?/-?+?
 function minus() {
-	rec()
+	rec(a, "a")
+	last = a
+	lastl[last] = substr($0, 3)
 }
 
-function question() { q = 1 }
+function plus() {
+	rec(b, "b")
+	last = b
+	lastl[last] = substr($0, 3)
+}
+
+function empty() {
+	rec(a, "a"); rec(b, "b")
+}
 
 function one() {
 	if      ($1 == "-") minus()
 	else if ($1 == "+") plus()
-	else if ($1 == "?") question()
+	else if ($1 == "?") q = 1
 }
 
 /^ / {
-	rec()
-
-	next
+	empty()
+	#next
 
 	n = split($1, c, ",")
 	for (lines = substr(c[1], 2) + 0; lineno < lines; lineno++) {
@@ -97,14 +85,14 @@ function one() {
 { one() }
 
 END {
-	rec()
+	empty()
 
-	#while (getline < f == 1) print
-	exit
+	while (getline < f == 1) print
+	#exit
 	close(f)
 
 	n = 0
-	while (num[a] && num[a] != n) {
+	while (num[a] != n) {
 		n = num[a]
 
 		fflush("a")
@@ -118,6 +106,12 @@ END {
 		q = 0
 		while ("./ndiff -q a b" | getline == 1) one()
 		close("./ndiff -q a b")
-		rec()
+
+		empty()
+		if (num[a] == 0) exit
+		#break
 	}
+
+	# some couldn't be matched
+	while (getline < "a" == 1) print
 }

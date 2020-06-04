@@ -60,8 +60,35 @@ FNR == 2 {
 	s = tolower(substr($sex, 1, 1))
 	if (s == "") s = "u"
 
+	cn = tolower($city)
+	if (cn == "chicago") cn = "w chicago"
+	else if (cn == "il") cn = ""
+	else if (cn ~ /^unk/) cn = ""
+	else if (cn ~ /^saint /) cn = "st" substr(cn, 6)
+	else if (cn ~ /^north /) cn = "n" substr(cn, 6)
+	else if (cn ~ /^east /) cn = "e" substr(cn, 5)
+	else if (cn ~ /^south /) cn = "s" substr(cn, 6)
+	else if (cn ~ /^west /) cn = "w" substr(cn, 5)
+
+	gsub(/\./, "", cn)
+	gsub(/apt ([^ ]*)/, "", cn)
+	sub(/^ */, "", cn)
+	sub(/ *$/, "", cn)
+	gsub(/ ( *)/, " ", cn)
+
+	if (cn == "apt 1a") cn = ""
+	if (cn == "campbell hill") cn = "campton hills"
+	else if (cn == "capertersville") cn = "carpentersville"
+	else if (cn == "carpentersuile") cn = "carpentersville"
+	else if (cn == "cerpentersville") cn = "carpentersville"
+	else if (cn == "dundee") cn = "dundee twp"
+	else if (cn == "eltgin") cn = "elgin"
+	else if (cn == "relgin") cn = "elgin"
+	else if (cn == "st xharles") cn = "st charles"
+	else if (cn == "urora") cn = "aurora"
+
 	printf("%d %20d %3d%s %s,%s\n", d, dse($date), $age,
-	  s, $city, dse($onset)) | cmd
+	  s, cn, dse($onset)) | cmd
 }
 
 END {

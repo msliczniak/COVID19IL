@@ -1,0 +1,16 @@
+#!/usr/bin/awk -f
+
+BEGIN { FS = "," }
+
+function which(k, i) {
+        for (i = 1; i <= NF; i++) if (tolower($i) ~ k) return (i)
+        exit (1)
+}
+
+FNR == 1 {
+	city = which("city")
+
+	next
+}
+
+{ print tolower($city) }
