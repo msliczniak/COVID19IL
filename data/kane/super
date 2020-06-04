@@ -16,8 +16,17 @@ BEGIN {
 function rec(i, f) {
 	if (lastl[i] == "") return
 
-	# -+
 	if (!q) {
+		print lastl[i] > f
+		lastl[i] = ""
+		num[i] += 1
+
+		i = !i
+		if (lastl[i] == "") return
+
+		if (f == "a") f = "b"
+		else f = "a"
+
 		print lastl[i] > f
 		lastl[i] = ""
 		num[i] += 1
@@ -109,9 +118,9 @@ END {
 
 		empty()
 		if (num[a] == 0) exit
-		#break
+		#exit
 	}
 
-	# some couldn't be matched
-	while (getline < "a" == 1) print
+	# some couldn't be matched, consider them mistakes
+	#while (getline < "a" == 1) print
 }
