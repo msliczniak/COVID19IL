@@ -1,126 +1,68 @@
 #!/usr/bin/awk -f
 
-BEGIN {
-	lineno = 1
+BEGIN { FS="\n" } # never split fields
 
-	a = 0
-	b = 1
+function sp() { # space
+	state = 0
 
-	num[a] = 0
-	num[b] = 0
-
-	lastl[a] = ""
-	lastl[b] = ""
+	print substr($0, 3)
 }
 
-function rec(i, f) {
-	if (lastl[i] == "") return
+function mi() { # minus
+	state = 1
 
-	if (!q) {
-		print lastl[i] > f
-		lastl[i] = ""
-		num[i] += 1
-
-		i = !i
-		if (lastl[i] == "") return
-
-		if (f == "a") f = "b"
-		else f = "a"
-
-		print lastl[i] > f
-		lastl[i] = ""
-		num[i] += 1
-
-		return
-	}
-
-	# +?-
-	if (last == a) {
-		print lastl[b] > "b"
-		lastl[b] = ""
-		num[b] += 1
-
-		return
-	}
-
-	if (lastl[a] ~ /^0/) lastl[b] = "0" substr(lastl[b], 2)
-	print lastl[b]
-	lastl[a] = lastl[b] = ""
-	q = 0
+	a[an++] = substr($0, 3)
 }
 
-function minus() {
-	rec(a, "a")
-	last = a
-	lastl[last] = substr($0, 3)
+function pl() { # plus
+	if (state) state++
+
+	b[bn++] = substr($0, 3)
 }
 
-function plus() {
-	rec(b, "b")
-	last = b
-	lastl[last] = substr($0, 3)
+function qu() { # question-mark
+	if (state) state++
 }
 
-function empty() {
-	rec(a, "a"); rec(b, "b")
+function sm() { # state machine
+	if (state < 3) return
+
+	state = 0; bn--; 
+	if (a[--an] ~ /^0/) b[bn] = "0" substr(b[bn], 2)
+	print b[bn]
 }
 
-function one() {
-	if      ($1 == "-") minus()
-	else if ($1 == "+") plus()
-	else if ($1 == "?") q = 1
+function ol() { # handle one line
+	if ($0 ~ /^\+ /) pl()
+	else if ($0 ~ /^- /) mi()
+	else if ($0 ~ /^\? /) qu()
+	else sp() # after the first time, space happens very rarely if at all
+	sm()
 }
 
-/^ / {
-	empty()
-	#next
-
-	n = split($1, c, ",")
-	for (lines = substr(c[1], 2) + 0; lineno < lines; lineno++) {
-		if (getline < f == 1) {
-			print
-		}
-	}
-
-	if (n == 1) lines += 1
-	else if (c[2] == 0) next
-	else lines += c[2]
-
-	for (; lineno < lines; lineno++) getline < f
-
-	next
+{
+	if ($0 ~ /^  /) sp() # first time through space happens most often
+	else if ($0 ~ /^\+ /) pl()
+	else if ($0 ~ /^- /) mi()
+	else qu()
+	sm()
 }
-
-{ one() }
 
 END {
-	empty()
-
-	while (getline < f == 1) print
-	#exit
-	close(f)
-
 	n = 0
-	while (num[a] != n) {
-		n = num[a]
+	while (n != an) {
+		n = an
+		for (i = 0; i < an; i++) print a[i] > "a"
+		for (i = 0; i < bn; i++) print b[i] > "b"
+		fflush("a"); close("a")
+		fflush("b"); close("b")
 
-		fflush("a")
-		close("a")
-
-		fflush("b")
-		close("b")
-
-		num[a] = num[b] = 0
-		lastl[a] = lastl[b] = ""
-		q = 0
-		while ("./ndiff -q a b" | getline == 1) one()
+		state = an = bn = 0
+		while ("./ndiff -q a b" | getline == 1) ol()
 		close("./ndiff -q a b")
 
-		empty()
-		if (num[a] == 0) exit
-		#exit
+		if (an == 0) exit
 	}
 
-	# some couldn't be matched, consider them mistakes
-	#while (getline < "a" == 1) print
+	for (i = 0; i < an; i++) print a[i]
 }

@@ -7,20 +7,8 @@ awk() {
 	/usr/bin/awk "$@"
 }
 
-diff() {
-	/usr/bin/diff "$@"
-}
-
-mv() {
-	/bin/mv "$@"
-}
-
 rm() {
 	/bin/rm "$@"
-}
-
-sed () {
-	/usr/bin/sed "$@"
 }
 
 sort() {
@@ -32,7 +20,6 @@ tail() {
 }
 
 # create report(s)
-printf '    ' >&2
 >&2 ./report "$@"
 
 # reverse order
@@ -42,40 +29,9 @@ awk '{ a[++i] = $0 } END { while (i) print a[i--] }'`
 # most recent
 p="$1"; shift
 
-S='s/^@@/\
-/'
-
-A='NR == 1 { cmd = "./ndiff -q a b"; next }
-{
-	# print uninversal diff command for this hunk
-	print $1
-
-	# create "from" file
-	printf("") > "a"
-	for (i = 2; i <= NF; i++) if ($i ~ /^-/) print substr($i, 2) > "a"
-	fflush("a")
-	close("a")
-
-	# create "to" file
-	printf("") > "b"
-	for (i = 2; i <= NF; i++) if ($i ~ /^\+/) print substr($i, 2) > "b"
-	fflush("b")
-	close("b")
-
-	# print ndiff of this hunk
-	while (cmd | getline != 0) print
-	close(cmd)
-}'
-
 for i in "$@"; do
-	printf '%s\n' "$i" >&2
-
-	diff -U0 -- "$i" "$p" | #
-	sed "$S" | awk "$A" FS='\n' RS= >d
-	./super f="$i" d | sort >c
-	#exit
-	rm -f a b d
-	mv -- c "$i"
-
+	printf ': %s\n' "$i" >&2
+	/bin/cp -p "$i" c
+	exec <"$i" && rm "$i" && ./ndiff -q - "$p" | ./super | sort >"$i"
 	p="$i"
 done

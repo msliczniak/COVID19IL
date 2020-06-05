@@ -4,3 +4,5 @@ $ ./totals result=death kane-*.csv|tail -1|awk '{print $2}'
 $ ./cities kane-*.csv | sort | uniq -c
 $ ./report kane-*.csv
 $ cut -b 29- report-*.txt | sed 's/,.*//' | sort | uniq
+$ rm -f report-*.txt kane-*.csv.tar
+$ time for i in kane-*.csv; do ./fix "$i"; tar cf "$i".tar report-*.txt; done
