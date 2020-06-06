@@ -1,4 +1,4 @@
-$ ./deathreport
+$ ./deathreport report-*.csv
 $ wc -l udeaths-*.txt
 $ ./totals result=death kane-*.csv|tail -1|awk '{print $2}'
 $ ./cities kane-*.csv | sort | uniq -c

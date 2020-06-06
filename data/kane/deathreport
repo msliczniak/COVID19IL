@@ -1,15 +1,7 @@
 #!/bin/sh
 
 # This is a best guess at matching cases cause there is no ID and later files
-# have correwctions like the age of the patient. It appears to double count less
-# than 10%
-
-# $ ./deathreport | wc -l
-#       69
-# $ ./totals result=death kane-*.csv | tail
-# 2020-05-05 65 31
-# > 69.0 / 65
-# 1.0615384615384615
+# have corrections like the age of the patient.
 
 awk() {
 	/usr/bin/awk "$@"
