@@ -99,7 +99,7 @@ u=https://public.tableau.com/vizql/w/$u
 curl -fsqLo daily -w 'status: %{http_code}\n' -- "$u" || exit
 
 ./conv daily >"$o"
-c=`2>/dev/null ./fix "$o"`
+c=`./fix "$o"`
 /usr/bin/file -b -- "$o" $c
 echo "add $o" $c
 
