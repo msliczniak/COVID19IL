@@ -1,0 +1,55 @@
+#!/usr/bin/awk -f
+
+# f is the previous day, stdin might have blank ages
+
+BEGIN { FS = "," }
+
+function gf() {
+	if (getline < f == 1) {
+		bc = $4; bs = $1 "," $2; bo = $5; ba = $3
+		return (0)
+	}
+
+	return (-1)
+}
+
+function lt() {
+	printf("%s,%s,%s,%s\n", as, aa, ac, ao)
+	if (getline != 1) exit
+	ac = $4; as = $1 "," $2; ao = $5; aa = $3
+}
+
+{
+	ac = $4; as = $1 "," $2; ao = $5; aa = $3
+
+	if (gf() == 0) for (;;) {
+		if (ac == bc) {
+			at = as ao
+			bt = bs bo
+			if (at == bt) {
+				if (aa ~ /^000/)
+					aa = substr(ba, 1, 3) substr(aa, 4)
+				printf("%s,%s,%s,%s\n", as, aa, ac, ao)
+				next
+			} else if (at < bt) {
+				lt()
+				continue
+			}
+		} else if (ac < bc) {
+			lt()
+			continue
+		}
+
+		if (gf()) break
+	}
+
+	FS="\n" # don't split fields anymore
+	printf("%s,%s,%s,%s\n", as, aa, ac, ao)
+	while (getline == 1) print
+	exit
+}
+
+END {
+	FS="\n" # don't split fields anymore
+	while (getline < f == 1) print
+}

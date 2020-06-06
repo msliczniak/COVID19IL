@@ -48,8 +48,8 @@ FNR == 2 {
 	else
 		d = substr(d, 1, 10)
 
-	d = sprintf("report-%s.txt", d)
-	cmd = sprintf("/usr/bin/sort >%s", d)
+	d = sprintf("report-%s.csv", d)
+	cmd = sprintf("/usr/bin/sort -t, -k4,4 -k1,1 -k2,2 -k5,5 -k3,3 >%s", d)
 	rfiles = d "\n" rfiles
 }
 
@@ -87,7 +87,7 @@ FNR == 2 {
 	else if (cn == "st xharles") cn = "st charles"
 	else if (cn == "urora") cn = "aurora"
 
-	printf("%d %20d %3d%s %s,%s\n", d, dse($date), $age,
+	printf("%d,%020d,%03d%s,%s,%s\n", d, dse($date), $age,
 	  s, cn, dse($onset)) | cmd
 }
 

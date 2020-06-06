@@ -12,25 +12,37 @@ rm() {
 }
 
 sort() {
-	/usr/bin/sort "$@"
-}
-
-tail() {
-	/usr/bin/tail "$@"
+	/usr/bin/sort -t, -k4,4 -k1,1 -k2,2 -k5,5 -k3,3 "$@"
 }
 
 # create report(s)
->&2 ./report "$@"
+p=`./report "$@"`
+case x"$p" in
+  x)
+	exit
+	;;
+esac
+>&2 printf '%s\n' "$p"
 
 # reverse order
-set -- `printf '%s\n' report-*.txt | #
+set -- `printf '%s\n' report-*.csv | #
 awk '{ a[++i] = $0 } END { while (i) print a[i--] }'`
 
 # most recent
 p="$1"; shift
 
+case $# in
+  0)
+	exit
+	;;
+esac
+
+# correct erroneously zeroed ages
+exec <"$p" && rm "$p" && ./merge f="$1" >"$p"
+
 for i in "$@"; do
-	printf ': %s\n' "$i" >&2
+	>&2 printf ': %s\n' "$i"
+	#exit
 	/bin/cp -p "$i" c
 	exec <"$i" && rm "$i" && ./ndiff -q - "$p" | ./super | sort >"$i"
 	p="$i"

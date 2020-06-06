@@ -51,11 +51,13 @@ function ol() { # handle one line
 END {
 	n = 0
 	while (n != an) {
+		print n, an, bn > "/dev/stderr"
 		n = an
 		for (i = 0; i < an; i++) print a[i] > "a"
 		for (i = 0; i < bn; i++) print b[i] > "b"
 		fflush("a"); close("a")
 		fflush("b"); close("b")
+		#exit
 
 		state = an = bn = 0
 		while ("./ndiff -q a b" | getline == 1) ol()
