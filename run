@@ -68,6 +68,7 @@ ab=red
 be=green
 
 #for co in "$g0"; do
+#ot=Cook; ev=ot; IFS=,; for co in "$g1" $g2; do
 for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 	eval la="\$$ev"; ev=co
 	for rs in 'confirmed cases' deaths 'total tested'; do
