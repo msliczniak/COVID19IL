@@ -18,8 +18,9 @@ plot 'dday' u 1:3 ax x2y2 w points\
 set xrange [GPVAL_X_MIN:GPVAL_X_MAX + 86400]
 set x2range [(GPVAL_X_MIN - GPVAL_X_MAX)/86400:1]
 
+# don't let negative corrections blow-up the plot
 max = GPVAL_Y2_MAX
-min = GPVAL_Y2_MIN
+min = GPVAL_Y2_MIN < 0.001 ? 0.001 : GPVAL_Y2_MIN
 
 # figure doubling-time range
 plot '' every 2 u 1:2 ax x1y1 w points\
@@ -123,15 +124,16 @@ while (o <= ymax) {
 	o = o * 10
 }
 
-# clamp to 400y
+# clamp from an eighth of a day up to 400y
 f = GPVAL_Y2_MAX > 146097 ? 146097 : GPVAL_Y2_MAX
+h = GPVAL_Y2_MIN < .125 ? .125 : GPVAL_Y2_MIN
 
 # spread-out tics
-set y2range [f:GPVAL_Y2_MIN]
-o = GPVAL_Y2_MAX - GPVAL_Y2_MIN
+set y2range [f:h]
+o = f - h
 f = 10**ceil(log10(o) + 1)
 f = (f - 10.0)/o
-o = 10 - f*GPVAL_Y2_MIN
+o = 10 - f*h
 set nonlinear y2 via log10(f*y+o) inverse (10**y-o)/f
 
 # with leap days taken into account
@@ -195,9 +197,10 @@ good = ARG4
 bad = ARG5
 set clip two
 
-plot '' index 0 u 1:($1 <= -7 ? $2 : NaN) ax x2y2 sm mcspline notitle\
-, '' index 0 u 1:($1 >= -7 ? $2 : NaN) ax x2y2 sm mcspline lt 1 dt '-'\
-  title trend_t\
+plot '' index 0 u 1:($1 <= -7 ? ($2 < h ? h : $2) : NaN) ax x2y2 sm mcspline\
+  notitle\
+, '' index 0 u 1:($1 >= -7 ? ($2 < h ? h : $2) : NaN) ax x2y2 sm mcspline\
+  lt 1 dt '-' title trend_t\
 , 'ftot' u 1:2:4 w filledcurves above\
  fs trans solid 0.25 border fc rgbcolor good notitle\
 , '' u 1:2:4 w filledcurves below\

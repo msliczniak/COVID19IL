@@ -19,7 +19,7 @@ foo() {
 rok='South Korea,Republic of Korea,Korea: South'
 #Spain China
 for i in Brazil Canada France Germany Iran Ireland Italy Japan Norway\
- "$rok" Russia Singapore Sweden 'United Kingdom'
+ "$rok" Russia Singapore Spain Sweden 'United Kingdom'
 do
 	case "$i" in
 	  "$rok")
