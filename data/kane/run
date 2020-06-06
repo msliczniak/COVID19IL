@@ -16,33 +16,40 @@ foo() {
 foo $# "$@"
 
 foo() {
+	la="$1"
+}
+
+co="$IFS"
+IFS=.
+foo $la
+
+foo() {
 	printf '%s/%s/%s' $3 $4 $2
 }
 
 # set date
-co="$IFS"
 IFS=-
 da=`foo $la` || exit
 IFS="$co"
 
-tricities='Batavia,Geneva,St. Charles,Saint Charles'
+tricities='Batavia,Geneva,St Charles'
 
 ab=red
 be=green
-#for co in 'St. Charles'; do
-for co in '!Aurora,North Aurora,Elgin,South Elgin,'"$tricities"\
-  'Aurora,North Aurora' 'Elgin,South Elgin' "$tricities"; do
-	for rs in 'Case Count' Death; do
+#for co in 'St Charles'; do
+for co in '!Aurora,N Aurora,Elgin,S Elgin,'"$tricities"\
+  'Aurora,N Aurora' 'Elgin,S Elgin' "$tricities"; do
+	for rs in '.*' 1; do
 		la="$co"
 		echo  "$rs $la" >&2
 
 		./totals select="$co" result="$rs" "$@" >totc
 		case "$rs" in
-		  'Case Count')
-			rs=cases
-			;;
-		  Death)
+		  1)
 			rs=deaths
+			;;
+		  *)
+			rs=cases
 			;;
 		esac
 

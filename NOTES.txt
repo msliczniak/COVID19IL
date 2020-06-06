@@ -11,7 +11,7 @@ $ cd ../..
 
 $ cd data/kane
 $ ./get
-$ ./run kane-20*.csv
+$ ./run report-*.csv
 $ mv -- *-*.png ../../plots/kane/
 $ cd ../..
 
