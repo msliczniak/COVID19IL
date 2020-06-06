@@ -22,7 +22,7 @@ case x"$p" in
 	exit
 	;;
 esac
->&2 printf '%s\n' "$p"
+printf '%s\n' "$p"
 
 # reverse order
 set -- `printf '%s\n' report-*.csv | #
@@ -43,7 +43,7 @@ exec <"$p" && rm "$p" && ./merge f="$1" >"$p"
 for i in "$@"; do
 	>&2 printf ': %s\n' "$i"
 	#exit
-	/bin/cp -p "$i" c
+	#/bin/cp -p "$i" c
 	exec <"$i" && rm "$i" && ./ndiff -q - "$p" | ./super | sort >"$i"
 	p="$i"
 done
