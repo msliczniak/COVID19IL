@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# run cron.sh from cron
+
+case $# in
+  1)
+	;;
+  *)
+	echo 'Usage: cron dir' >&2
+	exit 2
+	;;
+esac
+
+cd "$1" || exit
+
+>cron.log 2>&1 <&- exec ./cron.sh
