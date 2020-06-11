@@ -13,4 +13,9 @@ esac
 
 cd "$1" || exit
 
->cron.log 2>&1 <&- exec ./cron.sh
+>cron.log 2>&1 </dev/null exec || exit
+
+./cron.sh || exit
+
+git commit -am 'automated update' || exit
+exec git push
