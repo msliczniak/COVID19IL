@@ -23,7 +23,7 @@ for i in "$d"/??-??-????.csv; do
 	IFS=/; foo $i
 	IFS=.; bar $o
 	IFS=-; baz $o
-	../kane/conv "$i" >"$o"
+	[ "$o" -ot "$i" ] && ../kane/conv "$i" >"$o"
 done
 
 echo 'add ????-??-??-UTC.csv'
