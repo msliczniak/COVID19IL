@@ -18,3 +18,4 @@ curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o"
 found && /}/ { printf(": "); exit }
 !found { next } { printf("%s", $NF) }' "$o"
 /usr/bin/file -- "$o"
+[ -t 0 ] && echo "add $o" || git add -v -- "$o"
