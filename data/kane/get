@@ -100,7 +100,7 @@ curl -fsqLo daily -w 'status: %{http_code}\n' -- "$u" || exit
 
 ./conv daily >"$o"
 c=`./fix "$o"`
-/usr/bin/file -b -- "$o" $c
+/usr/bin/file -- "$o" $c
 [ -t 0 ] && echo "add $o" $c || git add -v "$o" $c
 
 exit
