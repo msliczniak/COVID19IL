@@ -27,4 +27,4 @@ for u in hosp\ $h \
 done
 
 /usr/bin/file -- $n
-[ -t 0 ] && echo "add *$o" || git add -v -- *$o
+[ -t 0 ] && echo add $n || git add -v -- $n
