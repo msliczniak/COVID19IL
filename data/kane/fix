@@ -49,7 +49,7 @@ for i in "$@"; do
 	>&2 printf ': %s\n' "$i"
 
 	./ndiff -q "$i" "$p" >c || exit
-	exec <c && rm "$i" && ./super | sort >c || exit
+	exec <c && rm c && ./super | sort >c || exit
 	mv c "$i" || exit
 
 	p="$i"
