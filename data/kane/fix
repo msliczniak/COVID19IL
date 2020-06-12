@@ -7,6 +7,10 @@ awk() {
 	/usr/bin/awk "$@"
 }
 
+mv() {
+	/bin/mv "$@"
+}
+
 rm() {
 	/bin/rm "$@"
 }
@@ -38,12 +42,15 @@ case $# in
 esac
 
 # correct erroneously zeroed ages
-exec <"$p" && rm "$p" && ./merge f="$1" >"$p"
+./merge f="$1" <"$p" >c || exit
+mv c "$p" || exit
 
 for i in "$@"; do
 	>&2 printf ': %s\n' "$i"
-	#exit
-	#/bin/cp -p "$i" c
-	exec <"$i" && rm "$i" && ./ndiff -q - "$p" | ./super | sort >"$i"
+
+	./ndiff -q "$i" "$p" >c || exit
+	exec <c && rm "$i" && ./super | sort >c || exit
+	mv c "$i" || exit
+
 	p="$i"
 done
