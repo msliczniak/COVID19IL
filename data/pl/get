@@ -7,8 +7,9 @@ curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o".html || exit
 ./json "$o".html >"$o".json || exit
 ./csv "$o".json || exit
 
-/usr/bin/awk -F, '{ printf("%s: add ", $NF); exit }' "$o".csv
+/usr/bin/awk -F, '{ printf("%s: ", $NF); exit }' "$o".csv
 /usr/bin/file -- "$o".json "$o".csv
+[ -t 0 ] && echo add "$o".json || git add -v "$o".json
 
 # https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_
 # coronavirus_pandemic_data/Poland_medical_cases
