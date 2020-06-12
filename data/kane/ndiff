@@ -3,7 +3,7 @@
 # ndiff is cubic worst-case, tear it down if need-be
 
 # give it 60s of CPU time
-ulimit -t 60 && ./ndiff.py "$@" && exit
+ulimit -t 60 && python2.7 ./ndiff.py "$@" && exit
 
 /bin/rm -f c
 kill $PPID
