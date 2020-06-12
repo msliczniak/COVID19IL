@@ -1,4 +1,4 @@
 #!/bin/sh
 
 ./get
-exec ./all
+exec /bin/sh -vx ./all
