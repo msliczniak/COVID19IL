@@ -23,7 +23,7 @@ u=`curl -qsL -- "$u" | awk -F\> 'tolower($1) ~ /^textarea / &&
 $1 ~ / id="tsConfigContainer"/ {
 	for (i = 2; i < NF; i++) printf("%s>", $i)
 	printf("%s", $i); exit
-}' RS=\< | python ./htmldecode | awk -F\" \
+}' RS=\< | python2.7 ./htmldecode | awk -F\" \
   '$2 == "sessionid" && $3 ~ /:/{ print $4; exit }' RS=,`
 
 case "$u" in
