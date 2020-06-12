@@ -1,3 +1,6 @@
+# cron test
+$ time /usr/bin/env -i SHELL=/bin/sh PATH=/usr/local/bin:/etc:/bin:/sbin:/usr/bin:/usr/sbin HOME="$HOME" LOGNAME="$LOGNAME" /home/mzs/text/git/COVID19IL/cron data/csse
+
 $ ./get
 $ ./run COVID19CountyResults-20*.json
 $ mv *-*.png ratio.png plots/

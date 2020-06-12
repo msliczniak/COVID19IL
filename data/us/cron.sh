@@ -72,4 +72,6 @@ echo '
 </body>
 </html>' | /bin/cat html index - >../../plots/us/index.html || exit
 
-echo 'add ../../plots/us/??-*.png'
+[ -t 0 ] &&\
+ echo 'add ../../plots/us/??-*.png' ||\
+ git add -v ../../plots/us/??-*.png
