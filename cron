@@ -6,11 +6,14 @@ case $# in
   1)
 	;;
   *)
-	echo 'Usage: cron dir' >&2
+	echo 'Usage: cron subdir' >&2
 	exit 2
 	;;
 esac
 
-cd "$1" || exit
+d=`/usr/bin/dirname "$0"`
+GIT_SSH_COMMAND='ssh -i '"$d"'-id_rsa';  export GIT_SSH_COMMAND
+
+cd "$d"'/'"$1" || exit
 
 >cron.log 2>&1 <&- exec ./cron.sh
