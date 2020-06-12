@@ -81,4 +81,4 @@ echo '
 
 [ -t 0 ] &&\
  echo 'add ../../plots/csse/*-*.png' ||\
- git add ../../plots/csse/*-*.png
+ git add -v ../../plots/csse/*-*.png
