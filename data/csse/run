@@ -106,6 +106,6 @@ for co in "$st"; do
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$co"-"$rs".png || exit; }
 
-		#exit
+		exit
 	done
 done
