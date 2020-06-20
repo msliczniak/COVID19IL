@@ -1,3 +1,9 @@
+# The linaear log log stats line is not a very good and it takes an order of
+# magnitude more estimations for the fit command to converge. It's just too
+# slow so I haev commented it out. It does do a decent job of showing where a
+# logistic curve switches between exponential and power law behavior.
+
+#printerr ARG1
 last = ARG2 + 0
 first = ARG3 + 0
 n = last - first
@@ -29,8 +35,9 @@ i = first
 j = j + 1
 #printerr i, j, k
 
-f(x) = P*r**x; set fit quiet; set fit logfile '/dev/null'
+f(x) = P*r**x; set fit logfile '/dev/null'; set fit quiet
 g(x) = x
+#h(x) = a*x**k; set fit errorvariables; #set fit prescale
 
 do for [n = first + k - 2 : last : last - first - k + 2] {
 	#printerr n
@@ -39,8 +46,28 @@ do for [n = first + k - 2 : last : last - first - k + 2] {
 		set xrange [i:j]
 		stats '' u 1:(log($2)) noout
 		r = exp(STATS_slope); P = exp(STATS_intercept)
+		#c = STATS_correlation
+		#c = STATS_intercept_err
+		#s = STATS_slope_err
+		#if (STATS_slope_err != 0) {
+		#	fit f(x) '' via r, P
+		#	c = FIT_STDFIT
+		#} else {
+		#	r_err = P_err = c = 0
+		#}
 		if (STATS_slope_err != 0) { fit f(x) '' via r, P }
-		print j - last, r, r * 100 - 100, P*r**j
+
+		#set xrange [log(i):log(j)]
+		#stats '' u (log($1)):(log($2)) noout
+		#k = STATS_slope; a = exp(STATS_intercept)
+		#set xrange [i:j]
+		#if (STATS_slope_err != 0) { fit h(x) '' via k, a }
+		#else { k_err = a_err = FIT_STDFIT = 0 }
+
+		print j - last, r, r*100 - 100, P*r**j\
+		#, P_err, a_err\
+		#, r_err, k_err, c, FIT_STDFIT, s, STATS_slope_err, a*j**k
+
 		i = g(i)
 		j = j + 1
 	}
@@ -59,3 +86,5 @@ plot [j - k:j][0:1]\
 'dday' u 1:(d/log($2)) sm bezier w point title 'time'\
 , '' u 1:3 sm bezier w point title 'rate'
 unset table; unset output
+
+#base = 9; offset = 1; plot '../../us/dday' u 1:(column(base)) w linespoints, '' u 1:(column(base + offset)) w linespoints, '' u 1:(column(base) - column(base + offset)) ax x1y2 sm bezier
