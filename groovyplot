@@ -1,0 +1,7 @@
+set autoscale fix
+plot 'bar' sm bezier, '' w points, 'foo' ax x2y1 w line
+set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
+set logscale x
+set logscale x2
+set logscale y
+replot
