@@ -1,7 +1,54 @@
+set table '/dev/null'
+
 set autoscale fix
-plot 'bar' sm bezier, '' w points, 'foo' ax x2y1 w line
+plot 'bar' sm bezier notitle, '' sm mcspline notitle\
+, 'foo' ax x1y2 sm mcspline notitle#, '' ax x1y2 w line notitle
+
+unset table
+set samples 50000
+set terminal pngcairo size 1640,440
+set output 'b.png'
+
+set rmargin 0
+
+set multiplot
+
+set size .66,1
+set origin 0,0
+
 set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
-set logscale x
-set logscale x2
-set logscale y
+set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN]
+set logscale xy
+set logscale xy2
+set y2tics out
+set grid y2
+set grid x
 replot
+
+unset rmargin
+set table '/dev/null'
+set samples 100
+set yrange [*:*]
+set y2range [*:*]
+unset logscale xy
+unset logscale xy2
+
+stats 'bar60' u (log($1)):(log($2)) noout
+
+plot 'bar60' sm bezier notitle, '' sm mcspline notitle\
+, 'foo60' ax x1y2 sm mcspline notitle#, '' ax x1y2 w line notitle
+
+unset table
+set samples 5000
+
+set size .34,1
+set origin .66,0
+
+set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
+if (STATS_slope < 0) { set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX] }
+else { set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN] }
+set logscale xy
+set logscale xy2
+replot
+
+unset multiplot
