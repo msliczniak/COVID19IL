@@ -1,42 +1,41 @@
 set table '/dev/null'
 
 set autoscale fix
-plot 'bar' sm bezier notitle, '' sm mcspline notitle\
-, 'foo' ax x1y2 sm mcspline notitle#, '' ax x1y2 w line notitle
+plot 'foo' u 1:3 notitle, '' ax x1y2 notitle
 
 unset table
 set samples 50000
 set terminal pngcairo size 1640,440
 set output 'b.png'
 
-set rmargin 0
-
 set multiplot
 
 set size .66,1
 set origin 0,0
 
+set xlabel ARG1 . ' total cases (filtered)'
+set ylabel 'daily increase'
+set key horizontal bottom center
 set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
 set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN]
-set logscale xy
-set logscale xy2
+set logscale
 set y2tics out
-set grid y2
 set grid x
-replot
+set grid y
+plot '' u 1:3 sm bezier title 'daily v. total', '' u 1:3 sm mcspline notitle\
+, '' ax x1y2 sm mcspline title 'day v. total'
 
-unset rmargin
+unset ylabel
+set lmargin 0
 set table '/dev/null'
 set samples 100
 set yrange [*:*]
 set y2range [*:*]
-unset logscale xy
-unset logscale xy2
+unset logscale
 
-stats 'bar60' u (log($1)):(log($2)) noout
-
-plot 'bar60' sm bezier notitle, '' sm mcspline notitle\
-, 'foo60' ax x1y2 sm mcspline notitle#, '' ax x1y2 w line notitle
+stats 'bar' u (log($1)):(log($3)) noout
+f(x) = STATS_slope*x + STATS_intercept
+plot '' u 1:3 notitle, '' ax x1y2 notitle
 
 unset table
 set samples 5000
@@ -44,11 +43,20 @@ set samples 5000
 set size .34,1
 set origin .66,0
 
+set ytics format ''
+set y2tics format ''
+set y2tics add ('0' 60)
+set y2tics add ('-30' 30)
+set y2tics add ('-50' 10)
+set y2tics add ('-55' 5)
+set y2tics add ('-59' 1)
+set xlabel 'total cases (corrected)'
+set y2label 'day since'
 set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
 if (STATS_slope < 0) { set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX] }
 else { set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN] }
-set logscale xy
-set logscale xy2
-replot
+set logscale
+plot '' u 1:3 sm bezier notitle, '' u 1:3 sm mcspline notitle\
+, '' ax x1y2 sm mcspline notitle#, f(x) lt 1 dt '.' notitle
 
 unset multiplot
