@@ -110,11 +110,14 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		../../label dday >labels
 
 		ta="$ta ="
-		/bin/rm -f a.png "$co"-"$rs".png || exit
+		of="$co"-"$rs"
+		/bin/rm -f a.png b.png "$of".png "$of"_g.png || exit
 		gnuplot -d l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
-		{ /bin/mv a.png "$co"-"$rs".png || exit; }
+		{ /bin/mv a.png "$of".png || exit; }
+		../../groovy "$rs $co $da" || exit
+		/bin/mv b.png "$of"_g.png || exit
 
 		#exit
 	done
@@ -123,6 +126,7 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 done
 
 /bin/mv 'Cała Polska-badań.png' tested.png || exit
+/bin/mv 'Cała Polska-badań_g.png' tested_g.png || exit
 
 awk '{ print $0, "t"}' toti | sort -m totc - | awk '
 d != $1 && t > 0 && c > 0 {

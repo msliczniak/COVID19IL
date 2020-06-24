@@ -23,7 +23,7 @@ $ cd data/pl
 $ find . -maxdepth 1 -name '*.json' -exec ./csv '{}' \;     # first time
 $ ./get
 $ ./run 20*.csv
-$ mv *-*.png ratio.png tested.png ../../plots/pl/
+$ mv *-*.png ratio.png tested.png tested_g.png ../../plots/pl/
 $ cd ../..
 
 $ cd data/kane

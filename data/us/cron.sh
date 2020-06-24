@@ -50,6 +50,13 @@ do
 	printf '<a name="%s" id="%s" href="#C%s">' $i $i $i >>index
 
 	for j in "$@"; do
+		case "$j" in
+		  *_g.png)
+			printf '<img'"$bg $wh" "$j" >>index
+			continue
+			;;
+		esac
+
 		printf '<img title="%s"'"$bg $wh" "`/bin/cat "$j".txt`" "$j"\
 		  >>index
 		/bin/rm -f "$j".txt

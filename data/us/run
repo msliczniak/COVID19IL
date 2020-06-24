@@ -145,13 +145,14 @@ for co in "$st"; do
 
 		../../label dday >labels
 
-		of="$of".png
-		/bin/rm -f a.png "$of" || exit
+		/bin/rm -f a.png b.png "$of".png "$of"_g.png || exit
 		gnuplot -d ../../l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca" "$ab" "$be" &&\
-		{ /bin/mv a.png "$of" || exit; }
+		{ /bin/mv a.png "$of".png || exit; }
 		awk -F+ '$2 != "0-0" { print } END { print t }'\
-		  t="$da $la $pa $di" x2tics.txt >"$of".txt || exit
+		  t="$da $la $pa $di" x2tics.txt >"$of".png.txt || exit
+		../../groovy "$rs $co $da" || exit
+		/bin/mv b.png "$of"_g.png || exit
 
 		#exit
 	done

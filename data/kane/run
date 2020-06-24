@@ -93,11 +93,14 @@ for co in '!Aurora,N Aurora,Elgin,S Elgin,'"$tricities"\
 
 		../../label dday >labels
 
-		/bin/rm -f a.png "$co"-"$rs".png || exit
+		of="$co"-"$rs"
+		/bin/rm -f a.png b.png "$of".png "$of"_g.png || exit
 		gnuplot -d ../../l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
-		{ /bin/mv a.png "$co"-"$rs".png || exit; }
+		{ /bin/mv a.png "$of".png || exit; }
+		../../groovy "$rs $co $da" || exit
+		/bin/mv b.png "$of"_g.png || exit
 
 		#exit
 	done

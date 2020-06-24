@@ -1,19 +1,69 @@
 set table '/dev/null'
-
 set autoscale fix
-plot 'foo' u 1:3 notitle, '' ax x1y2 notitle
+
+stats 'bar' u (log($1)):(log($3)) noout
+f(x) = exp(STATS_intercept)*x**STATS_slope
+plot '' u 1:3 notitle, '' ax x1y2 notitle
 
 unset table
-set samples 50000
-set terminal pngcairo size 1640,440
+set samples 10000
+set terminal pngcairo size 1640,440 transparent
 set output 'b.png'
+set border back lc rgbcolor 'gray'
 
 set multiplot
+
+set size .34,1
+set origin .66,0
+
+set lmargin 0
+set ytics format ''
+set y2tics format ''
+set y2tics add ('0' 60)
+set y2tics add ('-30' 30)
+set y2tics add ('-50' 10)
+set y2tics add ('-55' 5)
+set y2tics add ('-59' 1)
+set xlabel 'corrected total'
+set y2label 'day since'
+set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
+if (STATS_slope < 0) { set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX] }
+else { set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN] }
+set logscale
+plot '' u 1:3 sm bezier notitle, '' u 1:3 sm mcspline notitle\
+, '' ax x1y2 sm mcspline notitle, f(x) lt 0 lc 1 notitle
 
 set size .66,1
 set origin 0,0
 
-set xlabel ARG1 . ' total cases (filtered)'
+set obj 1\
+ rect from GPVAL_X_MIN,GPVAL_Y_MIN to GPVAL_X_MAX,GPVAL_Y_MAX\
+ fs empty border lc rgbcolor 'gray' bgnd back
+
+xmin = GPVAL_X_MIN
+xmax = GPVAL_X_MAX
+ymin = GPVAL_Y2_MIN
+ymax = GPVAL_Y2_MAX
+
+unset y2label
+set table '/dev/null'
+set samples 100
+set yrange [*:*]
+set y2range [*:*]
+unset logscale
+
+plot 'foo' u 1:3 notitle, '' ax x1y2 notitle
+
+set obj 2\
+ rect from xmin,second GPVAL_Y2_MAX - ymin to xmax,second GPVAL_Y2_MAX - ymax\
+ fs empty border lc rgbcolor 'gray' bgnd back
+
+unset table
+set samples 50000
+unset lmargin
+set ytics format '%h' auto
+set y2tics format '%h' auto
+set xlabel 'filtered total ' . ARG1
 set ylabel 'daily increase'
 set key horizontal bottom center
 set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
@@ -24,39 +74,5 @@ set grid x
 set grid y
 plot '' u 1:3 sm bezier title 'daily v. total', '' u 1:3 sm mcspline notitle\
 , '' ax x1y2 sm mcspline title 'day v. total'
-
-unset ylabel
-set lmargin 0
-set table '/dev/null'
-set samples 100
-set yrange [*:*]
-set y2range [*:*]
-unset logscale
-
-stats 'bar' u (log($1)):(log($3)) noout
-f(x) = STATS_slope*x + STATS_intercept
-plot '' u 1:3 notitle, '' ax x1y2 notitle
-
-unset table
-set samples 5000
-
-set size .34,1
-set origin .66,0
-
-set ytics format ''
-set y2tics format ''
-set y2tics add ('0' 60)
-set y2tics add ('-30' 30)
-set y2tics add ('-50' 10)
-set y2tics add ('-55' 5)
-set y2tics add ('-59' 1)
-set xlabel 'total cases (corrected)'
-set y2label 'day since'
-set yrange [GPVAL_Y_MIN:GPVAL_Y_MAX]
-if (STATS_slope < 0) { set y2range [GPVAL_Y2_MIN:GPVAL_Y2_MAX] }
-else { set y2range [GPVAL_Y2_MAX:GPVAL_Y2_MIN] }
-set logscale
-plot '' u 1:3 sm bezier notitle, '' u 1:3 sm mcspline notitle\
-, '' ax x1y2 sm mcspline notitle#, f(x) lt 1 dt '.' notitle
 
 unset multiplot

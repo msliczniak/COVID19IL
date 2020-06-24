@@ -36,6 +36,7 @@ do
 	  "$rok")
 		for i in cases deaths active recovered; do
 			2>/dev/null /bin/mv "$rok"-"$i".png ROK-"$i".png
+			2>/dev/null /bin/mv "$rok"-"$i"_g.png ROK-"$i"_g.png
 		done
 		;;
 	esac
