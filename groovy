@@ -37,5 +37,8 @@ END {
 	}
 }' dday >bar
 
-exec gnuplot -c "$0"plot "$@"
+/bin/rm -f bl.png br.png || exit
+gnuplot -c "$0"plot "$@" || exit
+exec convert bl.png br.png +append +repage b.png
+
 # for i in AZ IL CA NY FL;do ./run $i *-US.csv;../../groovy;mv b.png $i.png;done

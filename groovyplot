@@ -6,15 +6,23 @@ f(x) = exp(STATS_intercept)*x**STATS_slope
 plot '' u 1:3 notitle, '' ax x1y2 notitle
 
 unset table
-set samples 10000
-set terminal pngcairo size 1640,440 transparent
-set output 'b.png'
 set border back lc rgbcolor 'gray'
+set samples 10000
 
-set multiplot
+# There is a bug with 'set origin' on FreeBSD, it does not shift the text
+# clipping region. EPS works properly but then ghostscript versions matter for
+# how to handle the alpha-channel when creating the PNG. Instead just create two
+# PNG files and use ImageMagick in a shell script to create the final file.
+#set terminal pngcairo size 1640,440 transparent
 
-set size .34,1
-set origin .66,0
+# create right hand side
+set terminal pngcairo size 440,440 transparent
+set output 'br.png'
+
+#set multiplot
+
+#set size .34,1
+#set origin .66,0
 
 set lmargin 0
 set ytics format ''
@@ -33,8 +41,8 @@ set logscale
 plot '' u 1:3 sm bezier notitle, '' u 1:3 sm mcspline notitle\
 , '' ax x1y2 sm mcspline notitle, f(x) lt 0 lc 1 notitle
 
-set size .66,1
-set origin 0,0
+#set size .66,1
+#set origin 0,0
 
 set obj 1\
  rect from GPVAL_X_MIN,GPVAL_Y_MIN to GPVAL_X_MAX,GPVAL_Y_MAX\
@@ -72,7 +80,11 @@ set logscale
 set y2tics out
 set grid x
 set grid y
+
+set terminal pngcairo size 1200,440 transparent
+set output 'bl.png'
+
 plot '' u 1:3 sm bezier title 'daily v. total', '' u 1:3 sm mcspline notitle\
 , '' ax x1y2 sm mcspline title 'day v. total'
 
-unset multiplot
+#unset multiplot
