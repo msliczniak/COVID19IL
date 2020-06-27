@@ -1,0 +1,74 @@
+#!/bin/sh
+
+awk() {
+	/usr/bin/awk "$@"
+}
+
+sort() {
+	/usr/bin/sort "$@"
+}
+
+# generate test positivity
+awk '{ print $1, "~", $2, $3 }' toti | sort -m - mtotc | # all time and per fit
+awk '$2 == "~" { # total tests line
+	if (raw0 == raw) next # If there were no new cases, advance
+	printf("%s %s %f", $1, $4, raw/$3*100)
+	raw0 = raw
+
+	if (fit == "") { # if there was not a best fit leave blank
+		printf("\n")
+		next
+	}
+
+	tot = $3 - tot
+	if (tot <= 0) { # if total tests decreased, pick-up from the next day
+		printf("\n")
+		tot = $3
+		next
+	}
+
+	percent = fit - fit0 # record percent
+	if (percent > 0) {
+		percent = percent/tot*100
+		printf(" %f", percent)
+		fit0 = fit
+	}
+
+	printf("\n")
+	tot = $3
+	next
+}
+
+{ raw = $2 }
+
+NF > 2 { fit = $3 }
+
+END { # duplicate last for nicer bezier curve
+	if (NF > 1 && percent > 0) printf("%s-24 = = %f\n", $1, percent)
+}' >pos
+
+# determine day span
+span=`awk 'NR == 1 { i = $2 } $2 != "=" { j = $2 } END { print j - i }' pos`
+
+# gen labels similarly to label script file
+awk 'NR == 1 {
+	step = int(step/31) + 1
+	last = $2
+}
+
+$2 == "=" || NF < 4 || $4 == "=" { next }
+
+# consider length of string
+(($2 - last) >= (int(log($4)/log(1000)) + step)) {
+	printf("%s %s ", $1, $4)
+
+	if ($4 > v) printf("\"\" ")
+
+	if ($4 >= 10) printf("\"%.1f^{_%%}\"\n", $4)
+	else if ($4 >= 1) printf("\"%.2f^{_%%}\"\n", $4)
+	else printf("\".%03d^{_%%}\"\n", int($4*1000 + .5 ))
+
+	last = $2
+}
+
+{ v = $4 }' step="$span" pos >posl
