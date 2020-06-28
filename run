@@ -36,21 +36,6 @@ da=`foo $la` || exit
 IFS="$co"
 
 g0=Illinois
-
-awk '/state_testing_results/ { F = 1 } F { print }' "$la" >\%chg
-/bin/rm -f ratio.png tested || exit
-co=`awk '$1 ~ /"total_tested":$/ { print $2 >f; t++ }
-END { print int(t/32) + 1 }' RS=, f=tested \%chg`
-awk '$1 ~ /"confirmed_cases":$/ { print $2 }' RS=, \%chg >total
-awk '$(NF - 1) ~ /"testDate":$/ { print $NF }' RS=, \%chg | \
-  paste - total tested | >ratio awk '$3 > 0 {
-	L = 100 * $2 / $3; printf("%s %s", $1, L); i++
-	if (i >= n) { i = 0; printf(" %.1f", L) }
-	printf("\n") }' n="$co"
-co=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
-gnuplot l.gp -c ratioplot "$da $g0"' 5 sample test-positivity rate '"$co" ||\
-   exit
-
 g1='Chicago,Cook'
 g2='McHenry,Lake,Kane,DuPage,Kendall,Will,Grundy,Kankakee'
 g3='Winnebago,Boone,DeKalb,Ogle'
@@ -71,19 +56,7 @@ be=green
 #ot=Cook; ev=ot; IFS=,; for co in "$g1" $g2; do
 for co in "$cg" "$g1" "$g2" "$g3" "$g4" "$g5" "$g6" "$g7" "$g8" "$g0"; do
 	eval la="\$$ev"; ev=co
-	for rs in 'confirmed cases' deaths 'total tested'; do
-		# no tested totals per county
-		case "$la"-"$rs" in
-		  Illinois-total*)
-		        # change sense
-			ab=green
-		        be=red
-			;;
-		  *-total*)
-			break
-			;;
-		esac
-
+	for rs in 'confirmed cases' deaths; do
 		echo  "$rs $la" >&2
 		./totals select="$co" result="$rs" "$@" >totc
 

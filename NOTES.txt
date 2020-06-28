@@ -17,7 +17,7 @@ PATH=/usr/local/bin:/etc:/bin:/sbin:/usr/bin:/usr/sbin
 
 $ ./get
 $ ./run COVID19CountyResults-20*.json
-$ mv *-*.png ratio.png plots/
+$ mv *-*.png plots/
 
 $ cd data/pl
 $ find . -maxdepth 1 -name '*.json' -exec ./csv '{}' \;     # first time

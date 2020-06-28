@@ -15,9 +15,9 @@ set table '/dev/null'
 set clip two
 plot 'pos' u 1:3 w points notitle, '' u 2:4 ax x2y1 w points notitle
 
-set xrange   [GPVAL_X_MIN:GPVAL_X_MAX]
-set x2range  [GPVAL_X_MIN:GPVAL_X_MAX]
-set yrange   [GPVAL_Y_MIN:GPVAL_Y_MAX]
+set xrange  [GPVAL_X_MIN:GPVAL_X_MAX]
+set x2range [GPVAL_X_MIN:GPVAL_X_MAX]
+set yrange  [GPVAL_Y_MIN < .001 ? .001 : GPVAL_Y_MAX]
 
 unset table
 set terminal pngcairo size 1640,440 transparent
