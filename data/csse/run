@@ -1,8 +1,5 @@
 #!/bin/sh
 
-#d=-dpng
-d='-dpngcairo size 820,440'
-
 awk() {
 	/usr/bin/awk "$@"
 }

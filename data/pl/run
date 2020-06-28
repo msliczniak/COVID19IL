@@ -1,8 +1,5 @@
 #!/bin/sh
 
-#d=-dpng
-d='-dpngcairo size 820,440'
-
 awk() {
 	/usr/bin/awk "$@"
 }
@@ -128,29 +125,7 @@ done
 /bin/mv 'Cała Polska-badań.png' tested.png || exit
 /bin/mv 'Cała Polska-badań_g.png' tested_g.png || exit
 
-awk '{ print $0, "t"}' toti | sort -m totc - | awk '
-d != $1 && t > 0 && c > 0 {
-	print d, c * 100 / t, n
-	n++
-} 
-
-{ d = $1 }
-
-NF == 4 { t = $2 }
-
-NF == 3 { c = $2; n = $3 }
-
-END {
-	print $1, c * 100 / t, n
-}' | awk '{
-	printf("\"%s/%s/%s\" %s %s\n",
-	  substr($1, 6, 2), substr($1, 9, 2), substr($1, 1, 4), $2, $3) }' >tott
-awk '{
-	printf("%s %s", $1, $2); i++
-	if (i >= n) { i = 0; printf(" %.1f", $2) }
-	printf("\n")
-}' n=`awk 'NR == 1 { i = $3 } END { print int(($3 - i)/32) + 1 }' tott`\
-  tott >ratio
-ti=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
-gnuplot l.gp -c ../../ratioplot\
+../../positivity
+ti=`tail -6 pos|awk 'NR == 6 {exit} { t += $4 } END { printf("%.1f", t / 5) }'`
+gnuplot l.gp -c ../../ratios\
   "$da $co"' liczba/badań '"$ti"'% 5 prób' || exit
