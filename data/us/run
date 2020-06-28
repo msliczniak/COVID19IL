@@ -108,14 +108,15 @@ for co in "$st"; do
 		awk 'NF == 3 { print $3, $2, $1 }' tot >"$tc"
 
 		awk '{ print $3 - n, $2 - t, $1; t = $2 }' n="$di" "$tc" >daily
-		tc=toti
 
 		# gen dday & table
 		gnuplot -d -c ../../stats tot "$di" `awk 'NR == 1 {
 		print $1; exit }' tot`
 
 		# gen ftot
-		../../match dday tot | ../../step >ftot
+		../../match dday tot >m"$tc"
+		../../step m"$tc" >ftot
+		tc=toti
 
 		# percentage
 		pa=`awk 'END { printf("%.1f%%", $3) }' dday`
@@ -158,23 +159,9 @@ done
 /bin/rm -f x2tics.txt || exit
 
 /bin/rm -f tot ratio.png "$co"-5r.png || exit
-awk '{
-	printf("\"%s/%s/%s\" %s",
-	  substr($1, 6, 2), substr($1, 9, 2), substr($1, 1, 4), $2); i++
-	if (i >= n) { i = 0; printf(" %.1f", $2) }
-	printf("\n")
-}' n=`awk '{ print $0, "t" }' toti | sort -mnk3 totc - | awk 'd != $1 && t > 0 {
-	print d, c * 100 / t >"tot"
-	d = $1; n++
-} 
-
-NF == 4 { t = $2 }
-
-NF == 3 { c = $2 }
-
-END { print int(n/32) + 1 }'` tot >ratio
-ti=`tail -5 ratio | awk '{ t += $2 } END { printf("%.1f", t / NR) }'`
-gnuplot ../../l.gp -c ../../ratioplot\
+../../positivity
+ti=`tail -6 pos|awk 'NR == 6 {exit} { t += $4 } END { printf("%.1f", t / 5) }'`
+gnuplot ../../l.gp -c ../../ratios\
   "$da $co"' 5 sample test-positivity rate '"$ti" || exit
 /bin/mv ratio.png "$co"-5r.png || exit
 printf '%s' "$da $co"' 5 sample test-positivity rate '"$ti" >"$co"-5r.png.txt

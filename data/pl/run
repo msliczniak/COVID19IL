@@ -72,14 +72,15 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		awk 'NF == 3 { print $3, $2, $1 }' tot >"$tc"
 
 		awk '{ print $3 - n, $2 - t, $1; t = $2 }' n="$di" "$tc" >daily
-		tc=toti
 
 		# gen dday & table
 		gnuplot -d -c ../../stats tot "$di" `awk 'NR == 1 {
 		print $1; exit }' tot`
 
 		# gen ftot
-		../../match dday tot | ../../step >ftot
+		../../match dday tot >m"$tc"
+		../../step m"$tc" >ftot
+		tc=toti
 
 		# percentage
 		pa=`awk 'END { printf("%.1f%%", $3) }' dday`
