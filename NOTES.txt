@@ -8,7 +8,7 @@ SHELL=/bin/sh
 PATH=/usr/local/bin:/etc:/bin:/sbin:/usr/bin:/usr/sbin
 # Order of crontab fields
 # min	hour	mday	month	wday	command
-30	4	*	*	*	path/COVID19IL/cron data/pl
+0	10	*	*	*	path/COVID19IL/cron data/pl
 0	15	*	*	*	path/COVID19IL/cron .
 5	15	*	*	*	path/COVID19IL/cron data/idph
 0	17	*	*	*	path/COVID19IL/cron data/kane

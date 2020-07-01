@@ -39,19 +39,26 @@ la='|lubuskie|małopolskie|podkarpackie'
 for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
   'pomorskie|zachodniopomorskie|kujawsko-pomorskie|warmińsko-mazurskiei' \
   'łódzkie|wielkopolskie|dolnośląskie|opolskie|śląskie'"$la" 'Cała Polska' ; do
+	la="$co"
 	tc=totc
 	for rs in 'liczba' 'liczba zgonów' 'badań'; do
-		case "$co"-"$rs" in
+		# sometimes total is only daily increase from Ministry
+		# sum the individual regions for the totals
+		case "$la"-"$rs" in
 		  *Polska-bad*)
 			ab=green
 			be=red
+			co="!$la"
+			;;
+		  *Polska-*)
+			co="!$la"
 			;;
 		  *-bad*)
 			continue
 			;;
 		esac
 
-		la=`foo $co`
+		la=`foo $la`
 		echo  "$rs $la" >&2
 
 		case "$rs" in
@@ -108,13 +115,13 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 		../../label dday >labels
 
 		ta="$ta ="
-		of="$co"-"$rs"
+		of="$la"-"$rs"
 		/bin/rm -f a.png b.png "$of".png "$of"_g.png || exit
 		gnuplot -d l.gp -c ../../trends\
 		  "$da $la $pa $di" "$ta $rs" "$ca"\
 		  "$ab" "$be" && \
 		{ /bin/mv a.png "$of".png || exit; }
-		../../groovy "$rs $co $da" || exit
+		../../groovy "$rs $la $da" || exit
 		/bin/mv b.png "$of"_g.png || exit
 
 		#exit
@@ -129,4 +136,4 @@ done
 ../../positivity
 ti=`tail -6 pos|awk 'NR == 6 {exit} { t += $4 } END { printf("%.1f", t / 5) }'`
 gnuplot l.gp -c ../../ratios\
-  "$da $co"' liczba/badań '"$ti"'% 5 prób' || exit
+  "$da $la"' liczba/badań '"$ti"'% 5 prób' || exit
