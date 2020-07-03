@@ -28,6 +28,28 @@ curl -sqL -- "$u" | /usr/bin/tr -d \\r >"$o".html || exit
 # curprev 12:33, 4 May 2020 Tariqabjotu talk contribs m  76,690 bytes 0
 # Tariqabjotu moved page Template:2019–20 coronavirus pandemic data/Poland medical cases to Template:COVID-19 pandemic data/Poland medical cases: consistency with move at COVID-19 pandemic undo
 
+# wikipedia seems to have moved Poland to the less informative plots provided
+# for other countries, use Michał Rogalski's google sheet instead now:
+# micalrg@gmail.com www.micalrg.pl facebook.com/micalrg.graf twitter.com/micalrg
+# http://bit.ly/covid19-poland
+# https://docs.google.com/spreadsheets/d/
+#  1ierEhD6gcq51HAm433knjnVwey4ZE5DCnu1bW7PRG3E/
+
+# how to get CSV
+# https://docs.google.com/spreadsheets/d/DOCUMENT_ID/export?exportFormat=csv
+# https://webapps.stackexchange.com/a/91671
+# https://stackoverflow.com/a/48658861
+# https://stackoverflow.com/questions/33713084/
+#  download-link-for-google-spreadsheets-csv-export-with-multiple-sheets#
+#  comment59613928_33727897
+
+u='gviz/tq?tqx=out:csv&sheet=Testy'
+u='1ierEhD6gcq51HAm433knjnVwey4ZE5DCnu1bW7PRG3E/'"$u"
+u='https://docs.google.com/spreadsheets/d/'"$u"
+curl -fSsqLo sheet -- "$u" && ../kane/conv sheet >sheet.csv
+
+# might as well still try and get the latest from wikimedia
+
 # https://en.wikipedia.org/wiki/Statistics_of_the_COVID-19_pandemic_in_Poland
 
 u='&intestactions=edit&intestactionsdetail=full'

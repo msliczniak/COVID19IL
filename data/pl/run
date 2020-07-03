@@ -63,7 +63,7 @@ for co in 'mazowieckie|podlaskie|lubelskie|świętokrzyskie' \
 
 		case "$rs" in
 		  bad*)
-			./totalw wiki.csv >"$tc"
+			./totalw sheet.csv >"$tc"
 			../../filter "$tc" >tot
 			;;
 		  *)

@@ -1,10 +1,10 @@
 #!/usr/bin/awk -f
 
-# values from wiki.csv
+# values from sheet.csv
 
 BEGIN {
-	FS = "|"
-	k = "^tested"
+	FS = ","
+	k = "suma wykonanych "
 }
 
 function which(k, i) {
@@ -14,12 +14,32 @@ function which(k, i) {
 }
 
 NR == 1 {
-	i = which("date")
+	i = which("data")
 	j = which(k)
 	next
 }
 
 $j > t {
+	# record last total
 	t = $j
-	print $i, t, NR
+	gsub(/[^0-9]/, "", t)
+	t += 0
+
+	# split date d.mm.[yy]yy
+	n = split($i, a, /[^0-9]+/)
+
+	# turn into numbers to not have to worry about leading zero
+	a[1] += 0; a[2] += 0
+
+	if (n < 3) {
+		# earliest is 02.03.2020
+		if (a[2] > 3 ||  a[2] == 3 && a[1] >= 2) a[3] = 2020
+		else a[3] = 2021
+	} else {
+		a[3] += 0
+
+		if (a[3] < 100) a[3] += 2000
+	}
+
+	printf("%04d-%02d-%02d %d %d\n", a[3], a[2], a[1], t, NR)
 }
