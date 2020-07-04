@@ -48,7 +48,7 @@ u='1ierEhD6gcq51HAm433knjnVwey4ZE5DCnu1bW7PRG3E/'"$u"
 u='https://docs.google.com/spreadsheets/d/'"$u"
 curl -fSsqLo sheet -- "$u" && ../kane/conv sheet >sheet.csv
 
-# might as well still try and get the latest from wikimedia
+exit 0
 
 # https://en.wikipedia.org/wiki/Statistics_of_the_COVID-19_pandemic_in_Poland
 
