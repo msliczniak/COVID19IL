@@ -1,4 +1,4 @@
-*9+ ,Data,Suma przebadanych osób,Nowe przebadne osoby,Suma wykonanych testów,Dobowa liczba wykonanych testów,Zmiana dobowej liczby testów,Zmiana % dobowej liczby testów,Liczba testów na milion obywateli,Suma osób z wynikiem pozytywnym,Dobowa liczba osób z wynikiem pozywnym,% osób z wynikiem pozytywnym (w ogólnej liczbie testów),% osób z wynikiem pozytywnym (w ogólnej liczbie przebadanych osób),dobowy % osób z wynikiem pozytywnym (w dobowej liczbie testów),dobowy % osób z wynikiem pozytywnym (w dobowej liczbie nowych przebadanych osób),Suma wyników negatywnych i powtórnie pozytywnych,Wyniki negatywne i powtórne pozywyne,,Tygodniowa średnia dobowej liczby testów,Tygodniowa średnia dobowego % wyników pozytywnych,,Trzydniowa średnia dobowej liczby testów,Trzydniowa średnia dobowego % wyników pozytywnych
+,Data,Suma przebadanych osób,Nowe przebadne osoby,Suma wykonanych testów,Dobowa liczba wykonanych testów,Zmiana dobowej liczby testów,Zmiana % dobowej liczby testów,Liczba testów na milion obywateli,Suma osób z wynikiem pozytywnym,Dobowa liczba osób z wynikiem pozywnym,% osób z wynikiem pozytywnym (w ogólnej liczbie testów),% osób z wynikiem pozytywnym (w ogólnej liczbie przebadanych osób),dobowy % osób z wynikiem pozytywnym (w dobowej liczbie testów),dobowy % osób z wynikiem pozytywnym (w dobowej liczbie nowych przebadanych osób),Suma wyników negatywnych i powtórnie pozytywnych,Wyniki negatywne i powtórne pozywyne,,Tygodniowa średnia dobowej liczby testów,Tygodniowa średnia dobowego % wyników pozytywnych,,Trzydniowa średnia dobowej liczby testów,Trzydniowa średnia dobowego % wyników pozytywnych
 ,02.03,,,559,,,,14:6,0,0,0:00%,,0:00%,,559,,,138,1:40%,,59,1:33%
 ,03.03,,,584,25,25,0:00%,15:2,1,1,0:17%,,4:00%,,583,24,,,,,,
 ,04.03,,,676,92,67,268:00%,17:7,1,0,0:15%,,0:00%,,675,92,,,,,,
@@ -153,7 +153,8 @@
 ,31.07,1952836,21262,2273553,28385,-6 742,-19:19%,59361:7,46346,658,2:04%,2:37%,2:32%,3:09%,2227207,27727,,,,,,
 ,01.08,1969570,16734,2297427,23874,-4 511,-15:89%,59985:0,46894,548,2:04%,2:38%,2:30%,3:27%,2250533,23326,,,,,,
 ,02.08,1980641,11071,2315210,17783,-6 091,-25:51%,60449:3,47469,575,2:05%,2:40%,3:23%,5:19%,2267741,17208,,,,,25 753,2:59%
-,03.08,1999529,18888,2341039,25829,8 046,45:25%,61123:7,48149,680,2:06%,2:41%,2:63%,3:60%,2292890,25149,,30 201,2:39%,,,
+,03.08,1999529,18888,2341039,25829,8 046,45:25%,61123:7,48149,680,2:06%,2:41%,2:63%,3:60%,2292890,25149,,28 540,2:68%,,,
 ,04.08,2027951,28422,2374686,33647,7 818,30:27%,62002:2,48789,640,2:05%,2:41%,1:90%,2:25%,2325897,33007,,,,,,
-,05.08,2049229,21278,2403336,28650,-4 997,-14:85%,62750:3,49515,726,2:06%,2:42%,2:53%,3:41%,2353821,27924,,,,,30 663,2:50%
+,05.08,2049229,21278,2403336,28650,-4 997,-14:85%,62750:3,49515,726,2:06%,2:42%,2:53%,3:41%,2353821,27924,,,,,27 742,2:95%
 ,06.08,2074473,25244,2436012,32676,4 026,14:05%,63603:4,50324,809,2:07%,2:43%,2:48%,3:20%,2385688,31867,,,,,,
+odjęto 230 tys. błędnie zaraportowanych próbek przez WSSE Kielce,07.08,2102780,28307,2199085,21900,-10 776,-32:98%,57417:4,51167,843,2:33%,2:43%,3:85%,2:98%,2147918,21057,,,,,,
