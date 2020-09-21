@@ -15,6 +15,11 @@ PATH=/usr/local/bin:/etc:/bin:/sbin:/usr/bin:/usr/sbin
 0	18	*	*	*	path/COVID19IL/cron data/us
 30	23	*	*	*	path/COVID19IL/cron data/csse
 
+# run with NOHUP so you can logout
+$ >&- 2>&- /usr/bin/env -i SHELL=/bin/sh\
+ PATH=/usr/local/bin:/etc:/bin:/sbin:/usr/bin:/usr/sbin HOME="$HOME"\
+ LOGNAME="$LOGNAME" ./cron data/pl
+
 $ ./get
 $ ./run COVID19CountyResults-20*.json
 $ mv *-*.png plots/
