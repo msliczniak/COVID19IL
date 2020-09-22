@@ -18,7 +18,7 @@ PATH=/usr/local/bin:/etc:/bin:/sbin:/usr/bin:/usr/sbin
 # run with NOHUP so you can logout
 $ >&- 2>&- /usr/bin/env -i SHELL=/bin/sh\
  PATH=/usr/local/bin:/etc:/bin:/sbin:/usr/bin:/usr/sbin HOME="$HOME"\
- LOGNAME="$LOGNAME" ./cron data/pl
+ LOGNAME="$LOGNAME" "`pwd`"/cron data/pl &
 
 $ ./get
 $ ./run COVID19CountyResults-20*.json
