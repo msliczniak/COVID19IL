@@ -6,3 +6,5 @@ $ ./report kane-*.csv
 $ cut -b 29- report-*.txt | sed 's/,.*//' | sort | uniq
 $ rm -f report-*.csv kane-*.csv.tar
 $ time for i in kane-*.csv; do ./fix "$i"; tar cf "$i".tar report-*.csv; done
+
+time for i in `jot 112`; do head -$i reports | xargs ./run2; mv 'Batavia,Geneva,St Charles-cases.png' gif/a"$i".png; mv 'Batavia,Geneva,St Charles-cases_g.png' gif/b"$i".png; done
